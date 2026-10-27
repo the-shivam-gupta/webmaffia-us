@@ -1,0 +1,32 @@
+# Webmaffia
+
+> Mumbai-based digital agency with over a decade of experience, combining web design and development, SEO, social media, content and AI-powered solutions for Indian and international brands.
+
+Webmaffia works with enterprise and growth-stage clients including Lupin, House of Abhinandan Lodha (HoABL), Sanyo Special Steel, TENCEL, Unitile, Birla Sun Life and Saffola Fit Foodie. Engagements typically span website design and development, SEO, and social media, often across more than one of those at once. The agency serves clients in India, the UAE, the US, the UK, Canada, Australia and the GCC.
+
+## Services
+
+- [Website Design & Development](https://www.webmaffia.com/services/website-design-development-services): Design and build of brand and corporate websites, from UI design through development and hosting. The agency's largest practice, used by Lupin, Sanyo Special Steel, Unitile and HoABL.
+- [AI-Powered Solutions](https://www.webmaffia.com/services/ai-powered-solutions-services): AI consulting, chatbots, generative AI implementations, agents and workflow automation — applied to marketing and operations rather than as standalone experiments.
+- [Search Engine Optimization](https://www.webmaffia.com/services/search-engine-optimization-services): On-page SEO, technical SEO and backlink strategy, delivered both standalone and alongside website builds.
+- [Digital Strategy](https://www.webmaffia.com/services/digital-strategy): Brand positioning and competitive analysis, with strategy leads drawn from specialist digital strategy and consulting backgrounds.
+- [Social Media Marketing](https://www.webmaffia.com/services/social-media-marketing-strategy): Audience targeting, engagement and campaign management. Clients include TENCEL, Birla Sun Life and Saffola Fit Foodie.
+- [Content Marketing](https://www.webmaffia.com/services/content-marketing-strategy): Original blog content, ad copy and editorial writing built around customer intent.
+- [Influencer Marketing](https://www.webmaffia.com/services/influencer-marketing): Influencer identification, partnerships and campaign execution.
+- [App Store Optimization](https://www.webmaffia.com/services/app-store-optimization): Listing optimization and ranking improvement for Apple App Store and Google Play.
+
+## Work
+
+- [Case Studies](https://www.webmaffia.com/case-study): Project detail across pharmaceutical (Lupin, Lupin US), real estate (HoABL), manufacturing (Sanyo Special Steel, Unitile, SS Automation), textiles (TENCEL), financial services (Birla Sun Life) and FMCG (Saffola Fit Foodie).
+- [Clients](https://www.webmaffia.com/clients): Full roster of brands Webmaffia works with, from startups to global enterprises.
+- [Awards](https://www.webmaffia.com/awards): Industry recognition received by the agency.
+
+## About
+
+- [About Webmaffia](https://www.webmaffia.com/about): Agency background, creative approach and how the team is structured.
+- [Contact](https://www.webmaffia.com/contact): Enquiries and new business.
+- [Careers](https://www.webmaffia.com/career): Open roles.
+
+## Optional
+
+- [Blog](https://www.webmaffia.com/blog): Articles on digital marketing, SEO and web development.

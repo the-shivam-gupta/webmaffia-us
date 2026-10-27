@@ -1,0 +1,296 @@
+.contact_us{
+    .hero_section{
+        padding-top: 5rem;
+        @include mobile(){
+            gap: 18rem;
+        }
+        picture{
+            margin-top: 0;
+            right: 1.8rem;
+            top: -8rem;
+            @include mobile(){
+                top: 0;
+                right: 0;
+            }
+            img{
+                width: 95rem;
+                @include mobile(){
+                    width: 100%;
+                }
+            }
+        }
+        h1{
+            margin-bottom: 4rem;
+            @include mobile(){
+                margin-bottom: 5rem;
+            }
+        }
+        p{
+            margin-bottom: 3rem;
+        }
+    }
+    .form{
+        margin-left: 8rem;
+        margin-bottom: 14rem;
+        overflow: visible;
+
+        .formWarpperx,
+        [class*="klaviyo-form"],
+        [class*="klaviyo-form"] form {
+            overflow: visible !important;
+            max-height: none !important;
+            height: auto !important;
+        }
+        @include mobile(){
+            margin-left: 0;
+            padding: 0 6.5rem;
+            width: 100%;
+        }
+        label:not(.checkmark), input:not([type="checkbox"]):not(.form_service_select__validator){
+            color: $black;
+        }
+        label:not(.checkmark) {
+            display: block;
+            line-height: 1.4;
+            overflow: visible;
+        }
+        input:not([type="checkbox"]):not(.form_service_select__validator){
+            border-color: $gray_medium_dark;
+            margin-left: 0.5rem;
+            scroll-margin-top: 20rem;
+
+            @include mobile() {
+                scroll-margin-top: 24rem;
+            }
+        }
+        .form_service_select {
+            width: 100%;
+            margin-left: 0.5rem;
+            scroll-margin-top: 20rem;
+
+            @include mobile() {
+                scroll-margin-top: 24rem;
+            }
+
+            &__trigger {
+                color: $black;
+                border-bottom-color: $gray_medium_dark;
+
+                &--placeholder span:first-child {
+                    color: $gray_medium_dark;
+                }
+            }
+        }
+        .cta_text{
+            display: inline-block;
+            margin-top: 2rem;
+            overflow: visible;
+            font-size: 3.6rem;
+            span{
+                color: $gray_dark;
+                &::before{
+                    background: $gray_dark;
+                }
+            }
+        }
+        .input_checkox{
+            width: 100rem;
+            margin-top: 5.2rem;
+            margin-bottom: 6rem;
+            overflow: visible;
+
+            @include mobile(){
+                width: 100%;
+            }
+
+            .checkmark input {
+                margin-left: 0 !important;
+                scroll-margin-top: 0;
+            }
+        }
+    }
+    .contact_address{
+        margin-left: 12rem;
+        margin-bottom: 21rem;
+        @include mobile(){
+            width: 100%;
+            margin-left: 0;
+            padding: 0 6.5rem;
+        }
+        &>div{
+            @include mobile(){
+                width: 100%;
+            }
+        }
+        address{
+            padding: 0;
+            a{
+                font-size: 2.1rem;
+                color: $black;
+                line-height: 1.4;
+
+                @include mobile(){
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}
+
+
+.input_checkox{
+    .checkmark{
+        overflow: hidden;
+        width: auto;
+        display: inline-block;
+        margin-left: 0 !important;
+        margin-right: 2.3rem;
+        margin-bottom: 3.5rem;
+        padding: 0;
+        position: relative;
+        cursor: pointer;
+        span{
+            border: 0.2rem solid $gray_dark;
+            border-radius: 50rem;
+            padding: 2rem 4rem;
+            text-align: center;
+            display: block;
+            color: $gray_dark;
+            transition: all 0.3s ease-in;
+        }
+        input{
+            margin: 0;
+            display: inline-block;
+            width: auto;
+            position: absolute;
+            display: none;
+        }
+        input:checked ~ span{
+            background: $black;
+            border-color: $black;
+            color: $white;
+        }
+        &:hover{
+            span{
+                color: $black;
+                border-color: $black;
+            }
+            input:checked ~ span{
+                color: $white;
+            }
+        }
+    }
+}
+
+
+.region_text{
+    font-size: 3rem;
+    font-weight: 500;
+    color: $black;
+    margin-bottom: 2rem;
+    @include mobile(){
+        font-size: 3.2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.contact_persons_row{
+    display: flex;
+    flex-wrap: wrap;
+
+    @include mobile(){
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 7rem;
+    }
+}
+
+.contact_person{
+    font-size: 2.1rem;
+
+    @include mobile(){
+        font-size: 3rem;
+        line-height: 1.4;
+        display: block;
+        margin-bottom: 1.2rem;
+    }
+}
+
+.contact_address{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    @include mobile(){
+        flex-direction: column;
+    }
+    .country_container{
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+
+        @include mobile(){
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5rem 3rem;
+            align-items: start;
+        }
+
+        .country_region{
+            flex: 1;
+            min-width: 0;
+
+            @include mobile(){
+                width: 100%;
+                margin-bottom: 0;
+
+                &:last-child{
+                    grid-column: 1 / -1;
+                }
+            }
+        }
+    }
+    .h2{
+        margin-bottom: 5rem;
+    }
+    &>img{
+        width: 57.6rem;
+        margin-top: -10rem;
+        @include mobile(){
+            margin: 0;
+            width: 100%;
+            position: relative;
+            right: -6.5rem;
+        }
+    }
+    
+    &>div{
+        .contact_info{
+            margin-top: 1.5rem;
+            margin-bottom: 4rem;
+
+            a{
+                display: block;
+                font-size: 2.1rem;
+                @include mobile(){
+                    font-size: 2.8rem;
+                    letter-spacing: 0.05rem;
+                    margin-bottom: 1.2rem;
+                }
+            }
+        }
+    }
+    .follow_us{
+        &>div{
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+            img{
+                width: 5rem;
+                transition: all 0.3s ease-in;
+                &:hover{
+                    filter: brightness(0.5);
+                }
+            }
+        }
+    }
+}

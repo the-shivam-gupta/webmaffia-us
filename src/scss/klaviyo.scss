@@ -1,0 +1,57 @@
+.formWarpperx {
+  overflow: visible !important;
+}
+
+.footer_container {
+  .form,
+  .formWarpperx,
+  [class*="klaviyo-form"],
+  [class*="klaviyo-form"] form {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+}
+
+[class*="klaviyo-form"] form {
+  padding-bottom: 5rem !important;
+}
+
+.contact_us .form label:not(.checkmark){
+  display: flex !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.contact_us [class*="klaviyo-form"] .klaviyo-form-button {
+  padding: 1.7rem 3.2rem !important;
+}
+
+[class*="klaviyo-form"] .klaviyo-form-button {
+  padding: 0.1rem 3.2rem !important;
+}
+
+.blog_enquiry [class*="klaviyo-form"] .klaviyo-form-button {
+  padding: 1.7rem 3.2rem !important;
+}
+
+[class*="klaviyo"] [role="listbox"],
+[class*="klaviyo"] [role="option"] {
+  z-index: 2147483646 !important;
+}
+
+a[title="Powered by Klaviyo"],
+a[href*="utm_campaign=poweredby"] {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.kl-private-reset-css-Xuajs1[style*="z-index: 90000"] {
+  z-index: 2147483647 !important;
+  
+  @media (min-width: 1025px) {
+    .klaviyo-form {
+      width: 90vw !important;
+      max-width: 90rem !important;
+      border-radius: 0.4rem !important;
+    }
+  }
+}

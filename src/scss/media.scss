@@ -1,0 +1,198 @@
+@media screen and (max-width: 1680px) {
+    html{
+        font-size: 54.6893%;
+        p{
+            font-size: 2.2rem ;
+        }
+    }
+}
+
+@media screen and (min-width: 1679px) and (max-width: 1685px){
+    .menu_wrapper{
+        top: -150rem;
+    }
+}
+
+@media screen and (min-width: 1686px){
+    .menu_wrapper{
+        top: -100vh;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    html{
+        font-size: 52.086%;
+        p{
+            font-size: 2.2rem ;
+        }
+    }
+}
+
+@media screen and (max-width: 1536px){
+    html{
+        font-size: 7.65px;
+    }
+    .our_work .work_box a, .our_work .work_box .awards_work{
+        width: 100%;
+        height: 31.6rem;
+    }
+    .menu_wrapper{
+        top: -150rem;
+    }
+    .work_section .work_box{
+        gap: 6rem;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    html{
+        font-size: 46.87%;
+    }
+    .menu_wrapper{
+        top: -250rem;
+    }
+}
+
+
+@media screen and (max-width: 1366px) {
+    html{
+        font-size: 44.3%;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    html{
+        font-size: 41.6665%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    html{
+        font-size: 33.3348%;
+        p{
+            font-size: 2.4rem ;
+        }
+        .our_work .work_box a img, .our_work .work_box .awards_work img {
+            width: 16.2rem;
+        }
+        .testimonial-swiper .testimonial_content span{
+            font-size: 2.801rem;
+        }
+        .menu_wrapper{
+            top: -300rem;
+        }
+    }
+}
+@media all and (min-width: 768px) and (max-width: 900px) {
+    html{
+        font-size: 25%;
+        p{
+            font-size: 3rem ;
+        }
+        .sub_title{
+            font-size: 2.4rem ;
+        }
+        .cta{
+            width: 20.4rem;
+        }
+        .right_menu{
+            a{
+                font-size: 3rem;
+            }    
+            button img {
+                width: 3.3rem;
+            }
+        }
+        .logo img {
+            width: 22.6rem;
+        }
+        .testimonial-swiper{
+            width: 120.5rem;
+            .company{
+                font-size: 2.801rem;
+            }
+        }
+        .testimonial .testimonial-swiper{
+            width: 100%;
+            max-width: 100%;
+            height: auto !important;
+        }
+        .slide_cta{
+            width: 37rem;
+        }
+        .blog_container .blog_box {
+            .top_text{
+                font-size: 3.5rem;
+            }
+            .bottom_text{
+                font-size: 2.6rem;
+            }
+        }
+        .form{
+            label, input{
+                font-size: 3rem;
+            }
+        }
+        .menu_container .left_container {
+            .menu_link>a{
+                font-size: 5.8rem;
+            }
+            .contact_info a{
+                font-size: 2.8rem;
+            }
+        }
+        address a{
+            font-size: 2.6rem;
+        }
+        .cta_text.close{
+            font-size: 3.5rem;
+            span::before{
+                left: 4.3rem;
+            }
+        }
+        .blogs_date{
+            font-size: 2.6rem;
+            span::before{
+                top: 1.8rem;
+                left: -42%;
+            }
+        }
+        .menu_wrapper{
+            top: -300rem;
+        }
+        .our_work .work_box a, .our_work .work_box .awards_work{
+            height: 33.6rem;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    html{
+        font-size: 18%;
+        p{
+            font-size: 3rem ;
+        }
+        .sub_title{
+            font-size: 2.4rem ;
+        }
+    }
+}
+
+@media screen and (max-width: 540px) {
+    html{
+        font-size: 4px !important;
+    }
+    .our_work .work_box a, .our_work .work_box .awards_work{
+        width: 100%;
+        height: 30rem;
+    }
+}
+
+@keyframes animateForm {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

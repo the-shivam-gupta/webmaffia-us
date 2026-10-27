@@ -1,0 +1,10 @@
+body {
+    font-size: clamp(1.4rem, 0.952vw, 1.8rem);
+    // min 14px max 18px
+    //middle value = 1680 screen's font size in vw unit
+}
+
+h1 {
+    font-size: clamp(2.5rem, 2.08333vw, 4rem);
+    // min 25px max 45px
+}

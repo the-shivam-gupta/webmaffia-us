@@ -1,0 +1,24 @@
+/* Global styles entry */
+@import 'colors';
+@import 'reset';
+@import 'variables';
+@import 'functions';
+@import 'mixins';
+@import 'font-size';
+
+@import 'fonts';
+@import 'animations';
+
+@import 'global';
+@import 'components';
+@import 'pages/home/sections';
+@import 'components/component-style';
+@import 'footer';
+@import 'klaviyo';
+@import 'components/ai-summary-cta';
+@import 'pages/pages';
+@import 'min';
+@import 'max';
+@import 'media';
+@import 'dark';
+@import 'mac';

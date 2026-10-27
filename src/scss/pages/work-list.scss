@@ -1,0 +1,138 @@
+.work_list {
+  .hero_section {
+    picture {
+      margin-top: 0;
+      right: 6.5rem;
+      @include mobile() {
+        right: 0;
+      }
+      img {
+        width: 67.2rem;
+        @include mobile() {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .work_section {
+    // margin-right: 0 !important;
+
+    .cta_work {
+      display: block !important;
+      text-align: center;
+      margin-top: 8rem;
+    }
+  }
+}
+.work_section {
+  margin: 5rem 8rem 5rem;
+  @include mobile() {
+    margin: 5rem 4rem 5rem;
+  }
+  .work_box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3rem;
+    justify-content: center;
+
+    > *:nth-child(n + 10) {
+      display: none;
+    }
+    &.active {
+      > * {
+        display: block;
+      }
+    }
+
+    @include tablet() {
+      grid-template-columns: repeat(2, 1fr);
+
+      > *:nth-child(n + 9) {
+        display: none;
+      }
+      &.active {
+        > * {
+          display: block;
+        }
+      }
+    }
+
+    @include mobile() {
+      grid-template-columns: 1fr;
+      row-gap: 8rem;
+    }
+  }
+  .cta_work {
+    display: none;
+    @include mobile() {
+      display: block !important;
+    }
+    .cta_text {
+      .active_span {
+        display: none;
+      }
+      &.active {
+        span {
+          display: none;
+        }
+        .active_span {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+.work_box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+
+  @include mobile() {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .work_item {
+    width: 100%;
+    margin-bottom: 9.5rem;
+    @include mobile() {
+      width: 100%;
+      margin-bottom: 8rem;
+    }
+    &:hover {
+      .work_img {
+        img {
+          scale: 1.1;
+        }
+      }
+    }
+    a {
+      &.work_img {
+        overflow: hidden;
+        width: 100%;
+        margin-bottom: 2rem;
+        img {
+          width: 100%;
+          transition: scale 0.5s ease-in;
+        }
+      }
+      display: inline-block;
+      color: $black;
+      .work_name {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: normal;
+        @include mobile() {
+          font-size: 6rem;
+        }
+      }
+      .work_title {
+        font-size: 1.6rem;
+        @include mobile() {
+          font-size: 3.2rem;
+        }
+      }
+    }
+  }
+}

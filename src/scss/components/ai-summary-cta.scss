@@ -1,0 +1,215 @@
+.ai-cta {
+  position: fixed;
+  bottom: 112px; /* 40px offset + 56px chat button + 16px gap */
+  right: 40px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none; /* only the button and the open list react to hover */
+}
+
+.ai-cta__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; /* same size as the WhatsApp button */
+  height: 56px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(91, 108, 255, 0.45);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+
+.ai-cta__btn:hover {
+  transform: scale(1.06);
+}
+
+.ai-cta__btn img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.ai-cta__icon svg,
+.ai-cta__icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.ai-cta__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 10px; /* bottom padding bridges the gap to the button */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.ai-cta.is-open .ai-cta__list {
+  pointer-events: auto;
+}
+
+.ai-cta__list li {
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  transform-origin: bottom right;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition-delay: calc(var(--i) * 0.01s);
+}
+
+.ai-cta.is-open .ai-cta__list li {
+  opacity: 1;
+  transform: none;
+  /* bottom item first, then upwards, one by one */
+  transition-delay: calc(var(--i) * 0.08s);
+}
+
+.ai-cta__list .ai-cta__tip {
+  position: relative;
+  align-self: flex-end;
+  margin-bottom: 4px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 22px;
+    border: 6px solid transparent;
+    border-top-color: #1a1a1a;
+  }
+}
+
+.ai-cta__list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.ai-cta__list a:hover {
+  transform: translateX(-4px);
+}
+
+.ai-cta__icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  border-radius: 50%;
+  background: #f3f3f3;
+}
+
+
+@media (max-width: 767px) {
+  /* Chat + AI buttons share one smaller size on mobile. Both are centred on the
+     spot where Tawk parks its own close button (0/0 offsets in RootShell.js plus
+     its own margin), so the open chat's chevron lines up with this button. */
+  body .chat-cta.chat-cta {
+    width: 44px;
+    height: 44px;
+    right: 32px;
+    bottom: 28px;
+
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .ai-cta {
+    right: 32px;
+    bottom: 84px; /* 28px + 44px chat button + 12px gap */
+  }
+
+  .ai-cta__btn {
+    width: 44px;
+    height: 44px;
+
+    img {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .ai-cta__list {
+    gap: 6px;
+  }
+
+  .ai-cta__list a {
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    font-size: 12px;
+  }
+
+  .ai-cta__icon {
+    width: 22px;
+    height: 22px;
+    padding: 3px;
+  }
+
+  .ai-cta__list .ai-cta__tip {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+/* dark theme turns every link white (html.active a), keep the pills readable */
+html.active .ai-cta__list a {
+  color: #1a1a1a;
+}
+
+/* dark theme: the black chat button would vanish on the dark page, so invert it */
+html.active .chat-cta {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  svg {
+    fill: #000000;
+  }
+}
+
+/* The AI button floats over the open chat window; hide it while chatting. */
+html[data-chat-open] .ai-cta {
+  display: none !important;
+}
+
+/* While the chat is open, Tawk's own close (chevron) button shows in this spot.
+   Ours becomes a transparent click-catcher above it, so only one icon is drawn
+   and the two can't overlap or sit a few pixels apart. */
+html .chat-cta.chat-cta--open {
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+
+  svg {
+    display: none;
+  }
+}

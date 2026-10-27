@@ -1,0 +1,873 @@
+html{
+    &.active{
+        background: $black;
+        h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6,.sub_title, .sub_heading,p,.cta_text,.testimonial-swiper .testimonial_content, .testimonial-swiper .company .name, 
+        a, .detail_title, .work_box .work_item a, .blog_name, .testimonial_wrapper .testimonial_content, .testimonial_wrapper .company .name, .feature_title::before,
+        .workspace .service_item a .service_name, .workspace .service_item a .service_type, .award_section .awards_box .awards_item, .aside_title, .blog_section .blog_set .blog_page .blog_title, .region_text{
+            color: $white;
+        }
+        .award_section .awards_box .awards_item .award_date{
+            color: rgba(255,255,255,0.3);
+        }
+        .blog_section .blog_set aside .blog_services{
+            background: rgba(255,255,255,0.04);
+            .aside_title::after{
+                background: $white;
+            }
+            .service_text{
+                --accent: #{$white};
+                --tint: rgba(255,255,255,0.1);
+                background: rgba(255,255,255,0.06);
+                border-color: rgba(255,255,255,0.1);
+                &:hover{
+                    background: var(--tint);
+                    border-color: var(--accent);
+                }
+            }
+        }
+        .blog_section .blog_set aside .blog_categories{
+            background: rgba(255,255,255,0.04);
+            .aside_title::after{
+                background: $white;
+            }
+            .blog_categories_list a{
+                background: rgba(255,255,255,0.06);
+                border-color: rgba(255,255,255,0.1);
+                em{
+                    color: rgba(255,255,255,0.6);
+                }
+                &:hover{
+                    color: $black;
+                    background: $white;
+                    border-color: $white;
+                    em{
+                        color: $black_60;
+                    }
+                }
+            }
+        }
+        .blog_section .blog_set aside .blog_latest{
+            background: rgba(255,255,255,0.04);
+            .aside_title::after{
+                background: $white;
+            }
+            .blog_latest_item{
+                color: $white;
+                @media (hover: hover){
+                    &:hover{
+                        background-color: rgba(255, 255, 255, .07);
+                        box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
+                    }
+                }
+            }
+            .blog_latest_heading{
+                color: $white;
+            }
+            .blog_latest_meta{
+                color: rgba(255,255,255,0.6);
+            }
+        }
+        .blog_google_source{
+            background: rgba(255,255,255,0.06);
+            .blog_google_source_title{
+                color: $white;
+            }
+            .blog_google_source_text{
+                color: rgba(255,255,255,0.6);
+            }
+            .blog_google_source_light{
+                display: none;
+            }
+            .blog_google_source_dark{
+                display: block;
+            }
+        }
+        .reading_progress_bar span{
+            background: $white;
+        }
+        .reading_progress_chip{
+            background: $black;
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            .reading_progress_value{
+                color: $white;
+            }
+        }
+        // category badge: light pill on the dark theme (a{color:white} would hide its text)
+        a.blog_category_badge{
+            color: $black;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 .6rem 1.8rem rgba(0, 0, 0, .4);
+            &:hover{
+                color: $white;
+                background: $black;
+            }
+        }
+        .blog_enquiry{
+            background: rgba(255, 255, 255, 0.04);
+            color: $white;
+            &::before{
+                background: radial-gradient(circle, rgba(255, 255, 255, .1), transparent 70%);
+            }
+            .blog_enquiry_tag{
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.15);
+                i{
+                    background: $white;
+                    animation-name: enquiry_pulse_dark;
+                }
+            }
+            .blog_enquiry_dots button{
+                background: rgba(255, 255, 255, 0.3);
+                &.is_on{
+                    background: $white;
+                }
+            }
+            .blog_enquiry_field{
+                background: rgba(255, 255, 255, 0.06);
+                border-color: rgba(255, 255, 255, 0.12);
+                svg{
+                    stroke: rgba(255, 255, 255, 0.6);
+                }
+                &:focus-within{
+                    border-color: $white;
+                    svg{
+                        stroke: $white;
+                    }
+                }
+                input{
+                    color: $white;
+                    &::placeholder{
+                        color: rgba(255, 255, 255, 0.6);
+                    }
+                }
+            }
+            .blog_enquiry_submit{
+                color: $white;
+                border-color: $white;
+                &:hover:not(:disabled){
+                    color: $black;
+                    background: $white;
+                }
+            }
+            .blog_enquiry_note,
+            .blog_enquiry_error{
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+        .blog_share.blog_share_float{
+            background: $black;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .blog_share{
+            .blog_share_label{
+                color: rgba(255, 255, 255, 0.6);
+            }
+            .blog_share_btn{
+                color: $white;
+                border-color: rgba(255, 255, 255, 0.2);
+                &:hover,
+                &.is_copied{
+                    color: $black;
+                    background: $white;
+                    border-color: $white;
+                }
+            }
+        }
+        .blog_audio{
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.12);
+            &.is_active{
+                background: rgba(255, 255, 255, 0.08);
+                border-color: $white;
+            }
+            .blog_audio_play{
+                color: $black;
+                background: $white;
+            }
+            .blog_audio_title,
+            .blog_audio_speed,
+            .blog_audio_stop{
+                color: $white;
+            }
+            .blog_audio_meta{
+                color: rgba(255, 255, 255, 0.6);
+            }
+            .blog_audio_track{
+                background: rgba(255, 255, 255, 0.15);
+                span{
+                    background: $white;
+                }
+            }
+            .blog_audio_speed{
+                border-color: rgba(255, 255, 255, 0.3);
+                &:hover{
+                    background: $white;
+                    color: $black;
+                }
+            }
+            .blog_audio_stop:hover{
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+        .blog_detail .blog_breadcrumb{
+            color: rgba(255, 255, 255, 0.6);
+            a:hover{
+                color: $white;
+            }
+        }
+        .blog_detail h1::after{
+            background: $white;
+        }
+        .recommended_blogs{
+            .recommended_title{
+                color: $white;
+                border-bottom-color: $white;
+            }
+            .recommended_item{
+                @media (hover: hover){
+                    &:hover{
+                        background-color: rgba(255, 255, 255, .07);
+                        box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
+                    }
+                }
+                .recommended_heading{
+                    color: $white;
+                }
+                .recommended_meta{
+                    color: rgba(255, 255, 255, 0.6);
+                }
+                &:hover .recommended_heading{
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        }
+        .other_blogs .blog_item{
+            @media (hover: hover){
+                &:hover{
+                    background-color: rgba(255, 255, 255, .07);
+                    box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
+                }
+            }
+        }
+        .blog_date span{
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .blog_section .blog_set .blog_page .blog_content::before{
+            background: rgba(255,255,255,0.4);
+        }
+        .detail_site .min_detail_box>img, .detail_site .max_detail_box>img{
+            filter: invert(1);
+        }
+        .testimonial_wrapper .testimonial_content span, .testimonial_wrapper .company .work{
+            color: rgba(255, 255, 255, .8);
+        }
+        .our_work .work_box a img, .our_work .work_box .awards_work img{
+            filter: invert(1);
+        }
+        .blog_cta a{
+            border-color: rgba(255,255,255,0.3);
+            svg{
+                path{
+                    fill: rgba(255, 255, 255, 0.6);
+                }
+            }
+            .heart_red{
+                svg{
+                    path{
+                        fill: rgb(199, 44, 44);
+                    }
+                }
+            }
+        }
+        .campaign_page .hero_section .campaign_content .campaign_award_card__type, .campaign_page .hero_section .campaign_content .campaign_award_card__desc{
+            color: $gray;
+        }
+        .campaign_page .hero_section .campaign_content ul li{
+            color: $white;
+        }
+        .case_study_detail .case_study_showcase_wrapper .visit_website_button{
+            background: $white;
+
+            &:hover{
+                border-color: $white;
+                background: $black;
+                a{
+                    color: $white;
+                }
+            }
+        }
+        .blogs_date{
+            color: $gray;
+        }
+        .blogs_date span:before{
+            background: $gray;
+        }
+        .blog_pagination_number{
+            color: $gray;
+
+            &:hover{
+                background: $white_10;
+            }
+
+            &.active{
+                background: $white;
+                color: $black;
+            }
+        }
+        .blog_pagination_ellipsis{
+            color: $white_40;
+        }
+        .blog_pagination_arrow{
+            color: $white;
+
+            &.disabled{
+                color: $white_30;
+            }
+        }
+        .case_study_detail .case_study_showcase_wrapper .visit_website_button a{
+            color: $black;
+        }
+        .client_para, .contact_person{
+            color: $white;
+        }
+        .ourService-swiper .slide_cta,
+        .slide_cta{
+            .service-button-prev,
+            .swiper-button-prev{
+                color: rgba(255, 255, 255, 0.4);
+            }
+            .service-button-prev span,
+            .service-button-next span,
+            .swiper-button-prev span,
+            .swiper-button-next span{
+                color: rgba(255, 255, 255, 0.4);
+                &::before{
+                    background: rgba(255, 255, 255, 0.4);
+                }
+            }
+        }
+        .our_work .work_box a, .our_work .work_box .awards_work{
+            img{
+                filter: invert(1);
+            }
+            &:hover{
+                background: $white;
+                img{
+                    filter: invert(0);
+                }
+            }
+        }
+        .toggle{
+          svg{
+            path{
+              fill: $white;
+            }
+          }
+        }
+        header{
+            background: $black;
+            .header_nav a{
+                color: $white;
+            }
+            .header_nav .header_nav_dropdown{
+                background: $black;
+                border-color: rgba(255, 255, 255, 0.15);
+                a:hover{
+                    background: rgba(255, 255, 255, 0.08);
+                }
+            }
+            .logo, .menu{
+                img{
+                    filter: invert(1);
+                }
+            }
+        }
+        .staticSection{
+            background: $black !important;
+        }
+        .main_horizontal .horizontal_sliders .cta_text span::before{
+            background: rgba(255, 255, 255, 0.4);
+        }
+        .services_grid{
+            .services_item_label,
+            .services_item_heading{
+                color: $white;
+            }
+            .services_item_link{
+                color: $white;
+                &::after{
+                    background: rgba($white, 0.6);
+                }
+            }
+        }
+        .contact_us .form,
+        .menu_wrapper form,
+        .case_study_detail .case_study_contact_section .footer_container--light .form {
+            .form_service_select__menu {
+                background: $black_light;
+                border-color: rgba($white, 0.15);
+                box-shadow: 0 0.4rem 2rem rgba($black, 0.5);
+
+                li button {
+                    color: rgba($white, 0.7);
+
+                    &:hover,
+                    &.is-selected {
+                        background: rgba($white, 0.08);
+                        color: $white;
+                    }
+                }
+            }
+        }
+        .contact_us .form .form_service_select__trigger {
+            color: $white;
+            border-bottom-color: $gray_medium_dark;
+
+            &--placeholder span:first-child {
+                color: $gray_medium_dark;
+            }
+        }
+        .challenge_content__title, ul{
+            color: $white;
+        }
+        .case_study_detail .seo_slider .seo_slider_prev,
+        .case_study_detail .seo_slider .seo_slider_next{
+            color: $white;
+
+            span{
+                color: inherit;
+
+                &::before{
+                    background: currentColor;
+                }
+            }
+
+            &.swiper-button-disabled{
+                color: rgba(255, 255, 255, 0.4);
+            }
+        }
+        .case_study_detail .creative_section{
+            background-color: $black;
+
+            .challenge_content__title,
+            .creative_section_intro h2{
+                color: $white !important;
+            }
+
+            .creative_tab{
+                color: rgba(255, 255, 255, 0.6) !important;
+
+                &::after{
+                    background: $white;
+                }
+
+                &:hover{
+                    color: $white !important;
+                }
+
+                &--active{
+                    color: $white !important;
+                }
+
+                &--disabled,
+                &--disabled:hover{
+                    color: rgba(255, 255, 255, 0.4) !important;
+                }
+            }
+
+            .creative_instagram_link{
+                color: $white !important;
+                border-color: $white;
+
+                img{
+                    filter: brightness(0) invert(1);
+                }
+
+                &:hover{
+                    background: $white;
+                    color: $black !important;
+
+                    img{
+                        filter: brightness(0);
+                    }
+                }
+            }
+
+            .creative_posts_prev,
+            .creative_posts_next,
+            .creative_reels_prev,
+            .creative_reels_next{
+                color: $white !important;
+
+                span{
+                    color: inherit !important;
+
+                    &::before{
+                        background: currentColor;
+                    }
+                }
+
+                &.swiper-button-disabled{
+                    color: rgba(255, 255, 255, 0.4) !important;
+                }
+            }
+
+            .creative_post_card .creative_card_label,
+            .creative_reel_card .creative_card_label{
+                color: $white !important;
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+        .service-swiper .swiper-wrapper .swiper-item{
+            color: $white_60;
+        }
+        .accord_title, .accordion .accord_container .accord_wrapper>div>div{
+            color: $white;
+            img{
+                filter: invert(1);
+            }
+        }
+        .contact_us .form label, .contact_us .form input{
+            color: $white;
+        }
+        .case_study_detail .case_study_contact_section .footer_container--light {
+            .footer_title {
+                color: $white !important;
+            }
+
+            .form {
+                label,
+                input {
+                    color: $white !important;
+                }
+
+                input {
+                    border-bottom-color: $gray_medium_dark;
+
+                    &:focus {
+                        border-bottom-color: $white;
+                    }
+                }
+
+                .form_service_select__trigger {
+                    color: $white;
+                    border-bottom-color: $gray_medium_dark;
+
+                    &--placeholder span:first-child {
+                        color: $gray_medium_dark;
+                    }
+                }
+
+                .cta_text span {
+                    color: $white !important;
+
+                    &::before {
+                        background: $white;
+                    }
+                }
+            }
+        }
+        .input_checkox .checkmark input:checked ~ span{
+            background: $white;
+            border-color: $white;
+            color: $black;
+        }
+        .input_checkox .checkmark:hover span{
+            border-color: $white;
+            color: $white;
+        }
+        footer {
+            background: transparent;
+
+            &::before {
+                background: $white;
+            }
+
+            .footer_container {
+                .footer_title {
+                    color: $black !important;
+                }
+
+                .form {
+                    label,
+                    input {
+                        color: $black !important;
+                    }
+
+                    input {
+                        border-bottom-color: $gray_medium_dark;
+
+                        &:focus {
+                            border-bottom-color: $black;
+                        }
+                    }
+
+                    .cta_text span {
+                        color: $gray_dark !important;
+
+                        &::before {
+                            background: $gray_dark;
+                        }
+                    }
+                }
+            }
+
+            .footer_col_title,
+            .footer_links a {
+                color: $black;
+            }
+
+            .footer_connect_subtext {
+                color: $black_60;
+            }
+
+            .footer_connect_divider,
+            .footer_logo_divider {
+                background: rgba(0, 0, 0, 0.15);
+            }
+
+            .footer_connect_primary_address,
+            .footer_connect_primary_contact,
+            .footer_connect_primary_contact a,
+            .footer_connect_office address,
+            .footer_connect_office address a,
+            .footer_copyright {
+                color: $black_60;
+            }
+
+            .footer_connect_office + .footer_connect_office {
+                border-left-color: rgba(0, 0, 0, 0.2);
+            }
+
+            .footer_links .link {
+                &::after {
+                    background: $black_60;
+                }
+
+                &:hover {
+                    color: $black;
+                }
+            }
+
+            .footer_col_title[href] {
+                &::after {
+                    background: $black_60;
+                }
+
+                &:hover {
+                    color: $black;
+                }
+            }
+
+            .footer_logo img {
+                filter: invert(1);
+            }
+
+            .footer_social_icons img {
+                filter: invert(.7);
+            }
+            .footer_pixtop_logo{
+                img{
+                    filter: invert(1);
+                }
+                p{
+                    color: #ffffffc5;
+                }
+            }
+            .footer_iso_certificate_wrap{
+                // Footer background flips to light in dark theme, so cancel
+                // the base invert(1) from footer.scss to restore the
+                // badge/text's natural (dark) colors instead of inverting.
+                filter: none;
+            }
+            .footer_google_source_wrap{
+                .footer_google_source_light{
+                    display: none;
+                }
+                .footer_google_source_dark{
+                    display: block;
+                }
+            }
+        }
+        .contact_us .contact_address address a{
+            color: $white;
+        }
+        .sticky_article{
+            .sticky_head{
+                color: rgba(255, 255, 255, 0.6);
+                .sticky_head_percent{
+                    color: $white;
+                }
+            }
+            .sticky_progress{
+                background: rgba(255, 255, 255, 0.15);
+                span{
+                    background: $white;
+                }
+            }
+            a,
+            .sticky_link{
+                color: rgba(255, 255, 255, 0.6);
+                &::before{
+                    background: rgba(255, 255, 255, 0.15);
+                }
+                &:hover{
+                    color: $white;
+                    &::before{
+                        background: rgba(255, 255, 255, 0.4);
+                    }
+                }
+                &.selected{
+                    color: $white;
+                    background: rgba(255, 255, 255, 0.06);
+                    &::before{
+                        background: $white;
+                    }
+                }
+            }
+        }
+        .thankyou a,
+        .not-found a{
+            &::before{
+                background: $white;
+            }
+        }
+        .other_detail_blogs{
+            background: $black;
+            .detail_title{
+                color: $white !important;
+            }
+        }
+        .banner_content .banner_cta{
+            border-color: $white;
+            background: $white;
+            color: $black;
+            &:hover{
+                background: transparent;
+                color: $white;
+            }
+        }
+        .statistics_bar{
+            .statistics_locations,
+            .statistics_value,
+            .statistics_label{
+                color: $white;
+            }
+            .statistics_grid,
+            .statistics_item{
+                border-color: rgba($white, 0.15);
+            }
+        }
+        .banner_content .banner_cta_secondary{
+            color: $white;
+            &::after{
+                background: rgba($white, 0.6);
+            }
+        }
+        .other_services{
+            background: rgba(255,255,255,0.04);
+        }
+        .other_services_item{
+            color: $white;
+            &::after{
+                background: rgba(255,255,255,0.08);
+            }
+            &:hover{
+                color: rgba(255,255,255,0.7);
+            }
+        }
+        .industries_cell{
+            background: $black;
+            box-shadow: inset -1px -1px 0 rgba(255,255,255,0.18);
+            // Tiles sit on black here, so logos start inverted (visible as
+            // light marks) and flip back to their real colors on the
+            // white hover fill.
+            .industries_icon{
+                filter: invert(1);
+            }
+            // &:hover{
+            //     background: $white;
+            //     .industries_name{
+            //         color: $black;
+            //     }
+            //     .industries_icon{
+            //         filter: none;
+            //     }
+            // }
+        }
+        .tools_pill{
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: -7px 1rem 0rem #5C5C6D;
+        }
+        .tools_name{
+            color: $white;
+        }
+        .industries_name{
+            color: $white;
+        }
+        .award_marquee .award_marquee_item img{
+            filter: invert(1);
+        }
+    }
+}
+
+html.active .home_industries{
+    .home_industries_grid{
+        border-color: rgba(255,255,255,0.18);
+    }
+    .home_industries_cell{
+        color: $white;
+        border-color: rgba(255,255,255,0.18);
+        &::before{
+            background: $white;
+        }
+    }
+    .home_industries_name,
+    .home_industries_cta{
+        color: $white;
+    }
+    .home_industries_clients{
+        color: rgba(255,255,255,0.6);
+    }
+    a.home_industries_cell:hover,
+    a.home_industries_cell:focus-visible{
+        .home_industries_name,
+        .home_industries_clients,
+        .home_industries_cta{
+            color: $black;
+        }
+    }
+}
+
+// Statistics bar icons are dark artwork; turn them white on the dark theme.
+html.active .statistics_bar .statistics_icon{
+    filter: brightness(0) invert(1);
+}
+
+// The banner form sits on a light grey card in both themes, so its title must
+// stay dark (the generic dark-theme text color would turn it white).
+html.active .banner_media__form_title{
+    color: $black !important;
+}
+
+html.active .home_contact{
+    .home_contact_label{
+        color: rgba(255,255,255,0.6);
+    }
+    .home_contact_item,
+    .home_contact_item a{
+        color: $white;
+    }
+}
+
+// Homepage testimonial cards (dark theme)
+html.active .testimonial{
+    .testimonial_card{
+        border-color: rgba($white, 0.15);
+    }
+    .testimonial_quote,
+    .testimonial_person .name{
+        color: $white;
+    }
+}

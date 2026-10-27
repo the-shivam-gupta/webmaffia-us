@@ -1,0 +1,166 @@
+// font-weight
+$thin: 200;
+$exlight: 300;
+$light: 400;
+$regular: 500;
+$medium: 600;
+$semibold: 700;
+$bold: 800;
+$exbold: 900;
+
+
+
+
+
+// font-family
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Thin';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Thin.eot');
+//     src: local('AlbertSans Thin'), local('AlbertSans-Thin'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Thin.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Thin.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Thin.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Thin.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Thin.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Thin.otf') format('opentype');
+//     font-weight: 100;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-ExtraLight';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-ExtraLight.eot');
+//     src: local('AlbertSans ExtraLight'), local('AlbertSans-ExtraLight'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-ExtraLight.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-ExtraLight.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-ExtraLight.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-ExtraLight.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-ExtraLight.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-ExtraLight.otf') format('opentype');
+//     font-weight: 200;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Light';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Light.eot');
+//     src: local('AlbertSans Light'), local('AlbertSans-Light'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Light.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Light.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Light.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Light.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Light.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Light.otf') format('opentype');
+//     font-weight: 300;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Regular';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Regular.eot');
+//     src: local('AlbertSans Regular'), local('AlbertSans-Regular'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Regular.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Regular.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Regular.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Regular.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Regular.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Regular.otf') format('opentype');
+//     font-weight: 400;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Medium';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Medium.eot');
+//     src: local('AlbertSans Medium'), local('AlbertSans-Medium'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Medium.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Medium.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Medium.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Medium.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Medium.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Medium.otf') format('opentype');
+//     font-weight: 500;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Medium';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Medium.eot');
+//     src: local('AlbertSans Medium'), local('AlbertSans-Medium'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Medium.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Medium.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Medium.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Medium.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Medium.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Medium.otf') format('opentype');
+//     font-weight: 500;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-SemiBold';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-SemiBold.eot');
+//     src: local('AlbertSans SemiBold'), local('AlbertSans-SemiBold'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-SemiBold.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-SemiBold.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-SemiBold.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-SemiBold.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-SemiBold.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-SemiBold.otf') format('opentype');
+//     font-weight: 600;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Bold';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Bold.eot');
+//     src: local('AlbertSans Bold'), local('AlbertSans-Bold'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Bold.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Bold.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Bold.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Bold.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Bold.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Bold.otf') format('opentype');
+//     font-weight: 700;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-ExtraBold';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-ExtraBold.eot');
+//     src: local('AlbertSans ExtraBold'), local('AlbertSans-ExtraBold'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-ExtraBold.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-ExtraBold.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-ExtraBold.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-ExtraBold.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-ExtraBold.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-ExtraBold.otf') format('opentype');
+//     font-weight: 800;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-display: swap;
+//     font-family: 'AlbertSans-Black';
+//     src: url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Black.eot');
+//     src: local('AlbertSans Black'), local('AlbertSans-Black'),
+//         url('../fonts/fa/albert_sans/fonts/eot/AlbertSans-Black.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/fa/albert_sans/fonts/woff2/AlbertSans-Black.woff2') format('woff2'),
+//         url('../fonts/fa/albert_sans/fonts/woff/AlbertSans-Black.woff') format('woff'),
+//         url('../fonts/fa/albert_sans/fonts/ttf/AlbertSans-Black.ttf') format('truetype'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Black.otf') format('otf'),
+//         url('../fonts/fa/albert_sans/fonts/otf/AlbertSans-Black.otf') format('opentype');
+//     font-weight: 900;
+//     font-style: normal;
+// }
+

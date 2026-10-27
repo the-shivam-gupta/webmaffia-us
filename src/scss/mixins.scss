@@ -1,0 +1,69 @@
+@mixin mlra () {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@mixin calc($property, $expression) {
+	#{$property}: -o-calc(#{$expression});
+	#{$property}: -ms-calc(#{$expression});
+	#{$property}: -moz-calc(#{$expression});
+	#{$property}: -webkit-calc(#{$expression});
+	#{$property}: calc(#{$expression});
+}
+
+@mixin min_breakpoint ($min) {
+    @media all and (min-width: $min) {
+        @content;
+    }
+}
+
+@mixin max_breakpoint ($max) {
+    @media all and (max-width: $max) {
+        @content;
+    }
+}
+
+@mixin min_max_breakpoint ($min, $max) {
+    @media all and (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
+
+@mixin lg-desktop () {
+    @media all and (min-width: 1600px) {
+        @content;
+    }
+}
+
+@mixin md-desktop () {
+    @media all and (max-width: 1200px) {
+        @content;
+    }
+}
+
+@mixin sm-desktop () {
+    @media all and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin tablet () {
+    @media all and (max-width: 769px) {
+        @content;
+    }
+}
+
+
+@mixin mobile () {
+    @media all and (max-width: 540px) {
+        @content;
+    }
+}
+
+@mixin ellipsis ($lineCount, $height) {
+    height: $height;
+    display: -webkit-box;
+    -webkit-line-clamp: $lineCount;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
