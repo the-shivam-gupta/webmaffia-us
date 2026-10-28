@@ -692,8 +692,11 @@ p{
         .sub_heading{
             font-size: 9.5rem;
             margin-bottom: 3rem;
+            max-width: 16em;
+            text-wrap: balance;
             @include mobile(){
                 font-size: 10rem;
+                max-width: 100%;
             }
         }
     }
@@ -1004,8 +1007,11 @@ h2, .sub_heading{
         .sub_heading{
             font-size: 9.5rem;
             margin-bottom: 0;
+            max-width: 16em;
+            text-wrap: balance;
             @include mobile(){
                 font-size: 10rem;
+                max-width: 100%;
             }
         }
         p{
@@ -1256,6 +1262,14 @@ h2, .sub_heading{
     z-index: 2;
     .cta_box{
         margin-left: auto;
+    }
+}
+
+.our_work.awards .sub_heading{
+    max-width: 8em;
+    text-wrap: balance;
+    @include mobile(){
+        max-width: 100%;
     }
 }
 
@@ -1921,6 +1935,14 @@ h3, .h2{
         .blog_item .blog_para{
             width: auto;
         }
+        // Grayscale until hovered (a tap triggers the hover state on touch screens).
+        .blog_item_img{
+            filter: grayscale(1);
+            transition: filter 0.4s ease, transform 0.3s ease-in;
+        }
+        .blog_item:hover .blog_item_img{
+            filter: grayscale(0);
+        }
         .home_blogs_excerpt{
             margin: 0;
             display: -webkit-box;
@@ -2026,6 +2048,13 @@ h3, .h2{
     // Same side gutter as `.awards` (which keeps 8rem on phones).
     @include mobile(){
         margin: 0 8rem 10rem;
+    }
+    .sub_heading{
+        max-width: 8em;
+        text-wrap: balance;
+        @include mobile(){
+            max-width: 100%;
+        }
     }
     .team_grid{
         display: grid;
