@@ -873,6 +873,8 @@ h2, .sub_heading{
 // stay with each section's own rule.
 .home_wrapper .ml-setter > section[data-section]{
     margin-bottom: 14rem;
+    justify-content: flex-start;
+    gap: 18rem;
 }
 
 // Content that follows a heading (or its description) always gets breathing
@@ -968,6 +970,20 @@ h2, .sub_heading{
                 img{
                     filter: invert(1);
                 }
+            }
+        }
+    }
+    // Award logos render at their natural size (never stretched past the
+    // source, which is what blurs them), capped to a share of the cell.
+    .work_box .awards_work{
+        @media (min-width: 541px){
+            height: 27.9rem;
+        }
+        img{
+            @media (min-width: 541px){
+                width: auto;
+                max-width: 40%;
+                max-height: 60%;
             }
         }
     }

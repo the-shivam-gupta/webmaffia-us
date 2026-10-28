@@ -9,6 +9,7 @@ import { Autoplay } from "swiper/modules";
 import Banner from "@/components/Banner";
 import StatisticsBar from "@/components/StatisticsBar";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
+import { TEAM_LEADERS } from "@/lib/team";
 
 // Where the "Book a 20-min call" button goes (set NEXT_PUBLIC_BOOK_CALL_URL to
 // a calendar link, e.g. Calendly / Cal.com; falls back to the contact page).
@@ -47,7 +48,7 @@ function BookCallButton() {
 }
 
 // Renders CMS text, turning line breaks into <br />.
-function Lines({ text }) {
+export function Lines({ text }) {
   return String(text ?? "")
     .split("\n")
     .map((line, index) => (
@@ -58,7 +59,7 @@ function Lines({ text }) {
     ));
 }
 
-function SectionHead({ tagline, title }) {
+export function SectionHead({ tagline, title }) {
   return (
     <>
       {tagline ? <h2 className="sub_title">{tagline}</h2> : null}
@@ -221,7 +222,7 @@ function CtaText({ button, struckWords = 1 }) {
 }
 
 // Logo grid shared by the "clients" and "trophies" sections.
-function LogoGridSection({ section }) {
+export function LogoGridSection({ section }) {
   if (!section.cards.length) return null;
 
   const isClients = section.type === "clients";
@@ -251,8 +252,8 @@ function LogoGridSection({ section }) {
               <Image
                 src={card.image.url}
                 alt={card.image.alt}
-                width={127}
-                height={88}
+                width={card.image.width}
+                height={card.image.height}
               />
             </div>
           )
@@ -267,20 +268,12 @@ function LogoGridSection({ section }) {
   );
 }
 
-// Photos are intentionally blank placeholders for now.
-const TEAM_MEMBERS = [
-  { role: "Co Founder", name: "Veera Roy" },
-  { role: "Co Founder", name: "Prasad Devadiga" },
-  { role: "CTO", name: "Ankit Tomer" },
-  { role: "CCO", name: "Prasanna Devadiga" },
-];
-
 function TeamSection() {
   return (
     <section data-section="team" className="team_section">
       <SectionHead tagline="Team" title="The brains behind the breakthroughs." />
       <div className="team_grid">
-        {TEAM_MEMBERS.map(({ role, name }) => (
+        {TEAM_LEADERS.map(({ role, name }) => (
           <div className="team_member" key={name}>
             <div className="team_photo" />
             <div className="team_role">{role}</div>

@@ -1,0 +1,197 @@
+// /team page. Reuses the homepage's banner, statistics, team grid and trophies;
+// this file only styles what is specific to this page. Photos are blank
+// placeholders until the real images are added.
+.team_page{
+    .team_photo,
+    .team_life_photo{
+        background: #e6e6e6;
+    }
+    // The banner illustration is the full-size artwork; keep it smaller than
+    // the homepage banner image (desktop only, phones keep the shared width).
+    @media (min-width: 541px){
+        .hero_section picture:not(.detail_banner) img{
+            width: 58rem;
+        }
+        .hero_section{
+            align-items: center;
+            .banner_content p{
+                max-width: 70rem;
+            }
+        }
+    }
+    .team_section .team_grid{
+        row-gap: 10rem;
+        @include mobile(){
+            row-gap: 8rem;
+        }
+    }
+
+    // "Who will work on my project?" — numbered rows under the heading.
+    .team_pod{
+        margin: 0 8rem;
+        @include mobile(){
+            margin: 0 8rem;
+        }
+    }
+    .team_pod_list{
+        margin: 6rem 0 0;
+        padding: 0;
+        list-style: none;
+        border-top: 0.2rem solid $black;
+    }
+    .team_pod_item{
+        display: flex;
+        align-items: baseline;
+        gap: 4rem;
+        padding: 3.2rem 0;
+        border-bottom: 0.1rem solid rgba(0, 0, 0, 0.15);
+        @include mobile(){
+            gap: 3rem;
+            padding: 4rem 0;
+        }
+        p{
+            margin: 0.8rem 0 0;
+            color: #000000b7;
+            font-weight: 400;
+        }
+    }
+    .team_pod_number{
+        flex: 0 0 6rem;
+        font-size: 2rem;
+        letter-spacing: 0.2rem;
+        opacity: 0.8;
+        @include mobile(){
+            font-size: 3rem;
+            flex-basis: 8rem;
+        }
+    }
+    .team_pod_title{
+        margin: 0;
+        font-size: 3.2rem;
+        letter-spacing: 0.1rem;
+        font-weight: 400;
+        @include mobile(){
+            font-size: 5rem;
+        }
+    }
+
+    // Life at Webmaffia: one large photo, four small ones.
+    .team_life{
+        margin: 0 8rem;
+    }
+    .team_life_grid{
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 2.4rem;
+        margin-top: 6rem;
+        @include mobile(){
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+    }
+    .team_life_photo{
+        aspect-ratio: 1 / 1;
+    }
+    .team_life_photo--large{
+        grid-row: span 2;
+        aspect-ratio: auto;
+        @include mobile(){
+            grid-column: span 2;
+            grid-row: auto;
+            aspect-ratio: 4 / 3;
+        }
+    }
+
+    // FAQ: heading on the left, expandable questions on the right.
+    .team_faq{
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 8rem;
+        margin: 0 8rem;
+        @include mobile(){
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+        .sub_heading{
+            width: 100%;
+        }
+    }
+    .team_faq_item{
+        border-bottom: 0.1rem solid rgba(0, 0, 0, 0.15);
+        &:first-child{
+            border-top: 0.1rem solid rgba(0, 0, 0, 0.15);
+        }
+    }
+    .team_faq_question{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        width: 100%;
+        padding: 2.4rem 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-size: 3rem;
+        font-weight: 400;
+        text-align: left;
+        cursor: pointer;
+        @include mobile(){
+            font-size: 4rem;
+        }
+    }
+    // Plus that turns into a minus: the vertical bar rotates away.
+    .team_faq_icon{
+        position: relative;
+        flex: none;
+        width: 1.6rem;
+        height: 1.6rem;
+        &::before,
+        &::after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 0.2rem;
+            margin-top: -0.1rem;
+            background: currentColor;
+            transition: transform 0.4s ease;
+        }
+        &::after{
+            transform: rotate(90deg);
+        }
+    }
+    .is_open .team_faq_icon::after{
+        transform: rotate(0deg);
+    }
+    .team_faq_answer{
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.4s ease;
+    }
+    .is_open .team_faq_answer{
+        grid-template-rows: 1fr;
+    }
+    .team_faq_answer_inner{
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        p{
+            margin: 0;
+            padding-bottom: 3.2rem;
+            max-width: none;
+            font-size: 2.3rem;
+            font-weight: 400;
+            line-height: 1.6;
+            opacity: 1;
+            @include mobile(){
+                font-size: 3rem;
+            }
+        }
+    }
+    .is_open .team_faq_answer_inner{
+        opacity: 1;
+    }
+}

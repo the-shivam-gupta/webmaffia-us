@@ -859,6 +859,38 @@ html.active .home_contact{
     .home_contact_item a{
         color: $white;
     }
+    // Form underlines are black in the shared form mixin; flip to white here
+    // (the banner form keeps black since it sits on a light card).
+    .home_contact_form form{
+        input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]),
+        input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):hover,
+        input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):focus{
+            border-bottom-color: $white !important;
+        }
+        div:has(> input[type="tel"])::after{
+            background: $white !important;
+        }
+        // Submit: white pill with dark label; hover inverts to an outline.
+        button.klaviyo-form-button{
+            background: $white !important;
+            color: $black !important;
+            box-shadow: inset 0 0 0 0.1rem $white !important;
+            &:hover,
+            &:focus-visible{
+                background: transparent !important;
+                color: $white !important;
+                -webkit-text-fill-color: $white !important;
+            }
+        }
+    }
+}
+
+// Team section text (dark theme)
+html.active .team_section{
+    .team_role,
+    .team_name{
+        color: $white;
+    }
 }
 
 // Homepage testimonial cards (dark theme)
@@ -869,5 +901,30 @@ html.active .testimonial{
     .testimonial_quote,
     .testimonial_person .name{
         color: $white;
+    }
+}
+
+// /team page (dark theme)
+html.active .team_page{
+    .hero_section picture img{
+        filter: invert(1);
+    }
+    .team_photo,
+    .team_life_photo{
+        background: rgba($white, 0.12);
+    }
+    .team_role,
+    .team_name,
+    .team_pod_title,
+    .team_pod_number,
+    .team_faq_question{
+        color: $white;
+    }
+    .team_pod_item,
+    .team_faq_item{
+        border-color: rgba($white, 0.15);
+    }
+    .team_pod_list{
+        border-top-color: $white;
     }
 }
