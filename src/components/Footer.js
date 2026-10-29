@@ -30,7 +30,7 @@ const OfficeContact = ({ email, phone }) =>
     <div className="footer_connect_office_contact">
       {email && <a href={`mailto:${email}`}>{email}</a>}
       {email && phone ? <span aria-hidden="true"> | </span> : null}
-      {phone && <a href={`tel:${phone.replace(/s/g, "")}`}>{phone}</a>}
+      {phone && <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>}
     </div>
   ) : null;
 
@@ -205,7 +205,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
             <ul className="footer_links footer_links--nav">
               {navLinks.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="link">
+                  <Link href={href} className="link" target="_blank" rel="noopener noreferrer">
                     {label}
                   </Link>
                 </li>
@@ -216,11 +216,13 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
 
         <div className="footer_col footer_col--services">
           <div className="footer_col_content">
-            <Link href="/services" className="footer_col_title">Our Services</Link>
+            <Link href="/services" className="footer_col_title" target="_blank" rel="noopener noreferrer">
+              Our Services
+            </Link>
             <ul className="footer_links footer_links--services">
               {services.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="link">
+                  <Link href={href} className="link" target="_blank" rel="noopener noreferrer">
                     {label}
                   </Link>
                 </li>

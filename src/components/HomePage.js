@@ -104,7 +104,11 @@ function ServicesSection({ section }) {
             </div>
             <p>{card.description}</p>
             {card.button ? (
-              <Link href={card.button.href} className="link services_item_link">
+              <Link
+                href={card.button.href}
+                className="link services_item_link"
+                target="_blank" rel="noopener noreferrer"
+              >
                 {card.button.title}
               </Link>
             ) : null}
@@ -162,6 +166,7 @@ function ProjectsSection({ section }) {
         {section.cards.map((card, index) => (
           <Link
             href={card.button?.href || "/case-study"}
+            target="_blank" rel="noopener noreferrer"
             className="feature_card"
             key={card.id}
             style={{ "--i": index }}
@@ -198,7 +203,11 @@ function ProjectsSection({ section }) {
 
       {section.button ? (
         <div className="features_more">
-          <Link href={section.button.href} className="features_all">
+          <Link
+            href={section.button.href}
+            className="features_all"
+            target="_blank" rel="noopener noreferrer"
+          >
             {section.button.title}
           </Link>
         </div>
@@ -214,7 +223,7 @@ function CtaText({ button, struckWords = 1 }) {
   const split = Math.max(words.length - struckWords, 0);
 
   return (
-    <Link href={button.href} className="cta_text">
+    <Link href={button.href} className="cta_text" target="_blank" rel="noopener noreferrer">
       {split > 0 ? `${words.slice(0, split).join(" ")} ` : null}
       <span>{words.slice(split).join(" ")}</span>
     </Link>
@@ -262,7 +271,7 @@ export function LogoGridSection({ section }) {
       <div className="work_box">
         {section.cards.map((card) =>
           isClients ? (
-            <Link href="/clients" key={card.id}>
+            <Link href="/clients" key={card.id} target="_blank" rel="noopener noreferrer">
               <Image
                 src={card.image.url}
                 alt={card.image.alt}
@@ -369,6 +378,7 @@ function IndustriesSection({ section }) {
               className="home_industries_cell"
               key={card.id}
               href={card.button.href}
+              target="_blank" rel="noopener noreferrer"
             >
               {content}
             </Link>
@@ -497,7 +507,7 @@ function BlogsSection({ section, blogs }) {
       <div className="other_blogs">
         {blogs.map((post) => (
           <div className="blog_item" key={post.id}>
-            <Link href={post.href}>
+            <Link href={post.href} target="_blank" rel="noopener noreferrer">
               <div className="blog_item_image">
                 {post.image ? (
                   <Image
@@ -511,7 +521,7 @@ function BlogsSection({ section, blogs }) {
               </div>
             </Link>
             <div>
-              <Link href={post.href}>
+              <Link href={post.href} target="_blank" rel="noopener noreferrer">
                 <div className="h5 blog_item_title">{post.title}</div>
                 {post.excerpt ? (
                   <p className="home_blogs_excerpt">{post.excerpt}</p>
@@ -584,7 +594,7 @@ export default function HomePage({
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
         {bannerData ? (
-          <Banner data={bannerData} mediaOverlay={
+          <Banner newTab data={bannerData} mediaOverlay={
             <>
               <p className="banner_media__form_title">Let&apos;s Connect</p>
               <KlaviyoFormEmbed formId="Rq3tfh" />

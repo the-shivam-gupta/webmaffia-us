@@ -23,7 +23,12 @@ export default function Banner({
   dataSection = "hero_section",
   children,
   mediaOverlay = null,
+  newTab = false,
 }) {
+  // Open the banner links in a new tab (used on the home page).
+  const linkTarget = newTab
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
   const {
     imagePosition = "right",
     overlay = false,
@@ -132,7 +137,9 @@ export default function Banner({
         <div className="sub_title">
           {subheading.link ? (
             <>
-              <Link href={subheading.link}>{subheading.text}</Link>
+              <Link href={subheading.link} {...linkTarget}>
+                {subheading.text}
+              </Link>
               {subheading.current ? <> / {subheading.current}</> : null}
             </>
           ) : (
@@ -159,12 +166,16 @@ export default function Banner({
       {hasCta || hasSecondaryCta ? (
         <div className="banner_cta_group">
           {hasCta ? (
-            <Link href={cta.href} className="banner_cta">
+            <Link href={cta.href} className="banner_cta" {...linkTarget}>
               {cta.text}
             </Link>
           ) : null}
           {hasSecondaryCta ? (
-            <Link href={secondaryCta.href} className="banner_cta_secondary">
+            <Link
+              href={secondaryCta.href}
+              className="banner_cta_secondary"
+              {...linkTarget}
+            >
               {secondaryCta.text}
             </Link>
           ) : null}

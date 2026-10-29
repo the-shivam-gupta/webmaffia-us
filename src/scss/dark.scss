@@ -397,6 +397,13 @@ html{
             background: rgba(255, 255, 255, 0.4);
         }
         .services_grid{
+            // `multiply` (light theme, hides the artwork's white backdrop)
+            // multiplies against the black page here. Chrome ignores that
+            // for the page background, but iOS Safari applies it and the
+            // illustrations turn black, so draw them normally in dark mode.
+            .services_item_img{
+                mix-blend-mode: normal;
+            }
             .services_item_label,
             .services_item_heading{
                 color: $white;
@@ -637,6 +644,8 @@ html{
             .footer_connect_primary_address,
             .footer_connect_primary_contact,
             .footer_connect_primary_contact a,
+            .footer_connect_office_contact,
+            .footer_connect_office_contact a,
             .footer_connect_office address,
             .footer_connect_office address a,
             .footer_copyright {
