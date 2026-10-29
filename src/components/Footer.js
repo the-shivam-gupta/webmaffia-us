@@ -14,6 +14,26 @@ const USA_OFFICE_ADDRESS = "USA 123 Main Street, New York, NY 10001, United Stat
 const mapsSearchUrl = (address) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
+// Email + phone shown under an office address, like the main office has.
+// TODO: USA email/number are placeholders - replace with the real ones.
+const USA_OFFICE_CONTACT = { email: "hello@example.com", phone: "+1 555 010 0199" };
+const OFFICE_CONTACTS = [
+  { match: /dubai/i, email: "veera@webmaffia.com", phone: "+971 544949429" },
+  { match: /bangaluru|bengaluru/i, email: "veera@webmaffia.com", phone: "+91 9867625909" },
+];
+
+const contactFor = (office) =>
+  OFFICE_CONTACTS.find(({ match }) => match.test(`${office.city} ${office.address}`));
+
+const OfficeContact = ({ email, phone }) =>
+  email || phone ? (
+    <div className="footer_connect_office_contact">
+      {email && <a href={`mailto:${email}`}>{email}</a>}
+      {email && phone ? <span aria-hidden="true"> | </span> : null}
+      {phone && <a href={`tel:${phone.replace(/s/g, "")}`}>{phone}</a>}
+    </div>
+  ) : null;
+
 const Footer = ({ footerData, campaignSlugs = [] }) => {
   const pathname = usePathname();
   const slugMatch = pathname?.match(/^\/case-study\/([^/]+)$/);
@@ -119,6 +139,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                     {USA_OFFICE_ADDRESS}
                   </a>
                 </address>
+                <OfficeContact {...USA_OFFICE_CONTACT} />
               </div>
 
               {primaryOffice && (
@@ -161,29 +182,21 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                         {office.city} {office.address}
                       </a>
                     </address>
+                    <OfficeContact
+                      email={contactFor(office)?.email || office.email}
+                      phone={contactFor(office)?.phone || office.phone}
+                    />
                   </div>
                 ))}
               </div>
             </div>
 
+            {/* Not shown in the footer any more, but the blog article page uses
+                the same Google "preferred source" button and needs this script. */}
             <Script
               src="https://news.google.com/swg/js/v1/publisher.js"
               strategy="lazyOnload"
             />
-            <div className="footer_google_source_wrap">
-              {/* Google's script only scans the DOM once, so render both
-                  themes up front and toggle visibility with CSS. */}
-              <div
-                className="footer_google_source_light"
-                google-add-preferred-source-btn=""
-                data-theme="light"
-              />
-              <div
-                className="footer_google_source_dark"
-                google-add-preferred-source-btn=""
-                data-theme="dark"
-              />
-            </div>
           </div>
         </div>
 

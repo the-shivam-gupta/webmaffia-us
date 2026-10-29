@@ -688,14 +688,6 @@ html{
                 // badge/text's natural (dark) colors instead of inverting.
                 filter: none;
             }
-            .footer_google_source_wrap{
-                .footer_google_source_light{
-                    display: none;
-                }
-                .footer_google_source_dark{
-                    display: block;
-                }
-            }
         }
         .contact_us .contact_address address a{
             color: $white;

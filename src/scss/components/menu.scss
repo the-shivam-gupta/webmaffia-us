@@ -167,40 +167,19 @@ header{
             font-size: 3rem;
         }
     }
-    // USA phone number, left of the theme toggle. On phones there is no room
-    // for the number next to the logo, toggle and button, so only a phone
-    // icon shows (tap to call).
+    // USA phone number, left of the theme toggle. Hidden on phones, where the
+    // header has no room for it.
     .header_phone{
-        display: inline-flex;
-        align-items: center;
         color: $black;
         font-size: 1.8rem;
         font-weight: $light;
         letter-spacing: 0.05rem;
         white-space: nowrap;
-        .header_phone_icon{
-            display: none;
-            width: 2.4rem;
-            height: 2.4rem;
-        }
-        // Phones: same box and glyph size as the dark-mode toggle below,
-        // mirrored so the handset curves the opposite way to the moon.
         @include mobile(){
-            justify-content: center;
-            width: 9rem;
-            height: 9rem;
-            .header_phone_text{
-                display: none;
-            }
-            .header_phone_icon{
-                display: block;
-                width: 5.6rem;
-                height: 5.6rem;
-                transform: scaleX(-1);
-            }
+            display: none;
         }
     }
-    // Phones: bigger dark-mode icon, matching the phone icon above.
+    // Phones: bigger dark-mode icon.
     .toggle{
         @include mobile(){
             width: 9rem;

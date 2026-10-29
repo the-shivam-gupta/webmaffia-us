@@ -153,23 +153,8 @@ const Header = () => {
           {/* <LanguageSwitcher /> */}
 
           {/* TODO: placeholder number - replace with the real USA number. */}
-          <a
-            href="tel:+15550100199"
-            className="header_phone"
-            aria-label="Call +1 555 010 0199"
-          >
-            <svg
-              className="header_phone_icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"
-                fill="currentColor"
-              />
-            </svg>
-            <span className="header_phone_text">+1 555 010 0199</span>
+          <a href="tel:+15550100199" className="header_phone">
+            +1 555 010 0199
           </a>
 
           {/* Menu toggle */}

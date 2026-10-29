@@ -581,20 +581,6 @@ footer {
     }
   }
 
-  .footer_google_source_wrap {
-    position: relative;
-    z-index: 2;
-    margin-top: 5rem;
-
-    @include tablet() {
-      margin-top: 4rem;
-    }
-
-    .footer_google_source_dark {
-      display: none;
-    }
-  }
-
   .footer_connect_details {
     margin-top: 6rem;
     width: 100%;
@@ -637,7 +623,9 @@ footer {
 
   .footer_connect_primary_address,
   .footer_connect_primary_contact,
-  .footer_connect_primary_contact a {
+  .footer_connect_primary_contact a,
+  .footer_connect_office_contact,
+  .footer_connect_office_contact a {
     color: rgba(255, 255, 255, 0.55);
     font-family: "Albert Sans", sans-serif;
     font-size: 1.9rem;
@@ -663,7 +651,8 @@ footer {
     }
   }
 
-  .footer_connect_primary_contact {
+  .footer_connect_primary_contact,
+  .footer_connect_office_contact {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -674,19 +663,39 @@ footer {
     }
   }
 
-  .footer_connect_primary_contact a:hover {
+  .footer_connect_primary_contact a:hover,
+  .footer_connect_office_contact a:hover {
     color: rgba(255, 255, 255, 0.9);
+  }
+
+  // Email | phone under the other offices: dimmer like their addresses, with
+  // the same gap above as the main office has under its address.
+  .footer_connect_office_contact {
+    margin-top: 1.2rem;
+
+    &,
+    a {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    a:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
   }
 
   .footer_connect_offices {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 4.5rem;
     align-items: stretch;
     width: 100%;
 
+    @include tablet() {
+      gap: 5rem;
+    }
+
     @include mobile() {
-      gap: 2rem;
+      gap: 4rem;
     }
   }
 
