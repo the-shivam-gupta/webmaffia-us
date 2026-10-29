@@ -393,20 +393,20 @@ footer {
 
       @include mobile() {
         margin-top: 1.2rem;
-        gap: 1rem;
+        gap: 2rem;
 
         img {
-          width: 6rem;
-          height: 6rem;
+          width: 12rem;
+          height: 12rem;
         }
 
         .footer_iso_certificate_text {
           strong {
-            font-size: 2.2rem;
+            font-size: 3rem;
           }
 
           em {
-            font-size: 1.8rem;
+            font-size: 2.4rem;
           }
         }
       }

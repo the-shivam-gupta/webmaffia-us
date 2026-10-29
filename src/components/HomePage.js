@@ -4,7 +4,6 @@ import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 
 import Banner from "@/components/Banner";
 import StatisticsBar from "@/components/StatisticsBar";
@@ -303,9 +302,9 @@ function TeamSection() {
             <div className="team_photo" />
             <div className="team_meta">
               <div className="team_role">{role}</div>
-              <TeamLinkedIn href={linkedin} name={name} />
             </div>
             <div className="team_name">{name}</div>
+            <TeamLinkedIn href={linkedin} name={name} />
           </div>
         ))}
       </div>
@@ -380,10 +379,10 @@ function IndustriesSection({ section }) {
   );
 }
 
-// Time each testimonial stays before the slider advances.
-const TESTIMONIAL_INTERVAL_MS = 4000;
 
 function TestimonialsSection({ section, testimonials }) {
+  const swiperRef = useRef(null);
+
   if (!testimonials.length) return null;
 
   return (
@@ -405,17 +404,14 @@ function TestimonialsSection({ section, testimonials }) {
       </div>
 
       <Swiper
-        modules={[Autoplay]}
         className="testimonial_grid"
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
         loop={testimonials.length > 3}
         speed={700}
         spaceBetween={40}
         slidesPerView={1}
-        autoplay={{
-          delay: TESTIMONIAL_INTERVAL_MS,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
         breakpoints={{ 541: { slidesPerView: 3 } }}
       >
         {testimonials.map((t) => (
@@ -452,6 +448,39 @@ function TestimonialsSection({ section, testimonials }) {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <div className="slide_cta">
+        <button
+          type="button"
+          className="swiper-button-prev cta_text"
+          onClick={() => swiperRef.current?.slidePrev()}
+        >
+          <span>Previous</span> View
+          <svg
+            className="slide_cta_icon"
+            viewBox="0 0 27 44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M0 22L22 0l2.1 2.1L4.2 22l19.9 19.9L22 44 0 22Z" fill="currentColor" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="swiper-button-next cta_text"
+          onClick={() => swiperRef.current?.slideNext()}
+        >
+          View <span>Next</span>
+          <svg
+            className="slide_cta_icon"
+            viewBox="0 0 27 44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M27 22L5 44l-2.1-2.1L22.8 22 2.9 2.1 5 0l22 22Z" fill="currentColor" />
+          </svg>
+        </button>
+      </div>
     </section>
   );
 }

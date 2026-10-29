@@ -907,6 +907,17 @@ html.active .team_section{
 
 // Homepage testimonial cards (dark theme)
 html.active .testimonial{
+    .slide_cta .swiper-button-prev,
+    .slide_cta .swiper-button-next{
+        color: rgba($white, 0.55);
+        span{
+            color: inherit;
+        }
+        &:hover,
+        &:focus-visible{
+            color: $white;
+        }
+    }
     .testimonial_person{
         border-top-color: rgba($white, 0.15);
     }

@@ -54,9 +54,9 @@ function TeamMember({ role, name, linkedin }) {
       <div className="team_photo" />
       <div className="team_meta">
         <div className="team_role">{role}</div>
-        <TeamLinkedIn href={linkedin} name={name} />
       </div>
       <div className="team_name">{name}</div>
+      <TeamLinkedIn href={linkedin} name={name} />
     </div>
   );
 }

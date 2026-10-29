@@ -916,6 +916,12 @@ h2, .sub_heading{
     gap: 18rem;
 }
 
+// Testimonials is a grid, so the shared 18rem `gap` above opened a huge space
+// between its heading and the cards. No row gap here; keeps its own column gap.
+.home_wrapper .ml-setter > section[data-section="testimonial"]{
+    gap: 0 3rem;
+}
+
 // The statistics bar follows the banner directly: the banner has no bottom
 // margin and the bar sets its own (smaller) gap under the banner buttons.
 .home_wrapper .ml-setter > .hero_section[data-section]{
@@ -1059,7 +1065,7 @@ h2, .sub_heading{
             outline: none;
         }
         img{
-            transition: transform 0.4s ease;
+            transition: transform 0.4s ease, opacity 0.3s ease;
         }
     }
     .awards_detail{
@@ -1080,11 +1086,16 @@ h2, .sub_heading{
         transform: translateY(1.2rem);
         transition: opacity 0.35s ease, transform 0.35s ease;
         pointer-events: none;
-        // Phones: rem is 4px, so this is ~10px text under a smaller, lifted logo.
+        // Phones: the cell is too small for logo + details together, so the
+        // details take over the whole card (the logo fades out) instead of
+        // sitting under the logo. rem is 4px here, so this is ~10px text.
         @include mobile(){
+            top: 0;
+            justify-content: center;
             gap: 0.6rem;
-            padding: 0 2rem 3.4rem;
+            padding: 0 2.4rem;
             font-size: 2.6rem;
+            transform: none;
         }
     }
     .awards_detail_eyebrow{
@@ -1105,7 +1116,8 @@ h2, .sub_heading{
         img{
             transform: translateY(-3.4rem) scale(0.85);
             @include mobile(){
-                transform: translateY(-7rem) scale(0.65);
+                transform: none;
+                opacity: 0;
             }
         }
         .awards_detail{
@@ -2312,21 +2324,43 @@ h3, .h2{
             margin-top: 0;
         }
     }
+    // "View Profile" under the name: an underline draws in from the left on
+    // hover while the arrow after the label nudges to the right.
     .team_link{
-        flex-shrink: 0;
         display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2.4rem;
+        padding-bottom: 0.6rem;
         color: $black;
-        transition: opacity 0.2s ease;
-        svg{
-            width: 2.4rem;
-            height: 2.4rem;
-            @include mobile(){
-                width: 5.6rem;
-                height: 5.6rem;
+        font-size: 1.8rem;
+        font-weight: $light;
+        letter-spacing: 0.05rem;
+        line-height: 1;
+        background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 0.1rem;
+        transition: background-size 0.4s ease;
+        &::after{
+            content: "\2192";
+            transition: transform 0.3s ease;
+        }
+        &:hover,
+        &:focus-visible{
+            background-size: 100% 0.1rem;
+            &::after{
+                transform: translateX(0.6rem);
             }
         }
-        &:hover{
-            opacity: 0.6;
+        @include mobile(){
+            gap: 2rem;
+            margin-top: 4rem;
+            padding-bottom: 1.2rem;
+            font-size: 3.4rem;
+            &:hover,
+            &:focus-visible{
+                &::after{
+                    transform: translateX(1.2rem);
+                }
+            }
         }
     }
 }
@@ -2365,6 +2399,64 @@ h3, .h2{
         .swiper-slide{
             height: auto !important;
             display: flex;
+        }
+    }
+    // "Previous View / View Next" (same text as webmaffia-v2), bottom left
+    // under the cards.
+    .slide_cta{
+        grid-column: 1 / -1;
+        grid-row: 3;
+        justify-self: start;
+        position: relative;
+        z-index: 1;
+        width: auto;
+        margin-top: 6rem;
+        gap: 4rem;
+        // Chevron beside each label (v2 got it from Swiper's Navigation module).
+        .slide_cta_icon{
+            width: 1.1rem;
+            height: 2rem;
+            flex-shrink: 0;
+            @include mobile(){
+                width: 2.2rem;
+                height: 4rem;
+            }
+        }
+        // Muted by default, full black on hover with the chevron nudging in
+        // its direction (the underline comes from `.home_wrapper .cta_text`).
+        .swiper-button-prev,
+        .swiper-button-next{
+            color: $black_60;
+            transition: color 0.3s ease, background-size 0.4s ease;
+            span{
+                color: inherit;
+            }
+            .slide_cta_icon{
+                transition: transform 0.3s ease;
+            }
+            &:hover,
+            &:focus-visible{
+                color: $black;
+            }
+        }
+        .swiper-button-prev:hover .slide_cta_icon,
+        .swiper-button-prev:focus-visible .slide_cta_icon{
+            transform: translateX(-0.7rem);
+            @include mobile(){
+                transform: translateX(-1.4rem);
+            }
+        }
+        .swiper-button-next:hover .slide_cta_icon,
+        .swiper-button-next:focus-visible .slide_cta_icon{
+            transform: translateX(0.7rem);
+            @include mobile(){
+                transform: translateX(1.4rem);
+            }
+        }
+        @include mobile(){
+            justify-content: flex-start;
+            margin-top: 8rem;
+            gap: 8rem;
         }
     }
     // Card: company name, quote icon, quote, then a divider with the
