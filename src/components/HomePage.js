@@ -9,6 +9,7 @@ import { Autoplay } from "swiper/modules";
 import Banner from "@/components/Banner";
 import StatisticsBar from "@/components/StatisticsBar";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
+import TeamLinkedIn from "@/components/TeamLinkedIn";
 import { TEAM_LEADERS } from "@/lib/team";
 
 // Where the "Book a 20-min call" button goes (set NEXT_PUBLIC_BOOK_CALL_URL to
@@ -21,9 +22,9 @@ const CALENDAR_ICON =
 // Klaviyo renders the form (and its Submit button) asynchronously, outside
 // React, so the call button is added next to Submit by watching the form box
 // and re-adding it whenever Klaviyo re-renders.
-function BookCallButton() {
+function BookCallButton({ container: selector = ".banner_media__form" }) {
   useEffect(() => {
-    const container = document.querySelector(".banner_media__form");
+    const container = document.querySelector(selector);
     if (!container) return undefined;
 
     const place = () => {
@@ -42,7 +43,7 @@ function BookCallButton() {
     const observer = new MutationObserver(place);
     observer.observe(container, { childList: true, subtree: true });
     return () => observer.disconnect();
-  }, []);
+  }, [selector]);
 
   return null;
 }
@@ -198,7 +199,7 @@ function ProjectsSection({ section }) {
 
       {section.button ? (
         <div className="features_more">
-          <Link href={section.button.href} className="link features_all">
+          <Link href={section.button.href} className="features_all">
             {section.button.title}
           </Link>
         </div>
@@ -218,6 +219,29 @@ function CtaText({ button, struckWords = 1 }) {
       {split > 0 ? `${words.slice(0, split).join(" ")} ` : null}
       <span>{words.slice(split).join(" ")}</span>
     </Link>
+  );
+}
+
+// Hover caption for an award: first line is the eyebrow (level / year), the
+// rest is the award name and category. Hidden until the card is hovered.
+function AwardDetails({ text }) {
+  const lines = String(text ?? "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (!lines.length) return null;
+
+  const [eyebrow, ...rest] = lines;
+
+  return (
+    <div className="awards_detail" aria-hidden="true">
+      <span className="awards_detail_eyebrow">{eyebrow}</span>
+      {rest.map((line, index) => (
+        <span className="awards_detail_line" key={index}>
+          {line}
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -248,13 +272,14 @@ export function LogoGridSection({ section }) {
               />
             </Link>
           ) : (
-            <div className="awards_work" key={card.id}>
+            <div className="awards_work" key={card.id} tabIndex={0}>
               <Image
                 src={card.image.url}
                 alt={card.image.alt}
                 width={card.image.width}
                 height={card.image.height}
               />
+              <AwardDetails text={card.details || card.label} />
             </div>
           )
         )}
@@ -273,10 +298,13 @@ function TeamSection() {
     <section data-section="team" className="team_section">
       <SectionHead tagline="Team" title="The brains behind the breakthroughs." />
       <div className="team_grid">
-        {TEAM_LEADERS.map(({ role, name }) => (
+        {TEAM_LEADERS.map(({ role, name, linkedin }) => (
           <div className="team_member" key={name}>
             <div className="team_photo" />
-            <div className="team_role">{role}</div>
+            <div className="team_meta">
+              <div className="team_role">{role}</div>
+              <TeamLinkedIn href={linkedin} name={name} />
+            </div>
             <div className="team_name">{name}</div>
           </div>
         ))}
@@ -393,21 +421,32 @@ function TestimonialsSection({ section, testimonials }) {
         {testimonials.map((t) => (
           <SwiperSlide key={t.id}>
             <figure className="testimonial_card">
+              {t.company ? (
+                <div className="testimonial_company">{t.company}</div>
+              ) : null}
+              <Image
+                src="/assets/icons/quote.svg"
+                alt=""
+                width={125}
+                height={103}
+                className="testimonial_quote_icon"
+                aria-hidden="true"
+              />
               <blockquote className="testimonial_quote">{t.quote}</blockquote>
               <figcaption className="testimonial_person">
+                <div>
+                  <div className="name">{t.author}</div>
+                  {t.role ? <div className="work">{t.role}</div> : null}
+                </div>
                 {t.logo ? (
                   <Image
                     src={t.logo.src}
-                    alt={t.author}
+                    alt={t.company || t.author}
                     width={t.logo.w}
                     height={t.logo.h}
                     className="testimonial_photo"
                   />
                 ) : null}
-                <div>
-                  <div className="name">{t.author}</div>
-                  {t.role ? <div className="work">{t.role}</div> : null}
-                </div>
               </figcaption>
             </figure>
           </SwiperSlide>
@@ -474,7 +513,7 @@ function ContactSection() {
   return (
     <section data-section="contact" className="home_contact">
       <div className="home_contact_info">
-        <h2 className="sub_title">LET&apos;S TALK</h2>
+        <h2 className="sub_title">LET&apos;S CONNECT</h2>
         <div className="sub_heading">
           Let&apos;s make <br />
           you an offer.
@@ -485,15 +524,14 @@ function ContactSection() {
         </p>
         <div className="home_contact_details">
           <div className="home_contact_item">
-            <span className="home_contact_label">EMAIL</span>
-            <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+            <a href="mailto:hello@pixtop.in" className="home_contact_link">
+              hello@pixtop.in
+            </a>
           </div>
           <div className="home_contact_item">
-            <span className="home_contact_label">INDIA · UAE</span>
+            {/* TODO: placeholder number - replace with the real USA number. */}
             <span>
-              <a href="tel:+919867625909">+91 98676 25909</a>
-              {" · "}
-              <a href="tel:+971562722998">+971 56 272 2998</a>
+              <a href="tel:+15550100199">+1 555 010 0199</a>
             </span>
           </div>
         </div>
@@ -501,6 +539,7 @@ function ContactSection() {
 
       <div className="home_contact_form">
         <KlaviyoFormEmbed formId="Rq3tfh" />
+        <BookCallButton container=".home_contact_form" />
       </div>
     </section>
   );
@@ -511,7 +550,6 @@ export default function HomePage({
   sections = [],
   testimonials = [],
   blogs = [],
-  locations = [],
 }) {
   return (
     <main className="wrapper home_wrapper opacity_0">
@@ -519,7 +557,7 @@ export default function HomePage({
         {bannerData ? (
           <Banner data={bannerData} mediaOverlay={
             <>
-              <p className="banner_media__form_title">Lets talk</p>
+              <p className="banner_media__form_title">Let&apos;s Connect</p>
               <KlaviyoFormEmbed formId="Rq3tfh" />
               <BookCallButton />
             </>
@@ -533,7 +571,6 @@ export default function HomePage({
               return (
                 <StatisticsBar
                   key={section.key}
-                  locations={locations}
                   stats={section.stats}
                 />
               );

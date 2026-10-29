@@ -2,9 +2,10 @@ import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import StatisticsBar from "@/components/StatisticsBar";
 import TeamFaq from "@/components/TeamFaq";
+import TeamLinkedIn from "@/components/TeamLinkedIn";
 import { LogoGridSection, SectionHead } from "@/components/HomePage";
-import { getFooter, getHome } from "@/lib/strapiPage";
-import { buildOfficeLocations, buildSections } from "@/lib/homeSections";
+import { getHome } from "@/lib/strapiPage";
+import { buildSections } from "@/lib/homeSections";
 import { buildBreadcrumbSchema } from "@/lib/schema";
 import {
   TEAM_FAQS,
@@ -47,18 +48,21 @@ function buildTeamBannerData() {
   };
 }
 
-function TeamMember({ role, name }) {
+function TeamMember({ role, name, linkedin }) {
   return (
     <div className="team_member">
       <div className="team_photo" />
-      <div className="team_role">{role}</div>
+      <div className="team_meta">
+        <div className="team_role">{role}</div>
+        <TeamLinkedIn href={linkedin} name={name} />
+      </div>
       <div className="team_name">{name}</div>
     </div>
   );
 }
 
 export default async function TeamPage() {
-  const [home, footer] = await Promise.all([getHome(), getFooter()]);
+  const home = await getHome();
   const sections = buildSections(home?.sections);
   const statistics = sections.find((section) => section.type === "statistics");
   const trophies = sections.find((section) => section.type === "trophies");
@@ -71,7 +75,6 @@ export default async function TeamPage() {
 
         {statistics ? (
           <StatisticsBar
-            locations={buildOfficeLocations(footer?.offices)}
             stats={statistics.stats}
           />
         ) : null}

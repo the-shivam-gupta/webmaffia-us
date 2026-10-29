@@ -1,9 +1,8 @@
 ﻿import HomePage from "@/components/HomePage";
 import JsonLd from "@/components/JsonLd";
-import { getBlog, getFooter, getHome, getTestimonials } from "@/lib/strapiPage";
+import { getBlog, getHome, getTestimonials } from "@/lib/strapiPage";
 import {
   buildHomeBannerData,
-  buildOfficeLocations,
   buildSections,
   mapBlogCard,
 } from "@/lib/homeSections";
@@ -16,15 +15,13 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [testimonials, home, footer, blogs] = await Promise.all([
+  const [testimonials, home, blogs] = await Promise.all([
     getTestimonials(),
     getHome(),
-    getFooter(),
     getBlog(),
   ]);
   const bannerData = buildHomeBannerData(home?.banner);
   const sections = buildSections(home?.sections);
-  const locations = buildOfficeLocations(footer?.offices);
   // getBlog() is already sorted newest-first.
   const latestBlogs = blogs.slice(0, 3).map(mapBlogCard);
 
@@ -37,7 +34,6 @@ export default async function Home() {
         sections={sections}
         testimonials={testimonials}
         blogs={latestBlogs}
-        locations={locations}
       />
     </>
   );

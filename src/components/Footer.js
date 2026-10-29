@@ -7,6 +7,13 @@ import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
+// TODO: placeholder - replace with the real USA office address.
+const USA_OFFICE_ADDRESS = "USA 123 Main Street, New York, NY 10001, United States";
+
+// Fallback for offices that have no map link set in the CMS.
+const mapsSearchUrl = (address) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
 const Footer = ({ footerData, campaignSlugs = [] }) => {
   const pathname = usePathname();
   const slugMatch = pathname?.match(/^\/case-study\/([^/]+)$/);
@@ -101,6 +108,19 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
             </div>
 
             <div className="footer_connect_details">
+              {/* TODO: placeholder - replace with the real USA office address. */}
+              <div className="footer_connect_office footer_connect_usa">
+                <address>
+                  <a
+                    href={mapsSearchUrl(USA_OFFICE_ADDRESS)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {USA_OFFICE_ADDRESS}
+                  </a>
+                </address>
+              </div>
+
               {primaryOffice && (
                 <div className="footer_connect_primary">
                   <a
@@ -129,23 +149,21 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                 </div>
               )}
 
-              {secondaryOffices.length > 0 && (
-                <div className="footer_connect_offices">
-                  {secondaryOffices.map((office) => (
-                    <div className="footer_connect_office" key={office.id || office.city}>
-                      <address>
-                        <a
-                          href={office.addressLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {office.city} {office.address}
-                        </a>
-                      </address>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div className="footer_connect_offices">
+                {secondaryOffices.map((office) => (
+                  <div className="footer_connect_office" key={office.id || office.city}>
+                    <address>
+                      <a
+                        href={office.addressLink || mapsSearchUrl(`${office.city} ${office.address}`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {office.city} {office.address}
+                      </a>
+                    </address>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <Script

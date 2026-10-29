@@ -5,6 +5,27 @@ import {
   splitBannerTitle,
 } from "@/lib/strapiPage";
 
+// TODO: placeholder award details, keyed by the CMS card label. Replace them
+// with the real year, rank, award and category (or fill the CMS `details`
+// field on each card, which takes priority). "DigitalCrest" and "Abby" are
+// taken from the /awards page; the rest are made up.
+const AWARD_PLACEHOLDERS = {
+  "kyoorius": { year: "2018", rank: "Silver", award: "Kyoorius Creative Awards", category: "Best Website Design" },
+  "digital media 2019": { year: "2019", rank: "Gold", award: "Indian Digital Media Awards", category: "Innovation in Mobile Marketing" },
+  "awards - digitalcrest": { year: "2015", rank: "Gold", award: "Digital Crest Awards", category: "Best Website Corporate / Brand" },
+  "shark awards": { year: "2017", rank: "Bronze", award: "Shark Awards", category: "Best Digital Campaign" },
+  "acef": { year: "2016", rank: "Winner", award: "ACEF Awards", category: "Digital Marketing Excellence" },
+  "img": { year: "2018", rank: "Winner", award: "IMG Awards", category: "Excellence in Digital" },
+  "abby awards - silver": { year: "2014", rank: "Silver", award: "Abby Awards", category: "Best Use of Animation" },
+  "the customer fest show india 2020": { year: "2020", rank: "Winner", award: "The Customer Fest Show India", category: "Best Customer Engagement" },
+};
+
+function awardPlaceholderDetails(label) {
+  const entry = AWARD_PLACEHOLDERS[String(label ?? "").trim().toLowerCase()];
+  if (!entry) return "";
+  return [`${entry.year} · ${entry.rank}`, entry.award, entry.category].join("\n");
+}
+
 // Returns null when the CMS banner is missing or has no title; HomePage then
 // renders no banner.
 export function buildHomeBannerData(rawBanner) {
@@ -129,6 +150,13 @@ export function buildSections(rawSections) {
               .map((card) => ({
                 id: card.id,
                 label: card.label?.trim() || "",
+                // Hover text. The CMS `details` field (one item per line:
+                // "year · rank", award name, category) wins; until it is
+                // filled in, fall back to the placeholder for that award.
+                details:
+                  card.details?.trim() ||
+                  awardPlaceholderDetails(card.label) ||
+                  "",
                 image: mapMedia(card.image, card.label),
               }))
               .filter((card) => card.image),

@@ -358,6 +358,10 @@ html{
                 }
             }
         }
+        // Award hover caption: the hovered card turns white in dark mode.
+        .our_work .work_box .awards_work .awards_detail{
+            color: $black;
+        }
         .toggle{
           svg{
             path{
@@ -367,6 +371,9 @@ html{
         }
         header{
             background: $black;
+            .header_phone{
+                color: $white;
+            }
             .header_nav a{
                 color: $white;
             }
@@ -861,6 +868,10 @@ html.active .home_contact{
     }
     // Form underlines are black in the shared form mixin; flip to white here
     // (the banner form keeps black since it sits on a light card).
+    .home_contact_form .banner_book_call{
+        color: $white !important;
+        border-bottom-color: $white;
+    }
     .home_contact_form form{
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]),
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):hover,
@@ -888,27 +899,37 @@ html.active .home_contact{
 // Team section text (dark theme)
 html.active .team_section{
     .team_role,
-    .team_name{
+    .team_name,
+    .team_link{
         color: $white;
     }
 }
 
 // Homepage testimonial cards (dark theme)
 html.active .testimonial{
-    .testimonial_card{
-        border-color: rgba($white, 0.15);
+    .testimonial_person{
+        border-top-color: rgba($white, 0.15);
     }
+    .testimonial_quote_icon{
+        filter: invert(1);
+    }
+    .testimonial_company,
     .testimonial_quote,
     .testimonial_person .name{
         color: $white;
     }
 }
 
+html.active .home_wrapper .features_all{
+    color: $white;
+}
+
+html.active .hero_section picture:not(.detail_banner) img{
+    filter: invert(1);
+}
+
 // /team page (dark theme)
 html.active .team_page{
-    .hero_section picture img{
-        filter: invert(1);
-    }
     .team_photo,
     .team_life_photo{
         background: rgba($white, 0.12);

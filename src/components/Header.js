@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { toggleTheme } from "@/lib/theme";
-import { openKlaviyoPopup } from "@/lib/klaviyo";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
@@ -117,11 +116,6 @@ const Header = () => {
     }
   };
 
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    openKlaviyoPopup();
-  };
-
   return (
     <>
       <header
@@ -157,6 +151,11 @@ const Header = () => {
         <div className="right_menu">
           {/* Language switcher (blog + author pages only) */}
           {/* <LanguageSwitcher /> */}
+
+          {/* TODO: placeholder number - replace with the real USA number. */}
+          <a href="tel:+15550100199" className="header_phone">
+            +1 555 010 0199
+          </a>
 
           {/* Menu toggle */}
           {/* <a href="" className="menu" onClick={openMenu} aria-label="Open menu">
@@ -199,9 +198,9 @@ const Header = () => {
             </label>
           </button>
 
-          <button type="button" className="cta" onClick={handleContactClick}>
-            Contact Us
-          </button>
+          <a href="mailto:hello@webmaffia.com" className="cta">
+            Let&apos;s Connect
+          </a>
         </div>
       </header>
 

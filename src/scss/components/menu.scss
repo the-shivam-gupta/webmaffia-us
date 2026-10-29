@@ -167,6 +167,18 @@ header{
             font-size: 3rem;
         }
     }
+    // USA phone number, left of the theme toggle. Hidden on phones where the
+    // header has no room for it next to the logo, toggle and button.
+    .header_phone{
+        color: $black;
+        font-size: 1.8rem;
+        font-weight: $light;
+        letter-spacing: 0.05rem;
+        white-space: nowrap;
+        @include mobile(){
+            display: none;
+        }
+    }
 }
 .menu{
     display: flex;

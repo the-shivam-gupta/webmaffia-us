@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // The Tawk.to script (RootShell.js) loads its own bubble and hides it; this button
 // opens and closes the chat window through Tawk's API only (no CSS on Tawk's
@@ -22,6 +22,8 @@ function toggleChat() {
 
 export default function ChatCTA() {
   const [open, setOpen] = useState(false);
+  const [onFooter, setOnFooter] = useState(false);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const root = ROOT();
@@ -32,12 +34,42 @@ export default function ChatCTA() {
     return () => attrs.disconnect();
   }, []);
 
+  // The footer is dark, so the black button disappears once it floats over it.
+  // Flag when the button's centre is inside the footer so the CSS can invert it.
+  useEffect(() => {
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const footer = document.querySelector("footer");
+      const button = buttonRef.current;
+      if (!footer || !button) return;
+      const { top, height } = button.getBoundingClientRect();
+      setOnFooter(top + height / 2 >= footer.getBoundingClientRect().top);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  const classes = ["chat-cta"];
+  if (open) classes.push("chat-cta--open");
+  if (onFooter) classes.push("chat-cta--on-footer");
+
   return (
     <>
       <button
+        ref={buttonRef}
         type="button"
         aria-label={open ? "Close chat" : "Chat with us"}
-        className={open ? "chat-cta chat-cta--open" : "chat-cta"}
+        className={classes.join(" ")}
         onClick={toggleChat}
       >
         <svg

@@ -653,6 +653,7 @@ function mapTestimonial(entry) {
         quote: entry.description?.trim() ?? "",
         author: name,
         role: entry.designation?.trim() ?? "",
+        company: entry.companyName?.trim() ?? "",
         speaker: name.split(/\s+/)[0]?.toUpperCase() ?? "",
         logo: icon?.url
             ? {

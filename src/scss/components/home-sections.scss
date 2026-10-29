@@ -553,7 +553,7 @@ p{
         }
     }
     @include mobile(){
-        font-size: 3rem !important;
+        font-size: 3.5rem !important;
         margin-bottom: 5rem;
         br{
             display: none;
@@ -603,12 +603,50 @@ p{
     }
 }
 
+// Homepage "View All ..." buttons: no strike-through on the last words. On
+// hover an underline draws in from the left under the whole label and the
+// arrow (always shown) nudges to the right.
+.home_wrapper .cta_text,
+.home_wrapper .features_all{
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding-bottom: 0.8rem;
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 0.1rem;
+    transition: background-size 0.4s ease;
+    span{
+        color: inherit;
+        &::before{
+            display: none;
+        }
+    }
+    &::after{
+        content: "\2192";
+        transition: transform 0.3s ease;
+    }
+    &:hover,
+    &:focus-visible{
+        background-size: 100% 0.1rem;
+        &::after{
+            transform: translateX(0.8rem);
+        }
+    }
+    @include mobile(){
+        padding-bottom: 1.4rem;
+        gap: 2rem;
+    }
+}
+
 // Banner CTAs — rendered in Banner.js from a CMS banner's `button`/`href`
 // (primary, filled pill) and `secondaryButton` (secondary, underlined text
 // link). Global so it works on every page that renders <Banner>.
 .banner_content{
     h1{
-        font-size: 11rem;
+        letter-spacing: 0;
+        width: 100%;
+        margin-bottom: 2rem;
+        font-size: 14rem;
+        line-height: .95;
     }
     .banner_cta_group{
         display: flex;
@@ -692,7 +730,7 @@ p{
         .sub_heading{
             font-size: 9.5rem;
             margin-bottom: 3rem;
-            max-width: 16em;
+            max-width: 10em;
             text-wrap: balance;
             @include mobile(){
                 font-size: 10rem;
@@ -750,7 +788,7 @@ p{
     p{
         max-width: 40rem;
         margin-bottom: 3rem;
-        font-weight: 400;
+        font-weight: 500;
         @include mobile(){
             max-width: 100%;
             margin-bottom: 5rem;
@@ -766,13 +804,14 @@ p{
     }
     .services_item_link{
         display: inline-block;
-        padding-bottom: 0.4rem;
-        font-size: 1.8rem;
+        padding-bottom: 0.8rem;
+        font-size: 2.4rem;
+        letter-spacing: 0.06em;
         color: $black;
-        font-weight: 600;
+        font-weight: 400;
         @include mobile(){
-            font-size: 3.4rem;
-            padding-bottom: 0.8rem;
+            font-size: 4.2rem;
+            padding-bottom: 1.2rem;
         }
         &::after{
             height: 0.1rem;
@@ -872,9 +911,21 @@ h2, .sub_heading{
 // Homepage only: one vertical rhythm between sections. Side and top margins
 // stay with each section's own rule.
 .home_wrapper .ml-setter > section[data-section]{
-    margin-bottom: 14rem;
+    margin-bottom: 23rem;
     justify-content: flex-start;
     gap: 18rem;
+}
+
+// The statistics bar follows the banner directly: the banner has no bottom
+// margin and the bar sets its own (smaller) gap under the banner buttons.
+.home_wrapper .ml-setter > .hero_section[data-section]{
+    margin-bottom: 0;
+}
+.home_wrapper .ml-setter > .statistics_bar[data-section]{
+    margin-top: 5rem;
+    @include mobile(){
+        margin-top: 6rem;
+    }
 }
 
 // Content that follows a heading (or its description) always gets breathing
@@ -939,6 +990,8 @@ h2, .sub_heading{
             width: auto;
             margin: 0;
             grid-template-columns: repeat(2, 1fr);
+            border-bottom-width: 1px;
+            border-right-width: 1px;
         }
         a, .awards_work{
             width: 100%;
@@ -951,16 +1004,23 @@ h2, .sub_heading{
             margin-right: -0.2rem;
             margin-bottom: -0.2rem;
             @include mobile(){
-                border: 1px solid $gray_light;
+                border-width: 1px;
                 height: 30rem;
-                margin-bottom: -0.3rem;
+                margin-right: -1px;
+                margin-bottom: -1px;
             }
             img{
                 object-fit: contain;
                 // width: auto;
                 max-width: 75%;
                 height: auto;
-                max-height: 100%;
+                // Leaves breathing room so tall logos never touch the card edges.
+                max-height: 80%;
+                // Desktop: fixed width so client logos scale up past the
+                // 127px width attribute (award logos override this below).
+                @media (min-width: 541px){
+                    width: 20rem;
+                }
                 @include mobile(){
                     width: 20rem;
                 }
@@ -980,13 +1040,81 @@ h2, .sub_heading{
             height: 27.9rem;
         }
         img{
+            width: auto;
+            max-width: 60%;
+            max-height: 60%;
             @media (min-width: 541px){
-                width: auto;
                 max-width: 40%;
-                max-height: 60%;
             }
         }
     }
+    // Award hover caption: the logo lifts and the details fade in underneath.
+    // Shown on hover, and on tap for touch screens (the card is focusable).
+    .work_box .awards_work{
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        -webkit-tap-highlight-color: transparent;
+        &:focus:not(:focus-visible){
+            outline: none;
+        }
+        img{
+            transition: transform 0.4s ease;
+        }
+    }
+    .awards_detail{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0 2rem 2.6rem;
+        text-align: center;
+        color: $white;
+        font-size: 1.4rem;
+        line-height: 1.35;
+        opacity: 0;
+        transform: translateY(1.2rem);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        pointer-events: none;
+        // Phones: rem is 4px, so this is ~10px text under a smaller, lifted logo.
+        @include mobile(){
+            gap: 0.6rem;
+            padding: 0 2rem 3.4rem;
+            font-size: 2.6rem;
+        }
+    }
+    .awards_detail_eyebrow{
+        margin-bottom: 0.4rem;
+        font-size: 0.85em;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.7;
+    }
+    .awards_detail_eyebrow + .awards_detail_line{
+        font-weight: $regular;
+    }
+    .awards_detail_line + .awards_detail_line{
+        opacity: 0.7;
+    }
+    .work_box .awards_work:hover,
+    .work_box .awards_work:focus{
+        img{
+            transform: translateY(-3.4rem) scale(0.85);
+            @include mobile(){
+                transform: translateY(-7rem) scale(0.65);
+            }
+        }
+        .awards_detail{
+            opacity: 1;
+            transform: none;
+        }
+    }
+    // The card's own :hover style (black / white in dark mode, inverted logo)
+    // also applies on tap; the tabindex makes iOS Safari honour it.
     h2{
         color: $black_light;
     }
@@ -1211,21 +1339,13 @@ h2, .sub_heading{
             margin-top: 10rem;
         }
     }
+    // "See all Projects": same underline + arrow hover as `.home_wrapper
+    // .cta_text` (shared rule above), with the same type as `.cta_text`.
     .features_all{
-        display: inline-block;
-        padding-bottom: 0.4rem;
-        font-weight: 400;
-        font-size: 2.4rem;
+        font-size: 3.6rem;
+        font-weight: $exlight;
+        line-height: 1;
         color: $black;
-        @include mobile(){
-            font-size: 4.2rem;
-        }
-        &::after{
-            height: 0.1rem;
-            @include mobile(){
-                height: 0.2rem;
-            }
-        }
     }
 
     // Scroll reveal (class added by HomePage once JS is running).
@@ -1691,8 +1811,8 @@ h3, .h2{
         flex-wrap: wrap;
         align-items: center;
         gap: 0.8rem;
-        margin: 0 8rem 3rem;
-        font-size: 1.2rem;
+        margin: 0 8rem 16rem;
+        font-size: 1.6rem;
         color: #000000e3;
         letter-spacing: 0.2em;
         text-transform: uppercase;
@@ -1750,11 +1870,13 @@ h3, .h2{
         }
     }
     .statistics_value{
-        font-size: 9.6rem;
+        font-size: 13.4rem;
         line-height: 1;
-        font-weight: $exlight;
+        font-weight: 200;
+        color: #343434;
         sup{
             font-size: 0.4em;
+            font-weight: $light;
             vertical-align: top;
             position: relative;
             top: 0.15em;
@@ -1765,12 +1887,15 @@ h3, .h2{
         }
     }
     .statistics_label{
-        font-size: 1.4rem;
-        letter-spacing: 0.04em;
+        font-size: 2.2rem;
+        letter-spacing: 0.08em;
+        color: #343434;
         text-transform: uppercase;
         line-height: 1.3;
+        font-weight: 400;
         @include mobile(){
             font-size: 2.6rem;
+            letter-spacing: 0.04em;
         }
     }
     .statistics_item--icon{
@@ -1784,18 +1909,18 @@ h3, .h2{
         }
         .statistics_icon{
             width: auto;
-            height: 8rem;
+            height: 14rem;
             @include mobile(){
-                height: 11rem;
+                height: 17rem;
             }
         }
         .statistics_label{
             text-transform: none;
-            font-size: 1.2rem;
-            max-width: 14rem;
+            font-size: 1.6rem;
+            max-width: 22rem;
             @include mobile(){
-                font-size: 2.2rem;
-                max-width: 24rem;
+                font-size: 3rem;
+                max-width: 36rem;
             }
         }
     }
@@ -2001,7 +2126,7 @@ h3, .h2{
     .section_description{
         max-width: 66rem;
         margin: 0;
-        font-size: 2.6rem;
+        font-size: 2.2rem;
         line-height: 1.5;
         @include mobile(){
             max-width: 100%;
@@ -2013,10 +2138,11 @@ h3, .h2{
         flex-direction: column;
         gap: 3.6rem;
         margin-top: 7rem;
-        font-size: 2.3rem;
+        font-size: 3.6rem;
+        font-weight: $regular;
         line-height: 1.3;
         @include mobile(){
-            font-size: 3.2rem;
+            font-size: 4.6rem;
             margin-top: 6rem;
         }
     }
@@ -2026,6 +2152,32 @@ h3, .h2{
         gap: 0.4rem;
         a{
             color: inherit;
+        }
+        // The phone number reads a step smaller than the email above it.
+        & + .home_contact_item{
+            font-size: 0.85em;
+        }
+    }
+    // Email link: underline is always shown and slides out to the right on
+    // hover (back in from the left on leave), like the `.link` underline.
+    .home_contact_link{
+        position: relative;
+        align-self: flex-start;
+        &::after{
+            content: '';
+            position: absolute;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+            height: 0.1rem;
+            background: currentColor;
+            transform: scaleX(1);
+            transform-origin: bottom left;
+            transition: transform 0.3s ease-in;
+        }
+        &:hover::after{
+            transform: scaleX(0);
+            transform-origin: bottom right;
         }
     }
     .home_contact_label{
@@ -2055,6 +2207,38 @@ h3, .h2{
             --form-btn-pad-x: 8rem;
         }
         @include klaviyo_underline_form;
+
+        // "Book a 20-min call" beside Submit, same as the banner form
+        // (added by BookCallButton in HomePage.js).
+        form div:has(> button.klaviyo-form-button) {
+            display: flex !important;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0 3cqw;
+            width: 100% !important;
+            min-width: 0 !important;
+        }
+
+        .banner_book_call {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6em;
+            margin: 5cqw 0 0;
+            padding: 0 0 0.3em;
+            border-bottom: 0.1rem solid #000;
+            color: #000 !important;
+            font-size: var(--form-btn-size);
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: 0.05rem;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+
+            &:hover,
+            &:focus-visible {
+                opacity: 0.6;
+            }
+        }
     }
 }
 
@@ -2075,7 +2259,7 @@ h3, .h2{
     .team_grid{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 6rem;
+        gap: 3rem;
         margin-top: 6rem;
         // Phones: members stacked one after another.
         @include mobile(){
@@ -2089,7 +2273,7 @@ h3, .h2{
         aspect-ratio: 1 / 1;
         background: #808080;
         @include mobile(){
-            width: 60%;
+            width: 100%;
         }
     }
     .team_role{
@@ -2111,6 +2295,38 @@ h3, .h2{
         text-transform: uppercase;
         @include mobile(){
             font-size: 6.4rem;
+        }
+    }
+    // Designation on the left, "View Profile" on the right of the same line;
+    // the name sits below at full width so long names never fight the link.
+    .team_meta{
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 2rem;
+        margin-top: 4.6rem;
+        @include mobile(){
+            margin-top: 4rem;
+        }
+        .team_role{
+            margin-top: 0;
+        }
+    }
+    .team_link{
+        flex-shrink: 0;
+        display: inline-flex;
+        color: $black;
+        transition: opacity 0.2s ease;
+        svg{
+            width: 2.4rem;
+            height: 2.4rem;
+            @include mobile(){
+                width: 5.6rem;
+                height: 5.6rem;
+            }
+        }
+        &:hover{
+            opacity: 0.6;
         }
     }
 }
@@ -2151,54 +2367,87 @@ h3, .h2{
             display: flex;
         }
     }
+    // Card: company name, quote icon, quote, then a divider with the
+    // person on the left and the company logo on the right.
     .testimonial_card{
         width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 4rem;
         margin: 0;
-        padding: 4rem;
-        border: 0.1rem solid $gray_light;
+        padding: 0 2rem;
+        text-align: left;
+    }
+    .testimonial_company{
+        font-size: 2.2rem;
+        font-weight: $regular;
+        line-height: 1.2;
+        color: $black;
+        @include mobile(){
+            font-size: 4.4rem;
+        }
+    }
+    .testimonial_quote_icon{
+        display: block;
+        width: 10rem;
+        height: auto;
+        margin: 5rem 0 3.5rem;
+        @include mobile(){
+            width: 24rem;
+            margin: 8rem 0 7rem;
+        }
     }
     .testimonial_quote{
-        margin: 0;
-        font-size: 2.2rem;
-        line-height: 1.5;
+        margin: 0 0 4rem;
+        font-size: 1.7rem;
+        line-height: 1.65;
         font-weight: $exlight;
         color: $black;
         @include mobile(){
+            margin-bottom: 8rem;
             font-size: 3.4rem;
         }
     }
     .testimonial_person{
+        margin-top: auto;
+        padding-top: 3rem;
+        border-top: 0.1rem solid $gray_light;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 2rem;
-        font-size: 1.6rem;
         @include mobile(){
-            font-size: 3.2rem;
+            padding-top: 6rem;
         }
         .name{
+            font-size: 1.9rem;
             line-height: 1.2;
             margin-bottom: 0.6rem;
             color: $black;
             text-transform: uppercase;
+            @include mobile(){
+                font-size: 3.8rem;
+                margin-bottom: 1.2rem;
+            }
         }
         .work{
+            font-size: 1.5rem;
             line-height: 1.2;
             color: $gray_dark;
+            @include mobile(){
+                font-size: 3.2rem;
+            }
         }
     }
     .testimonial_photo{
         flex: 0 0 auto;
-        width: 8rem;
-        height: 8rem;
-        border-radius: 50%;
-        object-fit: cover;
+        width: auto;
+        max-width: 14rem;
+        height: 4.8rem;
+        border-radius: 0;
+        object-fit: contain;
         @include mobile(){
-            width: 14rem;
-            height: 14rem;
+            max-width: 28rem;
+            height: 10rem;
         }
     }
 }

@@ -7,18 +7,19 @@ function splitValue(value) {
   return { number: plus ? trimmed.slice(0, -1).trim() : trimmed, plus };
 }
 
-export default function StatisticsBar({ locations = [], stats = [] }) {
+const LOCATIONS = ["USA", "India", "UAE"];
+
+export default function StatisticsBar({ stats = [] }) {
   if (!stats.length) return null;
 
   return (
     <section data-section="statistics" className="statistics_bar">
-      {locations.length ? (
-        <div className="statistics_locations">
-          {locations.map((location, index) => (
-            <span key={`${location}-${index}`}>{location}</span>
-          ))}
-        </div>
-      ) : null}
+      <div className="statistics_locations">
+        {LOCATIONS.map((location) => (
+          <span key={location}>{location}</span>
+        ))}
+      </div>
+
       <div className="statistics_grid">
         {stats.map((stat) => {
           const { number, plus } = splitValue(stat.value);

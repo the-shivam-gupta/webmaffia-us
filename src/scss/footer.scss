@@ -344,8 +344,8 @@ footer {
       margin: 2.6rem 0 0;
 
       img {
-        width: 5.2rem;
-        height: 5.2rem;
+        width: 8rem;
+        height: 8rem;
         flex-shrink: 0;
       }
 
@@ -376,8 +376,8 @@ footer {
         gap: 1rem;
 
         img {
-          width: 4rem;
-          height: 4rem;
+          width: 6.4rem;
+          height: 6.4rem;
         }
 
         .footer_iso_certificate_text {
@@ -393,20 +393,20 @@ footer {
 
       @include mobile() {
         margin-top: 1.2rem;
-        gap: 0.6rem;
+        gap: 1rem;
 
         img {
-          width: 2.8rem;
-          height: 2.8rem;
+          width: 6rem;
+          height: 6rem;
         }
 
         .footer_iso_certificate_text {
           strong {
-            font-size: 1.7rem;
+            font-size: 2.2rem;
           }
 
           em {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
           }
         }
       }
@@ -479,12 +479,10 @@ footer {
       &::after {
         content: "";
         position: absolute;
-        top: 50%;
-        bottom: auto;
-        left: -0.5rem;
-        width: 105%;
-        height: 0.2rem;
-        margin-top: -0.1rem;
+        bottom: -0.4rem;
+        left: 0;
+        width: 100%;
+        height: 0.1rem;
         background: $white;
         transform: scaleX(0);
         transform-origin: right center;
@@ -612,6 +610,19 @@ footer {
     }
   }
 
+  // USA address above the main office; same gap below as the main office.
+  .footer_connect_usa {
+    margin-bottom: 4.5rem;
+
+    @include tablet() {
+      margin-bottom: 5rem;
+    }
+
+    @include mobile() {
+      margin-bottom: 4rem;
+    }
+  }
+
   .footer_connect_primary {
     margin-bottom: 4.5rem;
 
@@ -694,21 +705,21 @@ footer {
     address a {
       color: rgba(255, 255, 255, 0.45);
       font-family: "Albert Sans", sans-serif;
-      font-size: 1.6rem;
+      // Same sizes as the primary office address above.
+      font-size: 1.9rem;
       font-style: normal;
       font-weight: 400;
-      line-height: 1.45;
+      line-height: 1.5;
       margin: 0;
       text-align: left;
-      max-width: 80%;
 
       @include tablet() {
-        font-size: 2.9rem;
+        font-size: 3rem;
         max-width: 80%;
       }
 
       @include mobile() {
-        font-size: 2.5rem;
+        font-size: 2.7rem;
         max-width: 80%;
       }
     }
@@ -833,22 +844,11 @@ footer {
         }
       }
 
+      // Hover underline: the shared `.link::after` (bottom: 1rem) lands on the
+      // letters at this font size, so drop it clear of the text.
       .link {
         &::after {
-          top: 50%;
-          bottom: auto;
-          left: -0.5rem;
-          width: 105%;
-          height: 0.2rem;
-          margin-top: -0.1rem;
-          transform: scaleX(0);
-          transform-origin: right center;
-          transition: transform 0.45s ease-in-out;
-        }
-
-        &:hover::after {
-          transform: scaleX(1);
-          transform-origin: left center;
+          bottom: -0.6rem;
         }
       }
     }

@@ -196,6 +196,18 @@ html.active .chat-cta {
   }
 }
 
+/* Light theme: the footer is dark, so over it the black chat button is
+   inverted to white (the dark theme button is already white). Skipped while the
+   chat is open, when the button is a transparent click-catcher. */
+html:not(.active) .chat-cta.chat-cta--on-footer:not(.chat-cta--open) {
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  svg {
+    fill: #000000;
+  }
+}
+
 /* The AI button floats over the open chat window; hide it while chatting. */
 html[data-chat-open] .ai-cta {
   display: none !important;

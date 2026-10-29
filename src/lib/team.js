@@ -1,9 +1,25 @@
 // Photos are intentionally blank placeholders for now.
 export const TEAM_LEADERS = [
-  { role: "Co Founder", name: "Veera Roy" },
-  { role: "Co Founder", name: "Prasad Devadiga" },
-  { role: "CTO", name: "Ankit Tomer" },
-  { role: "CCO", name: "Prasanna Devadiga" },
+  {
+    role: "Co-founder",
+    name: "Veera Roy",
+    linkedin: "https://linkedin.com/in/veera-roy-7249506",
+  },
+  {
+    role: "Co-founder",
+    name: "Prasad Devadiga",
+    linkedin: "https://www.linkedin.com/in/prasad-devadiga-68752927",
+  },
+  {
+    role: "CTO",
+    name: "Ankit Tomer",
+    linkedin: "https://www.linkedin.com/in/ankittomer",
+  },
+  {
+    role: "CCO",
+    name: "Prasanna Devadiga",
+    linkedin: "https://www.linkedin.com/in/prasanna-devadiga-7494789",
+  },
 ];
 
 export const TEAM_MEMBERS = [
