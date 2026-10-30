@@ -226,14 +226,14 @@ html .chat-cta.chat-cta--open {
   }
 }
 
-/* Call button: bottom of the stack (bottom right), with the chat button above it
-   and the AI button above that. Same look as the chat button. */
+/* Call button: mobile only. On mobile it is the bottom of the stack (bottom right),
+   with the chat button above it and the AI button above that. Same look as the chat button. */
 .call-cta {
+  display: none;
   position: fixed;
   right: 40px;
   bottom: 40px;
   z-index: 2147483647;
-  display: flex;
   align-items: center;
   justify-content: center;
   width: 56px;
@@ -244,13 +244,13 @@ html .chat-cta.chat-cta--open {
   transition: transform 0.3s ease;
 }
 
-/* chat button sits one slot up (56px button + 16px gap) */
+/* desktop: no call button, so chat takes the bottom slot and AI sits above it */
 body .chat-cta.chat-cta {
-  bottom: 112px;
+  bottom: 40px;
 }
 
 .ai-cta {
-  bottom: 184px; /* 112px + 56px chat button + 16px gap */
+  bottom: 112px; /* 40px + 56px chat button + 16px gap */
 }
 
 html.active .call-cta {
@@ -273,6 +273,7 @@ html:not(.active) .call-cta.call-cta--on-footer {
 
 @media (max-width: 767px) {
   .call-cta {
+    display: flex;
     right: 32px;
     bottom: 28px;
     width: 44px;

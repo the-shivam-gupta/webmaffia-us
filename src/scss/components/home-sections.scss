@@ -2428,9 +2428,10 @@ h3, .h2{
         @include mobile(){
             position: relative;
             top: auto;
-            height: auto !important;
+            height: vw-mobile(300) !important;
             width: 100% !important;
             max-width: 100%;
+            object-fit: contain;
         }
     }
     .testimonial_grid{
@@ -2504,7 +2505,17 @@ h3, .h2{
         @include mobile(){
             justify-content: flex-start;
             margin-top: vw-mobile(32);
-            gap: vw-mobile(32);
+            gap: vw-mobile(40);
+            .swiper-button-prev,
+            .swiper-button-next{
+                font-size: vw-mobile(18);
+                gap: vw-mobile(10);
+                padding: vw-mobile(10) 0;
+            }
+            .slide_cta_icon{
+                width: vw-mobile(11);
+                height: vw-mobile(20);
+            }
         }
     }
     // Card: company name, quote icon, quote, then a divider with the
