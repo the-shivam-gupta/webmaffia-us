@@ -1049,8 +1049,12 @@ h2, .sub_heading{
             width: auto;
             max-width: 60%;
             max-height: 60%;
+            // Desktop: a fixed width like the client logos (they were capped
+            // at 40% of the cell and looked small), still limited by cell size.
             @media (min-width: 541px){
-                max-width: 40%;
+                width: 20rem;
+                max-width: 70%;
+                max-height: 65%;
             }
         }
     }
@@ -1114,7 +1118,9 @@ h2, .sub_heading{
     .work_box .awards_work:hover,
     .work_box .awards_work:focus{
         img{
-            transform: translateY(-3.4rem) scale(0.85);
+            // The logo is large now, so on hover it shrinks and lifts well
+            // clear of the details underneath.
+            transform: translateY(-4.5rem) scale(0.6);
             @include mobile(){
                 transform: none;
                 opacity: 0;

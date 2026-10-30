@@ -300,7 +300,7 @@ footer {
     filter: invert(1);
 
     img {
-      width: min(100%, 21.8rem);
+      width: min(100%, 13.8rem);
       height: auto;
       display: block;
       opacity: 1;
@@ -580,6 +580,10 @@ footer {
     gap: 11.4rem;
     margin: 2.5rem 0;
 
+    @media (min-width: 541px) {
+      gap: 6rem;
+    }
+
     @include mobile() {
       margin: 2rem 0 0;
     }
@@ -597,6 +601,13 @@ footer {
         height: 6.8rem;
         filter: invert(0.6);
         transition: filter 0.3s ease;
+
+        // Desktop / tablet: the phone sizes above are far too big here, so
+        // size by height and keep each icon's own proportions.
+        @media (min-width: 541px) {
+          width: auto;
+          height: 3.6rem;
+        }
       }
     }
   }
