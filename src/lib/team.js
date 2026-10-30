@@ -1,8 +1,9 @@
-// Photos are intentionally blank placeholders for now.
+// `photo` is optional; people without one show a blank placeholder tile.
 export const TEAM_LEADERS = [
   {
     role: "Co-founder",
     name: "Veera Roy",
+    photo: "https://cms.webmaffia.com/uploads/veera_f6eca0edb4.jpeg",
     linkedin: "https://linkedin.com/in/veera-roy-7249506",
   },
   {
@@ -18,6 +19,7 @@ export const TEAM_LEADERS = [
   {
     role: "CCO",
     name: "Prasanna Devadiga",
+    photo: "https://cms.webmaffia.com/uploads/prassana_ed87078098.jpg",
     linkedin: "https://www.linkedin.com/in/prasanna-devadiga-7494789",
   },
 ];

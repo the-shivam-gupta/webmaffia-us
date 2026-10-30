@@ -8,18 +8,19 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
 // TODO: placeholder - replace with the real USA office address.
-const USA_OFFICE_ADDRESS = "USA 123 Main Street, New York, NY 10001, United States";
+const USA_OFFICE_ADDRESS = "123 Main Street, New York, NY 10001, United States";
 
 // Fallback for offices that have no map link set in the CMS.
 const mapsSearchUrl = (address) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
 // Email + phone shown under an office address, like the main office has.
-// TODO: USA email/number are placeholders - replace with the real ones.
-const USA_OFFICE_CONTACT = { email: "hello@example.com", phone: "+1 555 010 0199" };
+// One contact email for every office in the footer.
+const CONTACT_EMAIL = "hello@webmaffia.com";
+const USA_OFFICE_CONTACT = { email: CONTACT_EMAIL, phone: "+1 866-984-9786" };
 const OFFICE_CONTACTS = [
-  { match: /dubai/i, email: "veera@webmaffia.com", phone: "+971 544949429" },
-  { match: /bangaluru|bengaluru/i, email: "veera@webmaffia.com", phone: "+91 9867625909" },
+  { match: /dubai/i, email: CONTACT_EMAIL, phone: "+971 544949429" },
+  { match: /bangaluru|bengaluru/i, email: CONTACT_EMAIL, phone: "+91 9867625909" },
 ];
 
 const contactFor = (office) =>
@@ -30,7 +31,7 @@ const OfficeContact = ({ email, phone }) =>
     <div className="footer_connect_office_contact">
       {email && <a href={`mailto:${email}`}>{email}</a>}
       {email && phone ? <span aria-hidden="true"> | </span> : null}
-      {phone && <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>}
+      {phone && <a href={`tel:${phone.replace(/[^\d+]/g, "")}`}>{phone}</a>}
     </div>
   ) : null;
 
@@ -52,7 +53,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
   const primaryOffice = offices[0];
   const secondaryOffices = offices.slice(1);
 
-  const primaryEmail = primaryOffice?.email || null;
+  const primaryEmail = CONTACT_EMAIL;
   const primaryPhone = primaryOffice?.phone || null;
 
   const copyrightText = copyright?.description || copyright?.brand || null;
@@ -131,8 +132,12 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
               {/* TODO: placeholder - replace with the real USA office address. */}
               <div className="footer_connect_office footer_connect_usa">
                 <address>
+                  <span className="footer_connect_usa_label">USA</span>
+                  <span className="footer_connect_usa_colon" aria-hidden="true">
+                    :
+                  </span>
                   <a
-                    href={mapsSearchUrl(USA_OFFICE_ADDRESS)}
+                    href={mapsSearchUrl(`USA ${USA_OFFICE_ADDRESS}`)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -152,9 +152,8 @@ const Header = () => {
           {/* Language switcher (blog + author pages only) */}
           {/* <LanguageSwitcher /> */}
 
-          {/* TODO: placeholder number - replace with the real USA number. */}
-          <a href="tel:+15550100199" className="header_phone">
-            +1 555 010 0199
+          <a href="tel:+18669849786" className="header_phone">
+            +1 866-984-9786
           </a>
 
           {/* Menu toggle */}
@@ -344,7 +343,7 @@ const Header = () => {
                   </a>
                 </address>
                 <div className="contact_info">
-                  <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+                  <a href="mailto:hello@webmaffia.com">hello@webmaffia.com</a>
                   <a href="tel:+919867625909">+91 9867625909</a>
                 </div>
               </div>
@@ -364,7 +363,7 @@ const Header = () => {
                     </a>
                   </address>
                   <div className="contact_info">
-                    <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+                    <a href="mailto:hello@webmaffia.com">hello@webmaffia.com</a>
                     <a href="tel:+919867625909">+91 9867625909</a>
                   </div>
                 </div>
@@ -383,7 +382,7 @@ const Header = () => {
                   </a>
                 </address>
                 <div className="contact_info">
-                  <a href="mailto:veera@webmaffia.com">veera@webmaffia.com</a>
+                  <a href="mailto:hello@webmaffia.com">hello@webmaffia.com</a>
                   <a href="tel:+971562722998">+971 56 272 2998</a>
                 </div>
               </div>

@@ -306,9 +306,19 @@ function TeamSection() {
     <section data-section="team" className="team_section">
       <SectionHead tagline="Team" title="The brains behind the breakthroughs." />
       <div className="team_grid">
-        {TEAM_LEADERS.map(({ role, name, linkedin }) => (
+        {TEAM_LEADERS.map(({ role, name, linkedin, photo }) => (
           <div className="team_member" key={name}>
-            <div className="team_photo" />
+            <div className="team_photo">
+              {photo ? (
+                <Image
+                  src={photo}
+                  alt={name}
+                  fill
+                  sizes="(max-width: 540px) 90vw, 25vw"
+                  className="team_photo_img"
+                />
+              ) : null}
+            </div>
             <div className="team_meta">
               <div className="team_role">{role}</div>
             </div>
@@ -563,15 +573,42 @@ function ContactSection() {
         </p>
         <div className="home_contact_details">
           <div className="home_contact_item">
-            <a href="mailto:hello@pixtop.in" className="home_contact_link">
-              hello@pixtop.in
+            <span className="home_contact_icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="14"
+                  rx="2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M3.5 7l8.5 6 8.5-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+            <a href="mailto:hello@webmaffia.com" className="home_contact_link">
+              hello@webmaffia.com
             </a>
           </div>
           <div className="home_contact_item">
-            {/* TODO: placeholder number - replace with the real USA number. */}
-            <span>
-              <a href="tel:+15550100199">+1 555 010 0199</a>
+            <span className="home_contact_icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path
+                  d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"
+                  fill="currentColor"
+                />
+              </svg>
             </span>
+            <a href="tel:+18669849786">+1 866-984-9786</a>
           </div>
         </div>
       </div>

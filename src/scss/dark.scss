@@ -648,12 +648,16 @@ html{
             .footer_connect_office_contact a,
             .footer_connect_office address,
             .footer_connect_office address a,
+            .footer_connect_usa_label,
+            .footer_connect_usa_colon,
             .footer_copyright {
                 color: $black_60;
             }
 
-            .footer_connect_office + .footer_connect_office {
-                border-left-color: rgba(0, 0, 0, 0.2);
+            .footer_connect_usa,
+            .footer_connect_primary,
+            .footer_connect_office {
+                border-bottom-color: rgba(0, 0, 0, 0.15);
             }
 
             .footer_links .link {
@@ -859,6 +863,48 @@ html.active .banner_media__form_title{
     color: $black !important;
 }
 
+// Desktop only: the form sits on the card drawn inside the banner artwork,
+// and in dark mode that artwork is inverted, so the card turns dark and the
+// black form text disappears. Flip the form to white there. On phones the
+// form has its own light grey card, so the black styles above stay.
+@media (min-width: 541px) {
+    html.active .banner_media__form{
+        .banner_media__form_title{
+            color: $white !important;
+        }
+        form{
+            input:not([type="submit"]):not([type="checkbox"]),
+            input:not([type="submit"]):not([type="checkbox"]):hover,
+            input:not([type="submit"]):not([type="checkbox"]):focus{
+                color: $white !important;
+            }
+            input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]),
+            input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):hover,
+            input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):focus{
+                border-bottom-color: $white !important;
+            }
+            div:has(> input[type="tel"])::after{
+                background: $white !important;
+            }
+            button.klaviyo-form-button{
+                background: $white !important;
+                color: $black !important;
+                box-shadow: inset 0 0 0 0.1rem $white !important;
+                &:hover,
+                &:focus-visible{
+                    background: transparent !important;
+                    color: $white !important;
+                    -webkit-text-fill-color: $white !important;
+                }
+            }
+        }
+        .banner_book_call{
+            color: $white !important;
+            border-bottom-color: $white;
+        }
+    }
+}
+
 html.active .home_contact{
     .home_contact_label{
         color: rgba(255,255,255,0.6);
@@ -866,6 +912,9 @@ html.active .home_contact{
     .home_contact_item,
     .home_contact_item a{
         color: $white;
+    }
+    .home_contact_item .home_contact_icon{
+        border-color: rgba($white, 0.3);
     }
     // Form underlines are black in the shared form mixin; flip to white here
     // (the banner form keeps black since it sits on a light card).

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Banner from "@/components/Banner";
 import JsonLd from "@/components/JsonLd";
 import StatisticsBar from "@/components/StatisticsBar";
@@ -48,10 +49,20 @@ function buildTeamBannerData() {
   };
 }
 
-function TeamMember({ role, name, linkedin }) {
+function TeamMember({ role, name, linkedin, photo }) {
   return (
     <div className="team_member">
-      <div className="team_photo" />
+      <div className="team_photo">
+        {photo ? (
+          <Image
+            src={photo}
+            alt={name}
+            fill
+            sizes="(max-width: 540px) 90vw, 25vw"
+            className="team_photo_img"
+          />
+        ) : null}
+      </div>
       <div className="team_meta">
         <div className="team_role">{role}</div>
       </div>
