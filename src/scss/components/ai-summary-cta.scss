@@ -225,3 +225,70 @@ html .chat-cta.chat-cta--open {
     display: none;
   }
 }
+
+/* Call button: bottom of the stack (bottom right), with the chat button above it
+   and the AI button above that. Same look as the chat button. */
+.call-cta {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+/* chat button sits one slot up (56px button + 16px gap) */
+body .chat-cta.chat-cta {
+  bottom: 112px;
+}
+
+.ai-cta {
+  bottom: 184px; /* 112px + 56px chat button + 16px gap */
+}
+
+html.active .call-cta {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  svg {
+    fill: #000000;
+  }
+}
+
+html:not(.active) .call-cta.call-cta--on-footer {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+  svg {
+    fill: #000000;
+  }
+}
+
+@media (max-width: 767px) {
+  .call-cta {
+    right: 32px;
+    bottom: 28px;
+    width: 44px;
+    height: 44px;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  body .chat-cta.chat-cta {
+    bottom: 84px; /* 28px + 44px call button + 12px gap */
+  }
+
+  .ai-cta {
+    bottom: 140px; /* 84px + 44px chat button + 12px gap */
+  }
+}

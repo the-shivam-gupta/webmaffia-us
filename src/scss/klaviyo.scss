@@ -13,24 +13,24 @@
 }
 
 [class*="klaviyo-form"] form {
-  padding-bottom: 5rem !important;
+  padding-bottom: vw(50) !important;
 }
 
 .contact_us .form label:not(.checkmark){
   display: flex !important;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: vw(5) !important;
 }
 
 .contact_us [class*="klaviyo-form"] .klaviyo-form-button {
-  padding: 1.7rem 3.2rem !important;
+  padding: vw(17) vw(32) !important;
 }
 
 [class*="klaviyo-form"] .klaviyo-form-button {
-  padding: 0.1rem 3.2rem !important;
+  padding: vw(1) vw(32) !important;
 }
 
 .blog_enquiry [class*="klaviyo-form"] .klaviyo-form-button {
-  padding: 1.7rem 3.2rem !important;
+  padding: vw(17) vw(32) !important;
 }
 
 [class*="klaviyo"] [role="listbox"],
@@ -50,8 +50,8 @@ a[href*="utm_campaign=poweredby"] {
   @media (min-width: 1025px) {
     .klaviyo-form {
       width: 90vw !important;
-      max-width: 90rem !important;
-      border-radius: 0.4rem !important;
+      max-width: vw(900) !important;
+      border-radius: vw(4) !important;
     }
   }
 }

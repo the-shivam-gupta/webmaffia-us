@@ -1,0 +1,25 @@
+// VW functions for responsive design.
+// Pass a size in pixels as it appears in the design at that base width.
+
+// Desktop VW calculation (base on 1920px)
+@function vw($pixels, $base: 1920) {
+  @return calc($pixels / $base * 100vw);
+}
+
+// Mac VW calculation (base on 1440px)
+@function vw-mac($pixels, $base: 1440) {
+  @return calc($pixels / $base * 100vw);
+}
+
+// Mobile VW calculation (base on 414px)
+@function vw-mobile($pixels, $base: 414) {
+  @return calc($pixels / $base * 100vw);
+}
+
+// Mac-sized screens (1440px and below). Use with vw-mac():
+//   @include mac() { padding: vw-mac(60); }
+@mixin mac() {
+  @media all and (max-width: 1440px) {
+    @content;
+  }
+}

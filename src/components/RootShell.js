@@ -11,6 +11,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import KlaviyoScript from "@/components/KlaviyoScript";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import ChatCTA from "@/components/ChatCTA";
+import CallCTA from "@/components/CallCTA";
 import AISummaryCTA from "@/components/AISummaryCTA";
 import { getCampaigns, getFooter } from "@/lib/strapiPage";
 
@@ -92,6 +93,7 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
         <KlaviyoScript />
         {/* <WhatsAppCTA /> */}
         <ChatCTA />
+        <CallCTA />
         <Script id="tawk-to" strategy="lazyOnload">
           {`
             var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
@@ -101,8 +103,8 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
             // Park Tawk's (invisible) bubble where ChatCTA sits, so clicks land on ours.
             Tawk_API.customStyle = {
               visibility: {
-                desktop: { position: "br", xOffset: 40, yOffset: 40 },
-                mobile: { position: "br", xOffset: 0, yOffset: 0 }
+                desktop: { position: "br", xOffset: 40, yOffset: 112 },
+                mobile: { position: "br", xOffset: 0, yOffset: 56 }
               }
             };
             var root = document.documentElement;

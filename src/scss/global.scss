@@ -63,22 +63,22 @@ button{
     }
 }
 .toggle {
-  width: 3.6rem;
-  height: 3.6rem;
+  width: vw(36);
+  height: vw(36);
   border-radius: 50%;
   display: grid;
   place-items: center;
   cursor: pointer;
   line-height: 1;
   @include mobile(){
-    width: 6rem;
-    height: 6rem;
+    width: vw-mobile(24);
+    height: vw-mobile(24);
   }
   svg{
-    width: 2rem;
+    width: vw(20);
     height: auto;
     @include mobile(){
-      width: 3.5rem;
+      width: vw-mobile(14);
     }
     path{
       fill: $black;
@@ -143,48 +143,48 @@ button{
 .not-found{
   justify-content: flex-end;
   height: 100%;
-  min-height: calc(100vh - 15.5rem);
+  min-height: calc(100vh - vw(155));
   @include mobile(){
     justify-content: center;
-    gap: 10rem;
-    min-height: calc(100vh - 21rem);
+    gap: vw-mobile(40);
+    min-height: calc(100vh - vw-mobile(84));
   }
   &>div{
     text-align: center;
     h1{
       @include mobile(){
-        font-size: 15rem;
+        font-size: vw-mobile(60);
       }
     }
     p{
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
+      font-size: vw(25);
+      margin-bottom: vw(20);
       @include mobile(){
-        font-size: 5rem !important;
-        margin-bottom: 2rem;
+        font-size: vw-mobile(20) !important;
+        margin-bottom: vw-mobile(8);
       }
     }
   }
   img{
-    width: 87.1rem;
+    width: vw(871);
   }
   a{
-    font-size: 1.8rem;
+    font-size: vw(18);
     position: relative;
     display: inline-block;
     @include mobile(){
-      font-size: 4rem;
+      font-size: vw-mobile(16);
     }
     &::before{
       content: '';
       position: absolute;
       width: 110%;
-      height: .1rem;
+      height: vw(1);
       background: #000;
       transition: transform 0.3s ease-in;
       transform-origin: bottom left;
       transform: scale(1);
-      left: -.5rem;
+      left: vw(-5);
       top: 51%;
     }
     &:hover{

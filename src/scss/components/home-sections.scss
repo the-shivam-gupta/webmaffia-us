@@ -1,4 +1,5 @@
 @import '../mixins';
+@import '../mixin';
 @import '../variables';
 @import '../colors';
 @import '../fonts';
@@ -6,16 +7,16 @@
 .wrapper{
     position: relative;
     z-index: 2;
-    padding-top: 15.5rem !important;
+    padding-top: vw(155) !important;
     overflow-x: hidden;
     @include mobile(){
-        padding-top: 21rem !important;
+        padding-top: vw-mobile(84) !important;
     }
 }
 
 .home_wrapper{
     @include mobile(){
-        padding-top: 12rem !important;
+        padding-top: vw-mobile(48) !important;
     }
 }
 
@@ -30,15 +31,15 @@
     align-items: flex-start;
     // margin-bottom: 12rem;
     @include mobile(){
-        margin: 6.5rem 0;
+        margin: vw-mobile(26) 0;
     }
     &> .banner_content{
         width: auto;
-        margin: 0 8rem;
+        margin: 0 vw(80);
         @include mobile(){
             width: auto;
             margin-bottom: 0;
-            margin: 0 6.5rem;
+            margin: 0 vw-mobile(26);
         }
         h1 .banner_title_line {
             display: block;
@@ -49,17 +50,17 @@
         // }
         .cta_text{
             display: inline-block;
-            margin-bottom: 6.5rem;
+            margin-bottom: vw(65);
         }
     }
     picture:not(.detail_banner){
         position: relative;
 
         @include mobile(){
-            right: -7rem;
+            right: vw-mobile(-28);
         }
         img{
-            width: 86.8rem;
+            width: vw(868);
             @include mobile(){
                 width: 98%;
             }
@@ -101,7 +102,7 @@
             font-size: var(--form-input-size) !important;
             font-weight: 400 !important;
             line-height: 1.5 !important;
-            letter-spacing: 0.05rem;
+            letter-spacing: vw(0.5);
 
             // Light placeholder (uppercase); typed text is solid black and
             // keeps its case.
@@ -123,7 +124,7 @@
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]),
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):hover,
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]):focus {
-            border-bottom: 0.1rem solid #000 !important;
+            border-bottom: vw(1) solid #000 !important;
             box-shadow: none !important;
             outline: 0 !important;
         }
@@ -226,7 +227,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                height: 0.1rem;
+                height: vw(1);
                 background: #000;
                 pointer-events: none;
             }
@@ -244,7 +245,7 @@
             white-space: nowrap !important;
             text-align: left !important;
             border: 0 !important;
-            border-radius: 5rem !important;
+            border-radius: vw(50) !important;
             background: #000 !important;
             color: #fff !important;
             // The label is drawn by ::before so it always reads "Submit",
@@ -252,10 +253,10 @@
             font-size: 0 !important;
             font-weight: 300 !important;
             line-height: 1.2 !important;
-            letter-spacing: 0.1rem;
+            letter-spacing: vw(1);
             opacity: 1 !important;
             cursor: pointer;
-            box-shadow: inset 0 0 0 0.1rem #000 !important;
+            box-shadow: inset 0 0 0 vw(1) #000 !important;
             transition: background-color 0.3s ease, color 0.3s ease;
 
             &::before,
@@ -281,7 +282,7 @@
                 opacity: 1 !important;
 
                 &::after {
-                    transform: translateX(0.4rem);
+                    transform: translateX(vw(4));
                 }
             }
         }
@@ -303,7 +304,7 @@
         // (see `.hero_section picture`) and the form is 90% wide + centred,
         // so its right edge sits 5% in from the container's edge.
         &:has(.banner_media__form) picture {
-            clip-path: inset(0 calc(5% + 7rem) 0 0);
+            clip-path: inset(0 calc(5% + vw-mobile(28)) 0 0);
         }
     }
 
@@ -421,7 +422,7 @@
             margin-top: -63%;
             padding: 8% 8%;
             justify-content: flex-start;
-            border-radius: 2rem;
+            border-radius: vw-mobile(8);
             background: #e8e8e8;
             --form-title-size: max(7cqw, 20px);
             --form-input-size: max(4.2cqw, 14px);
@@ -451,12 +452,12 @@
             gap: 0.6em;
             margin: 5cqw 0 0;
             padding: 0 0 0.3em;
-            border-bottom: 0.1rem solid #000;
+            border-bottom: vw(1) solid #000;
             color: #000 !important;
             font-size: max(4.1cqw, 14px);
             font-weight: 400;
             line-height: 1.2;
-            letter-spacing: 0.05rem;
+            letter-spacing: vw(0.5);
             white-space: nowrap;
             transition: opacity 0.3s ease;
 
@@ -473,7 +474,7 @@
         font-size: var(--form-title-size) !important;
         font-weight: 300;
         line-height: 1.2;
-        letter-spacing: 0.05rem;
+        letter-spacing: vw(0.5);
     }
 
     &__overlay {
@@ -486,29 +487,29 @@
 }
 
 .sub_title{
-    font-size: 1.8rem;
-    letter-spacing: 1rem;
+    font-size: vw(18);
+    letter-spacing: vw(10);
     line-height: 1;
-    margin-bottom: 2rem;
-    margin-left: 1rem;
+    margin-bottom: vw(20);
+    margin-left: vw(10);
     color: $black;
     font-weight: $light;
     @include mobile(){
-        font-size: 3rem;
-        margin-bottom: 2rem;
+        font-size: vw-mobile(12);
+        margin-bottom: vw-mobile(8);
     }
 }
 
 h1, .h1{
     width: 100%;
     line-height: 0.95;
-    font-size: 14rem;
-    margin-bottom: 2rem;
+    font-size: vw(140);
+    margin-bottom: vw(20);
     color: $black;
     letter-spacing: 0;
     @include mobile(){
-        font-size: 10rem;
-        margin-bottom: 5rem;
+        font-size: vw-mobile(40);
+        margin-bottom: vw-mobile(20);
         br{
             display: none;
         }
@@ -517,19 +518,19 @@ h1, .h1{
 
 p{
     width: 100%;
-    font-size: 2.2rem;
+    font-size: vw(22);
     line-height: 1.3;
     color: $black;
-    margin-bottom: 6.5rem;
+    margin-bottom: vw(65);
     font-weight: 300;
 
     &::-webkit-scrollbar{
-        width: 0.2rem;
+        width: vw(2);
         background: $gray;
     }
     &::-webkit-scrollbar-thumb{
         background: $black;
-        border-radius: 1rem;
+        border-radius: vw(10);
     }
     a{
         position: relative;
@@ -539,7 +540,7 @@ p{
             width: 100%;
             left: 0;
             bottom: 0;
-            height: 0.15rem;
+            height: vw(1.5);
             background: $black_60;
             transform: scaleX(0);
             transform-origin: bottom right;
@@ -553,8 +554,8 @@ p{
         }
     }
     @include mobile(){
-        font-size: 3.5rem !important;
-        margin-bottom: 5rem;
+        font-size: vw-mobile(14) !important;
+        margin-bottom: vw-mobile(20);
         br{
             display: none;
         }
@@ -562,7 +563,7 @@ p{
 }
 
 .cta_text{
-    font-size: 3.6rem;
+    font-size: vw(36);
     color: $black;
     line-height: 1;
     font-weight: $exlight;
@@ -574,7 +575,7 @@ p{
             content: '';
             position: absolute;
             width: 105%;
-            height: 0.2rem;
+            height: vw(2);
             background: $gray_dark;
             left: 50%;
             top: 55%;
@@ -599,7 +600,7 @@ p{
         }
     }
     @include mobile(){
-        font-size: 6.188rem;
+        font-size: vw-mobile(24.752);
     }
 }
 
@@ -610,9 +611,9 @@ p{
 .home_wrapper .features_all{
     display: inline-flex;
     align-items: center;
-    gap: 1.2rem;
-    padding-bottom: 0.8rem;
-    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 0.1rem;
+    gap: vw(12);
+    padding-bottom: vw(8);
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 vw(1);
     transition: background-size 0.4s ease;
     span{
         color: inherit;
@@ -626,17 +627,17 @@ p{
     }
     &:hover,
     &:focus-visible{
-        background-size: 100% 0.1rem;
+        background-size: 100% vw(1);
         &::after{
-            transform: translateX(0.8rem);
+            transform: translateX(vw(8));
         }
     }
     // Phones: the base `.cta_text` jumps to 6.188rem there, far bigger than the
     // "See all projects" link. Every link here uses that link's size instead.
     @include mobile(){
-        padding-bottom: 1.4rem;
-        gap: 2rem;
-        font-size: 3.6rem;
+        padding-bottom: vw-mobile(5.6);
+        gap: vw-mobile(8);
+        font-size: vw-mobile(14.4);
     }
 }
 
@@ -647,29 +648,29 @@ p{
     h1{
         letter-spacing: 0;
         width: 100%;
-        margin-bottom: 2rem;
-        font-size: 14rem;
+        margin-bottom: vw(20);
+        font-size: vw(140);
         line-height: .95;
     }
     .banner_cta_group{
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 2rem 3rem;
-        margin-top: 3rem;
+        gap: vw(20) vw(30);
+        margin-top: vw(30);
         @include mobile(){
-            gap: 4rem 6rem;
-            margin-top: 6rem;
+            gap: vw-mobile(16) vw-mobile(24);
+            margin-top: vw-mobile(24);
         }
     }
     .banner_cta{
         display: inline-block;
-        padding: 1.4rem 3rem;
-        border: 0.1rem solid $black;
-        border-radius: 5rem;
+        padding: vw(14) vw(30);
+        border: vw(1) solid $black;
+        border-radius: vw(50);
         background: $black;
         color: $white;
-        font-size: 1.8rem;
+        font-size: vw(18);
         line-height: 1;
         font-weight: $exlight;
         transition: background 0.3s ease-in, color 0.3s ease-in;
@@ -678,8 +679,8 @@ p{
             color: $black;
         }
         @include mobile(){
-            padding: 2.8rem 5.6rem;
-            font-size: 3.4rem;
+            padding: vw-mobile(11.2) vw-mobile(22.4);
+            font-size: vw-mobile(13.6);
         }
     }
     // Underline slides out to the right on hover, same as `.link` (blog_link).
@@ -687,7 +688,7 @@ p{
         position: relative;
         display: inline-block;
         color: $black;
-        font-size: 2.4rem;
+        font-size: vw(24);
         line-height: 1.4;
         font-weight: 400;
         &::after{
@@ -696,7 +697,7 @@ p{
             width: 100%;
             left: 0;
             bottom: 0;
-            height: 0.1rem;
+            height: vw(1);
             background: $black_60;
             transform: scaleX(1);
             transform-origin: bottom left;
@@ -707,9 +708,9 @@ p{
             transform-origin: bottom right;
         }
         @include mobile(){
-            font-size: 4.2rem;
+            font-size: vw-mobile(16.8);
             &::after{
-                height: 0.2rem;
+                height: vw-mobile(0.8);
             }
         }
     }
@@ -718,25 +719,25 @@ p{
 // Services grid — static 3-column replacement for the old pinned
 // horizontal-scroll slider. Intro copy on top, one card per service below.
 .services_grid{
-    margin: 0 8rem 14rem;
+    margin: 0 vw(80) vw(140);
     @include mobile(){
-        margin: 0 6.5rem 14rem;
+        margin: 0 vw-mobile(26) vw-mobile(56);
     }
     .services_intro{
-        margin-bottom: 9rem;
+        margin-bottom: vw(90);
         @include mobile(){
-            margin-bottom: 8rem;
+            margin-bottom: vw-mobile(32);
         }
         .sub_title{
-            margin-bottom: 2rem;
+            margin-bottom: vw(20);
         }
         .sub_heading{
-            font-size: 9.5rem;
-            margin-bottom: 3rem;
+            font-size: vw(95);
+            margin-bottom: vw(30);
             max-width: 10em;
             text-wrap: balance;
             @include mobile(){
-                font-size: 10rem;
+                font-size: vw-mobile(40);
                 max-width: 100%;
             }
         }
@@ -744,10 +745,10 @@ p{
     .services_list{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 9rem 6rem;
+        gap: vw(90) vw(60);
         @include mobile(){
             grid-template-columns: 1fr;
-            gap: 12rem;
+            gap: vw-mobile(48);
         }
     }
     .services_item{
@@ -757,69 +758,69 @@ p{
     }
     .services_item_img{
         width: 100%;
-        max-width: 42rem;
+        max-width: vw(420);
         height: auto;
-        margin-bottom: 5rem;
+        margin-bottom: vw(50);
         mix-blend-mode: multiply;
         @include mobile(){
             max-width: 80%;
-            margin-bottom: 6rem;
+            margin-bottom: vw-mobile(24);
         }
     }
     .services_item_label{
-        margin-bottom: 2.4rem;
-        font-size: 1.4rem;
+        margin-bottom: vw(24);
+        font-size: vw(14);
         font-weight: $exlight;
         letter-spacing: 0.4em;
         line-height: 1;
         text-transform: uppercase;
         @include mobile(){
-            font-size: 2.6rem;
-            margin-bottom: 4rem;
+            font-size: vw-mobile(10.4);
+            margin-bottom: vw-mobile(16);
         }
     }
     .services_item_heading{
-        margin-bottom: 2.4rem;
-        font-size: 5.2rem;
+        margin-bottom: vw(24);
+        font-size: vw(52);
         font-weight: $exlight;
         line-height: 1;
         @include mobile(){
-            font-size: 8rem;
-            margin-bottom: 4rem;
+            font-size: vw-mobile(32);
+            margin-bottom: vw-mobile(16);
         }
     }
     p{
-        max-width: 40rem;
-        margin-bottom: 3rem;
+        max-width: vw(400);
+        margin-bottom: vw(30);
         font-weight: 300;
         @include mobile(){
             max-width: 100%;
-            margin-bottom: 5rem;
+            margin-bottom: vw-mobile(20);
         }
     }
     .services_more{
         display: flex;
         justify-content: flex-start;
-        margin-top: 10rem;
+        margin-top: vw(100);
         @include mobile(){
-            margin-top: 12rem;
+            margin-top: vw-mobile(48);
         }
     }
     .services_item_link{
         display: inline-block;
-        padding-bottom: 0.8rem;
-        font-size: 2.4rem;
+        padding-bottom: vw(8);
+        font-size: vw(24);
         letter-spacing: 0.06em;
         color: $black;
         font-weight: 400;
         @include mobile(){
-            font-size: 4.2rem;
-            padding-bottom: 1.2rem;
+            font-size: vw-mobile(16.8);
+            padding-bottom: vw-mobile(4.8);
         }
         &::after{
-            height: 0.1rem;
+            height: vw(1);
             @include mobile(){
-                height: 0.2rem;
+                height: vw-mobile(0.8);
             }
         }
     }
@@ -857,25 +858,25 @@ p{
     }
     &:nth-child(1){
         @include mobile(){
-            width: 75rem;
+            width: vw-mobile(300);
         }
     }
     &>img{
-        width: 67.2rem;
+        width: vw(672);
         mix-blend-mode: multiply;
         @include mobile(){
-            margin-top: 1rem;
+            margin-top: vw-mobile(4);
             margin-left: 0;
             width: 80%;
         }
     }
     &>div{
         @include mobile(){
-            margin: 0 6.5rem;
+            margin: 0 vw-mobile(26);
             width: auto;
         }
         @media (max-width: 1024px) {
-            margin: 0 6.5rem;
+            margin: 0 vw(65);
             width: auto;
         }
     }
@@ -883,22 +884,22 @@ p{
 
 h2, .sub_heading{
     width: 100%;
-    font-size: 6.4rem;
-    margin-bottom: 1.5rem;
+    font-size: vw(64);
+    margin-bottom: vw(15);
     line-height: 1;
     letter-spacing: 0;
     color: $black;
     @include mobile(){
-        font-size: 10rem;
-        margin-bottom: 5rem;
-        letter-spacing: 0.2rem;
+        font-size: vw-mobile(40);
+        margin-bottom: vw-mobile(20);
+        letter-spacing: vw-mobile(0.8);
     }
 }
 
 .sub_heading{
-    font-size: 9.5rem;
+    font-size: vw(95);
     @include mobile(){
-        font-size: 8rem;
+        font-size: vw-mobile(32);
     }
 }
 
@@ -914,15 +915,15 @@ h2, .sub_heading{
 // Homepage only: one vertical rhythm between sections. Side and top margins
 // stay with each section's own rule.
 .home_wrapper .ml-setter > section[data-section]{
-    margin-bottom: 23rem;
+    margin-bottom: vw(230);
     justify-content: flex-start;
-    gap: 18rem;
+    gap: vw(180);
 }
 
 // Testimonials is a grid, so the shared 18rem `gap` above opened a huge space
 // between its heading and the cards. No row gap here; keeps its own column gap.
 .home_wrapper .ml-setter > section[data-section="testimonial"]{
-    gap: 0 3rem;
+    gap: 0 vw(30);
 }
 
 // The statistics bar follows the banner directly: the banner has no bottom
@@ -931,9 +932,9 @@ h2, .sub_heading{
     margin-bottom: 0;
 }
 .home_wrapper .ml-setter > .statistics_bar[data-section]{
-    margin-top: 5rem;
+    margin-top: vw(50);
     @include mobile(){
-        margin-top: 6rem;
+        margin-top: vw-mobile(24);
     }
 }
 
@@ -941,7 +942,7 @@ h2, .sub_heading{
 // room, so sections without a description don't stick to their title.
 .home_wrapper{
     .work_box{
-        margin-top: 6rem;
+        margin-top: vw(60);
     }
     .section_description{
         margin-bottom: 0;
@@ -950,7 +951,7 @@ h2, .sub_heading{
 
 // Homepage only: every section description shares one width.
 .home_wrapper .section_description{
-    max-width: 52rem;
+    max-width: vw(520);
     @include mobile(){
         max-width: 100%;
     }
@@ -967,34 +968,34 @@ h2, .sub_heading{
 }
 
 .horizontal_sliders.slide-2{
-    margin-top: 10rem;
+    margin-top: vw(100);
     justify-content: flex-end;
     align-items: flex-start;
-    margin-left: 11rem;
-    gap: 2rem;
+    margin-left: vw(110);
+    gap: vw(20);
     .sub_title{
-        letter-spacing: 1.5rem;
+        letter-spacing: vw(15);
     }
     &>img{
-        width: 67.2rem;
+        width: vw(672);
         mix-blend-mode:multiply;
-        margin: 21rem 5rem 0 0;
+        margin: vw(210) vw(50) 0 0;
     }
 }
 
 .our_work{
-    margin: 0 8rem 13.5rem;
+    margin: 0 vw(80) vw(135);
     @include mobile(){
-        margin: 0 4rem;
+        margin: 0 vw-mobile(16);
     }
     .work_box{
-        width: 164.9rem;
+        width: vw(1649);
         max-width: 100%;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 0;
-        border-bottom: 0.2rem solid $gray_light;
-        border-right: 0.2rem solid $gray_light;
+        border-bottom: vw(2) solid $gray_light;
+        border-right: vw(2) solid $gray_light;
         @include mobile(){
             width: auto;
             margin: 0;
@@ -1004,17 +1005,17 @@ h2, .sub_heading{
         }
         a, .awards_work{
             width: 100%;
-            height: 31.6rem;
+            height: vw(316);
             display: flex;
             justify-content: center;
             align-items: center;
-            border-top: 0.2rem solid $gray_light;
-            border-left: 0.2rem solid $gray_light;
-            margin-right: -0.2rem;
-            margin-bottom: -0.2rem;
+            border-top: vw(2) solid $gray_light;
+            border-left: vw(2) solid $gray_light;
+            margin-right: vw(-2);
+            margin-bottom: vw(-2);
             @include mobile(){
                 border-width: 1px;
-                height: 30rem;
+                height: vw-mobile(120);
                 margin-right: -1px;
                 margin-bottom: -1px;
             }
@@ -1028,10 +1029,10 @@ h2, .sub_heading{
                 // Desktop: fixed width so client logos scale up past the
                 // 127px width attribute (award logos override this below).
                 @media (min-width: 541px){
-                    width: 20rem;
+                    width: vw(170);
                 }
                 @include mobile(){
-                    width: 20rem;
+                    width: vw-mobile(80);
                 }
             }
             &:hover{
@@ -1046,7 +1047,7 @@ h2, .sub_heading{
     // source, which is what blurs them), capped to a share of the cell.
     .work_box .awards_work{
         @media (min-width: 541px){
-            height: 27.9rem;
+            height: vw(279);
         }
         img{
             width: auto;
@@ -1055,7 +1056,7 @@ h2, .sub_heading{
             // Desktop: a fixed width like the client logos (they were capped
             // at 40% of the cell and looked small), still limited by cell size.
             @media (min-width: 541px){
-                width: 20rem;
+                width: vw(170);
                 max-width: 70%;
                 max-height: 65%;
             }
@@ -1083,14 +1084,14 @@ h2, .sub_heading{
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.4rem;
-        padding: 0 2rem 2.6rem;
+        gap: vw(4);
+        padding: 0 vw(20) vw(26);
         text-align: center;
         color: $white;
-        font-size: 1.4rem;
+        font-size: vw(14);
         line-height: 1.35;
         opacity: 0;
-        transform: translateY(1.2rem);
+        transform: translateY(vw(12));
         transition: opacity 0.35s ease, transform 0.35s ease;
         pointer-events: none;
         // Phones: the cell is too small for logo + details together, so the
@@ -1099,14 +1100,14 @@ h2, .sub_heading{
         @include mobile(){
             top: 0;
             justify-content: center;
-            gap: 0.6rem;
-            padding: 0 2.4rem;
-            font-size: 2.6rem;
+            gap: vw-mobile(2.4);
+            padding: 0 vw-mobile(9.6);
+            font-size: vw-mobile(10.4);
             transform: none;
         }
     }
     .awards_detail_eyebrow{
-        margin-bottom: 0.4rem;
+        margin-bottom: vw(4);
         font-size: 0.85em;
         letter-spacing: 0.25em;
         text-transform: uppercase;
@@ -1123,7 +1124,7 @@ h2, .sub_heading{
         img{
             // The logo is large now, so on hover it shrinks and lifts well
             // clear of the details underneath.
-            transform: translateY(-4.5rem) scale(0.6);
+            transform: translateY(vw(-45)) scale(0.6);
             @include mobile(){
                 transform: none;
                 opacity: 0;
@@ -1143,7 +1144,7 @@ h2, .sub_heading{
 
 .cta_box{
     width: auto;
-    margin-top: 9.5rem;
+    margin-top: vw(95);
 }
 
 
@@ -1151,46 +1152,46 @@ h2, .sub_heading{
 // full-bleed photo with a bottom gradient; hover zooms the photo, deepens the
 // shade, lifts the copy and slides the arrow.
 .features{
-    margin: 0 8rem 14rem;
+    margin: 0 vw(80) vw(140);
     @include mobile(){
-        margin: 0 6.5rem 14rem;
+        margin: 0 vw-mobile(26) vw-mobile(56);
     }
     .features_head{
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
-        gap: 6rem;
-        margin-bottom: 8rem;
+        gap: vw(60);
+        margin-bottom: vw(80);
         @include mobile(){
             flex-direction: column;
             align-items: flex-start;
-            gap: 4rem;
+            gap: vw-mobile(16);
         }
         .sub_title{
-            margin-bottom: 2rem;
+            margin-bottom: vw(20);
         }
         .sub_heading{
-            font-size: 9.5rem;
+            font-size: vw(95);
             margin-bottom: 0;
             max-width: 16em;
             text-wrap: balance;
             @include mobile(){
-                font-size: 10rem;
+                font-size: vw-mobile(40);
                 max-width: 100%;
             }
         }
         p{
-            margin-bottom: 1rem;
+            margin-bottom: vw(10);
         }
     }
     // Accordion: cards share the row by flex-grow. Hovering the grid evens
     // them out, and the hovered card grows while its siblings shrink.
     .features_grid{
         display: flex;
-        gap: 3.2rem;
+        gap: vw(32);
         @include mobile(){
             flex-direction: column;
-            gap: 4rem;
+            gap: vw-mobile(16);
         }
     }
     .feature_card{
@@ -1199,8 +1200,8 @@ h2, .sub_heading{
         overflow: hidden;
         flex: 1 1 0;
         min-width: 0;
-        min-height: 60rem;
-        border-radius: 0.4rem;
+        min-height: vw(600);
+        border-radius: vw(4);
         color: $white;
         isolation: isolate;
         transition: flex-grow 0.5s cubic-bezier(0.65, 0, 0.35, 1),
@@ -1210,10 +1211,10 @@ h2, .sub_heading{
         }
         @include mobile(){
             flex: none;
-            min-height: 100rem;
+            min-height: vw-mobile(400);
         }
         &:hover{
-            box-shadow: 0 3rem 6rem rgba($black, 0.28);
+            box-shadow: 0 vw(30) vw(60) rgba($black, 0.28);
         }
     }
     @media (hover: hover) and (min-width: 541px){
@@ -1249,69 +1250,69 @@ h2, .sub_heading{
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 0 3.2rem 3.2rem;
-        transform: translateY(1.6rem);
+        padding: 0 vw(32) vw(32);
+        transform: translateY(vw(16));
         transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         @include mobile(){
-            padding: 0 5rem 5rem;
+            padding: 0 vw-mobile(20) vw-mobile(20);
         }
         p{
-            max-width: 32rem;
-            margin: 0 0 2.4rem;
-            font-size: 1.5rem;
+            max-width: vw(320);
+            margin: 0 0 vw(24);
+            font-size: vw(15);
             line-height: 1.4;
             color: $white_80;
             transition: max-width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             @include mobile(){
                 max-width: 100%;
-                font-size: 3rem;
-                margin-bottom: 4rem;
+                font-size: vw-mobile(12);
+                margin-bottom: vw-mobile(16);
             }
         }
     }
     .feature_card_tags{
         display: flex;
         flex-wrap: wrap;
-        gap: 0.8rem;
-        margin: 0 0 2rem;
+        gap: vw(8);
+        margin: 0 0 vw(20);
         padding: 0;
         list-style: none;
         li{
             list-style: none;
-            padding: 0.7rem 1.3rem;
-            border: 0.1rem solid $white_60;
-            border-radius: 5rem;
-            font-size: 1rem;
+            padding: vw(7) vw(13);
+            border: vw(1) solid $white_60;
+            border-radius: vw(50);
+            font-size: vw(10);
             letter-spacing: 0.1em;
             line-height: 1;
             color: $white;
             transition: border-color 0.25s ease;
             @include mobile(){
-                padding: 1.4rem 2.6rem;
-                font-size: 2rem;
+                padding: vw-mobile(5.6) vw-mobile(10.4);
+                font-size: vw-mobile(8);
             }
         }
     }
     .feature_card_title{
-        margin-bottom: 1.6rem;
-        font-size: 5.2rem;
+        margin-bottom: vw(16);
+        font-size: vw(52);
         font-weight: $exlight;
         line-height: 1;
         color: $white;
         @include mobile(){
-            font-size: 8rem;
-            margin-bottom: 3rem;
+            font-size: vw-mobile(32);
+            margin-bottom: vw-mobile(12);
         }
     }
     .feature_card_link{
         position: relative;
         display: inline-block;
-        padding-bottom: 0.4rem;
-        font-size: 1.5rem;
+        padding-bottom: vw(4);
+        font-size: vw(15);
         color: $white;
         @include mobile(){
-            font-size: 3rem;
-            padding-bottom: 0.8rem;
+            font-size: vw-mobile(12);
+            padding-bottom: vw-mobile(3.2);
         }
         &::after{
             content: '';
@@ -1319,7 +1320,7 @@ h2, .sub_heading{
             left: 0;
             bottom: 0;
             width: 100%;
-            height: 0.1rem;
+            height: vw(1);
             background: $white;
             transform-origin: bottom left;
             transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1348,22 +1349,22 @@ h2, .sub_heading{
             border-color: $white;
         }
         .feature_card_link i{
-            transform: translateX(0.8rem);
+            transform: translateX(vw(8));
         }
         .feature_card_link::after{
             transform: scaleX(0.35);
         }
     }
     .features_more{
-        margin-top: 9.5rem;
+        margin-top: vw(95);
         @include mobile(){
-            margin-top: 10rem;
+            margin-top: vw-mobile(40);
         }
     }
     // "See all Projects": same underline + arrow hover as `.home_wrapper
     // .cta_text` (shared rule above), with the same type as `.cta_text`.
     .features_all{
-        font-size: 3.6rem;
+        font-size: vw(36);
         font-weight: $exlight;
         line-height: 1;
         color: $black;
@@ -1375,7 +1376,7 @@ h2, .sub_heading{
         .feature_card,
         .features_more{
             opacity: 0;
-            transform: translateY(4rem);
+            transform: translateY(vw(40));
             transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
                 flex-grow 0.5s cubic-bezier(0.65, 0, 0.35, 1),
@@ -1414,7 +1415,7 @@ h2, .sub_heading{
 }
 
 .awards{
-    margin: 5rem 8rem 5rem;
+    margin: vw(50) vw(80) vw(50);
     position: relative;
     z-index: 2;
     .cta_box{
@@ -1437,40 +1438,40 @@ h2, .sub_heading{
 }
 
 .form{
-    width: 82.5rem;
+    width: vw(825);
     overflow: hidden;
 
     @include tablet(){
-        width: 110rem;
+        width: vw(1100);
     }
     @include mobile(){
         width: 100%;
     }
     label{
-        font-size: 2rem;
+        font-size: vw(20);
         color: $white;
         display: block;
-        padding-bottom: 1.5rem;
+        padding-bottom: vw(15);
         @include mobile(){
-            font-size: 3rem;
+            font-size: vw-mobile(12);
         }
     }
     input{
         display: block;
-        border-bottom: 0.2rem solid $gray;
+        border-bottom: vw(2) solid $gray;
         width: 100%;
         color: $white;
-        font-size: 2rem;
-        padding-bottom: 1rem;
+        font-size: vw(20);
+        padding-bottom: vw(10);
         line-height: 1.3;
-        margin-bottom: 4.5rem;
+        margin-bottom: vw(45);
         appearance: none;
         @include mobile(){
-            font-size: 3rem;
+            font-size: vw-mobile(12);
         }
     }
     .cta_text{
-        font-size: 4.8rem;
+        font-size: vw(48);
         span{
             color: $white;
             &::before{
@@ -1485,34 +1486,34 @@ h2, .sub_heading{
 }
 
 .testimonial{
-    margin: 22rem 8rem 12rem;
+    margin: vw(220) vw(80) vw(120);
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 67.8rem;
-    column-gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) vw(678);
+    column-gap: vw(30);
     align-items: start;
     @include mobile(){
-        margin: 0 6.5rem 12rem;
+        margin: 0 vw-mobile(26) vw-mobile(48);
         display: block;
     }
     .testimonial_top > div{
         grid-column: 1;
         grid-row: 1;
-        margin-bottom: 5.5rem;
+        margin-bottom: vw(55);
         .sub_heading{
             margin-bottom: 0;
         }
         .section_description{
-            margin-top: 3rem;
+            margin-top: vw(30);
         }
     }
     .testimonial_top > img,
     .testimonial_top > span{
         position: absolute;
-        top: -18rem;
-        right: -1.5rem;
-        width: 67.8rem !important;
+        top: vw(-180);
+        right: vw(-15);
+        width: vw(678) !important;
         height: auto !important;
         z-index: 0;
         pointer-events: none;
@@ -1544,19 +1545,19 @@ h2, .sub_heading{
         bottom: auto;
         right: auto;
         width: auto;
-        margin-top: 3rem;
+        margin-top: vw(30);
     }
     > .swiper-pagination{
         grid-column: 1;
         grid-row: 4;
         position: relative;
-        margin-top: 2rem;
+        margin-top: vw(20);
     }
     @include mobile(){
         .testimonial_top{
             display: flex;
             flex-direction: column-reverse;
-            gap: 20rem;
+            gap: vw-mobile(80);
             margin-bottom: 0;
         }
         .testimonial_top > img,
@@ -1574,24 +1575,24 @@ h2, .sub_heading{
 }
 
 .testimonial_wrapper{
-    width: 111.5rem;
+    width: vw(1115);
     margin: 0 auto;
     position: relative;
     @include mobile(){
         width: 100%;
-        margin-bottom: 30rem;
+        margin-bottom: vw-mobile(120);
     }
     .testimonial_content{
-        font-size: 3.5rem;
-        margin-bottom: 5.5rem;
+        font-size: vw(35);
+        margin-bottom: vw(55);
         color: $black;
         span{
-            font-size: 1.801rem;
+            font-size: vw(18.01);
             color: $gray_dark;
-            margin-right: 1.3rem;
+            margin-right: vw(13);
             text-transform: uppercase;
             @include mobile(){
-                font-size: 2.5rem;
+                font-size: vw-mobile(10);
             }
         }
         @include mobile(){
@@ -1603,20 +1604,20 @@ h2, .sub_heading{
     .company{
         display: flex;
         align-items: center;
-        gap: 2.5rem;
-        font-size: 1.801rem;
+        gap: vw(25);
+        font-size: vw(18.01);
         @include mobile(){
-            font-size: 4rem;
+            font-size: vw-mobile(16);
         }
         img{
-            width: 11.4rem;
+            width: vw(114);
             @include mobile(){
-                width: 17rem;
+                width: vw-mobile(68);
             }
         }
         .name{
             line-height: 1;
-            margin-bottom: 1rem;
+            margin-bottom: vw(10);
             color: $black;
             text-transform: uppercase;
         }
@@ -1631,20 +1632,20 @@ h2, .sub_heading{
     position: absolute;
     display: flex;
     align-items: center;
-    width: 30rem;
-    bottom: 6rem;
-    right: 40rem;
+    width: vw(300);
+    bottom: vw(60);
+    right: vw(400);
     gap:5vw;
     @include mobile(){
-        width: 50rem;
-        bottom: -12rem;
-        right: 21rem;
+        width: vw-mobile(200);
+        bottom: vw-mobile(-48);
+        right: vw-mobile(84);
         justify-content: space-between;
     }
     .cta_text{
-        gap: 1rem;
+        gap: vw(10);
         color: $black;
-        font-size: 2.6rem;
+        font-size: vw(26);
         &::after{
             display: none;
         }
@@ -1662,7 +1663,7 @@ h2, .sub_heading{
         height: auto;
         display: inline-flex;
         align-items: center;
-        gap: 1rem;
+        gap: vw(10);
         background: none;
         border: none;
         padding: 0;
@@ -1673,8 +1674,8 @@ h2, .sub_heading{
             display: none;
         }
         .swiper-navigation-icon{
-            width: 1.1rem;
-            height: 2rem;
+            width: vw(11);
+            height: vw(20);
             flex-shrink: 0;
         }
         span{
@@ -1688,14 +1689,14 @@ h2, .sub_heading{
 }
 
 .home_blogs{
-    margin-right: 6.5rem;
-    margin-bottom: 12.5rem;
+    margin-right: vw(65);
+    margin-bottom: vw(125);
     .blog_wrapper{
-        margin-top: 7.5rem;
+        margin-top: vw(75);
         text-align: center;
     }
     @include mobile(){
-        margin-left: 6.5rem;
+        margin-left: vw-mobile(26);
     }
 }
 
@@ -1704,40 +1705,40 @@ h2, .sub_heading{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 14rem;
+    margin-bottom: vw(140);
     @include mobile(){
         flex-direction: column;
-        gap: 10rem;
+        gap: vw-mobile(40);
     }
     .blog_box{
-        width: 54rem;
+        width: vw(540);
         @include mobile(){
             width: 100%;
         }
         .blog_img{
             overflow: hidden;
             width: 100%;
-            margin-bottom: 4rem;
+            margin-bottom: vw(40);
             img{
                 width: 100%;
                 transition: scale 0.4s ease-in;
             }
         }
         .top_text{
-            font-size: 3rem;
+            font-size: vw(30);
             line-height: 1;
-            margin-bottom: .8rem;
-            letter-spacing: .1rem;
+            margin-bottom: vw(8);
+            letter-spacing: vw(1);
             transition: scale 0.5s ease-in;
             @include mobile(){
-                font-size: 5rem;
-                margin-bottom: 1.5rem;
+                font-size: vw-mobile(20);
+                margin-bottom: vw-mobile(6);
             }
         }
         .bottom_text{
-            font-size: 1.6rem;
+            font-size: vw(16);
             @include mobile(){
-                font-size: 3.5rem;
+                font-size: vw-mobile(14);
             }
         }
         &:hover{
@@ -1750,22 +1751,22 @@ h2, .sub_heading{
 
 
 h5, .h5{
-    font-size: 4.2rem;
+    font-size: vw(42);
     line-height: 1.1;
     color: $black;
     width: auto;
     @include mobile(){
-        font-size: 7rem;
+        font-size: vw-mobile(28);
     }
 }
 
 .h6{
-    font-size: 2.1rem;
+    font-size: vw(21);
     line-height: 1.1;
     color: $black;
     width: auto;
     @include mobile(){
-        font-size: 2.5rem;
+        font-size: vw-mobile(10);
     }
 }
 
@@ -1774,21 +1775,21 @@ h5, .h5{
 }
 
 h4, .aside_title{
-    font-size: 5.4rem;
+    font-size: vw(54);
     line-height: 1.1;
     color: $black;
     @include mobile(){
-        font-size: 7rem;
+        font-size: vw-mobile(28);
     }
 }
 
 h3, .h2{
-    font-size: 10rem;
+    font-size: vw(100);
     line-height: 1;
     color: $black;
     letter-spacing: normal;
     @include mobile(){
-        font-size: 7rem;
+        font-size: vw-mobile(28);
     }
 }
 
@@ -1802,7 +1803,7 @@ h3, .h2{
         width: 100%;
         left: 0;
         bottom: 0;
-        height: 0.2rem;
+        height: vw(2);
         background: $black_60;
         transform: scaleX(1);
         transform-origin: bottom left;
@@ -1817,45 +1818,45 @@ h3, .h2{
 }
 
 .client_work{
-    margin: 0 8rem;
+    margin: 0 vw(80);
 }
 
 // Statistics bar — sits right below the home banner. Locations line comes
 // from the footer offices; each cell is a CMS `statisticsBar` entry.
 .statistics_bar{
-    margin: 12rem 0;
+    margin: vw(120) 0;
     @include mobile(){
-        margin: 6rem 0 14rem;
+        margin: vw-mobile(24) 0 vw-mobile(56);
     }
     .statistics_locations{
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 0.8rem;
-        margin: 0 8rem 16rem;
-        font-size: 1.6rem;
+        gap: vw(8);
+        margin: 0 vw(80) vw(160);
+        font-size: vw(16);
         color: #000000e3;
         letter-spacing: 0.2em;
         text-transform: uppercase;
         line-height: 1;
         @include mobile(){
-            margin: 0 6.5rem 5rem;
-            font-size: 2.4rem;
-            gap: 1.4rem;
+            margin: 0 vw-mobile(26) vw-mobile(20);
+            font-size: vw-mobile(9.6);
+            gap: vw-mobile(5.6);
         }
         span + span::before{
             content: '·';
-            margin-right: 0.8rem;
+            margin-right: vw(8);
             @include mobile(){
-                margin-right: 1.4rem;
+                margin-right: vw-mobile(5.6);
             }
         }
     }
     .statistics_grid{
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        border-top: 0.1rem solid rgba($black, 0.1);
-        border-bottom: 0.1rem solid rgba($black, 0.1);
+        border-top: vw(1) solid rgba($black, 0.1);
+        border-bottom: vw(1) solid rgba($black, 0.1);
         @include mobile(){
             grid-template-columns: repeat(2, 1fr);
         }
@@ -1865,20 +1866,20 @@ h3, .h2{
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1.2rem;
-        padding: 5rem 2rem;
+        gap: vw(12);
+        padding: vw(50) vw(20);
         text-align: center;
-        border-left: 0.1rem solid rgba($black, 0.1);
+        border-left: vw(1) solid rgba($black, 0.1);
         &:first-child{
             border-left: 0;
         }
         @include mobile(){
-            padding: 7rem 2rem;
-            gap: 2rem;
+            padding: vw-mobile(28) vw-mobile(8);
+            gap: vw-mobile(8);
             // Rows are divided by a top line on every item after the first
             // row; the grid's own bottom border closes the last row.
             &:nth-child(n + 3){
-                border-top: 0.1rem solid rgba($black, 0.1);
+                border-top: vw-mobile(0.4) solid rgba($black, 0.1);
             }
             &:nth-child(odd){
                 border-left: 0;
@@ -1891,7 +1892,7 @@ h3, .h2{
         }
     }
     .statistics_value{
-        font-size: 13.4rem;
+        font-size: vw(134);
         line-height: 1;
         font-weight: 200;
         color: #343434;
@@ -1904,18 +1905,18 @@ h3, .h2{
             margin-left: 0.15em;
         }
         @include mobile(){
-            font-size: 12rem;
+            font-size: vw-mobile(48);
         }
     }
     .statistics_label{
-        font-size: 2.2rem;
+        font-size: vw(22);
         letter-spacing: 0.08em;
         color: #343434;
         text-transform: uppercase;
         line-height: 1.3;
         font-weight: 400;
         @include mobile(){
-            font-size: 2.6rem;
+            font-size: vw-mobile(10.4);
             letter-spacing: 0.04em;
         }
     }
@@ -1930,37 +1931,37 @@ h3, .h2{
         }
         .statistics_icon{
             width: auto;
-            height: 14rem;
+            height: vw(140);
             @include mobile(){
-                height: 17rem;
+                height: vw-mobile(68);
             }
         }
         .statistics_label{
             text-transform: none;
-            font-size: 1.6rem;
-            max-width: 22rem;
+            font-size: vw(16);
+            max-width: vw(220);
             @include mobile(){
-                font-size: 3rem;
-                max-width: 36rem;
+                font-size: vw-mobile(12);
+                max-width: vw-mobile(144);
             }
         }
     }
 }
 .home_industries{
-    margin-left: 8rem;
-    margin-right: 8rem;
+    margin-left: vw(80);
+    margin-right: vw(80);
     @include mobile(){
-        margin-left: 4rem;
-        margin-right: 4rem;
+        margin-left: vw-mobile(16);
+        margin-right: vw-mobile(16);
     }
     .home_industries_head .section_description{
-        margin-top: 3rem;
+        margin-top: vw(30);
     }
     // Outer hairline frame + 1px inner dividers (box-shadow on each cell,
     // clipped on the outer right/bottom edge) so lines survive fractional
     // device pixels at any zoom.
     .home_industries_grid{
-        margin-top: 8rem;
+        margin-top: vw(80);
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         border-top: 1px solid rgba($black, .15);
@@ -1968,7 +1969,7 @@ h3, .h2{
         border-right: 1px solid rgba($black, .15);
         @include mobile(){
             grid-template-columns: 1fr;
-            margin-top: 6rem;
+            margin-top: vw-mobile(24);
         }
     }
     .home_industries_cell{
@@ -1976,8 +1977,8 @@ h3, .h2{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        min-height: 28rem;
-        padding: 5rem 5rem 4.2rem;
+        min-height: vw(280);
+        padding: vw(50) vw(50) vw(42);
         overflow: hidden;
         color: $black;
         border-bottom: 1px solid rgba($black, .15);
@@ -2002,7 +2003,7 @@ h3, .h2{
         }
         @include mobile(){
             min-height: 0;
-            padding: 5rem 4rem 4rem;
+            padding: vw-mobile(20) vw-mobile(16) vw-mobile(16);
             &:not(:nth-child(3n)){
                 border-right: 0;
             }
@@ -2021,33 +2022,33 @@ h3, .h2{
                 color: $white;
             }
             .home_industries_name{
-                transform: translateY(-.6rem);
+                transform: translateY(vw(-6));
             }
             .home_industries_arrow{
-                transform: translateX(1rem);
+                transform: translateX(vw(10));
             }
         }
     }
     .home_industries_name{
-        margin: 0 0 1.6rem;
-        font-size: 4.2rem;
+        margin: 0 0 vw(16);
+        font-size: vw(42);
         font-weight: 400;
         letter-spacing: 0;
         line-height: 1.15;
         color: $black;
         transition: color .4s ease, transform .5s cubic-bezier(.65, 0, .35, 1);
         @include mobile(){
-            font-size: 5rem;
+            font-size: vw-mobile(20);
         }
     }
     .home_industries_clients{
         margin: 0;
-        font-size: 1.8rem;
+        font-size: vw(18);
         line-height: 1.4;
         color: $black_60;
         transition: color .4s ease;
         @include mobile(){
-            font-size: 3rem;
+            font-size: vw-mobile(12);
         }
     }
     .home_industries_cta{
@@ -2056,41 +2057,41 @@ h3, .h2{
         justify-content: space-between;
         width: 100%;
         margin-top: auto;
-        padding-top: 4rem;
-        font-size: 1.5rem;
-        letter-spacing: .1rem;
+        padding-top: vw(40);
+        font-size: vw(15);
+        letter-spacing: vw(1);
         text-transform: uppercase;
         color: $black;
         transition: color .4s ease;
         @include mobile(){
-            font-size: 2.6rem;
+            font-size: vw-mobile(10.4);
         }
     }
     .home_industries_arrow{
         font-style: normal;
-        font-size: 2.8rem;
+        font-size: vw(28);
         line-height: 1;
         transition: transform .4s cubic-bezier(.65, 0, .35, 1);
         @include mobile(){
-            font-size: 4rem;
+            font-size: vw-mobile(16);
         }
     }
 }
 
 .home_blogs{
-    margin-left: 8rem;
-    margin-right: 8rem;
+    margin-left: vw(80);
+    margin-right: vw(80);
     @include mobile(){
-        margin-left: 6.5rem;
-        margin-right: 6.5rem;
+        margin-left: vw-mobile(26);
+        margin-right: vw-mobile(26);
     }
     .section_description{
-        margin-top: 3rem;
+        margin-top: vw(30);
     }
     .other_blogs{
-        margin-top: 7.5rem;
+        margin-top: vw(75);
         grid-template-columns: repeat(3, 1fr);
-        gap: 11rem;
+        gap: vw(110);
         @include mobile(){
             grid-template-columns: 1fr;
         }
@@ -2120,61 +2121,61 @@ h3, .h2{
 // `.contact_us` (also on the section) supplies the form's field styling; the
 // overrides below only fix its page-level layout for this two-column spot.
 .home_contact{
-    margin-left: 8rem;
-    margin-right: 8rem;
+    margin-left: vw(80);
+    margin-right: vw(80);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 4rem;
+    column-gap: vw(40);
     align-items: start;
     @include mobile(){
-        margin-left: 6.5rem;
-        margin-right: 6.5rem;
+        margin-left: vw-mobile(26);
+        margin-right: vw-mobile(26);
         grid-template-columns: 1fr;
-        row-gap: 8rem;
+        row-gap: vw-mobile(32);
     }
     .sub_title{
-        margin-bottom: 2rem;
+        margin-bottom: vw(20);
     }
     // Full column width (the homepage-wide 60% would wrap this to 3 lines).
     .sub_heading{
         width: 100%;
-        font-size: 12rem;
-        margin-bottom: 4.5rem;
+        font-size: vw(120);
+        margin-bottom: vw(45);
         @include mobile(){
-            font-size: 10rem;
+            font-size: vw-mobile(40);
         }
     }
     .section_description{
-        max-width: 66rem;
+        max-width: vw(660);
         margin: 0;
-        font-size: 2.2rem;
+        font-size: vw(22);
         line-height: 1.5;
         @include mobile(){
             max-width: 100%;
-            font-size: 3.4rem;
+            font-size: vw-mobile(13.6);
         }
     }
     .home_contact_details{
         display: flex;
         flex-direction: column;
-        gap: 3.6rem;
-        margin-top: 7rem;
-        font-size: 3.6rem;
+        gap: vw(36);
+        margin-top: vw(70);
+        font-size: vw(36);
         font-weight: $regular;
         line-height: 1.3;
         // Phones: larger text and more space between the two rows.
         @include mobile(){
-            gap: 8rem;
-            font-size: 5.2rem;
-            margin-top: 8rem;
+            gap: vw-mobile(32);
+            font-size: vw-mobile(20.8);
+            margin-top: vw-mobile(32);
         }
     }
     .home_contact_item{
         display: flex;
         align-items: center;
-        gap: 2.4rem;
+        gap: vw(24);
         @include mobile(){
-            gap: 4rem;
+            gap: vw-mobile(16);
         }
         a{
             color: inherit;
@@ -2185,20 +2186,20 @@ h3, .h2{
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 6.4rem;
-            height: 6.4rem;
-            border: 0.1rem solid rgba($black, 0.25);
+            width: vw(64);
+            height: vw(64);
+            border: vw(1) solid rgba($black, 0.25);
             border-radius: 50%;
             svg{
-                width: 2.8rem;
-                height: 2.8rem;
+                width: vw(28);
+                height: vw(28);
             }
             @include mobile(){
-                width: 12rem;
-                height: 12rem;
+                width: vw-mobile(48);
+                height: vw-mobile(48);
                 svg{
-                    width: 5.2rem;
-                    height: 5.2rem;
+                    width: vw-mobile(20.8);
+                    height: vw-mobile(20.8);
                 }
             }
         }
@@ -2222,7 +2223,7 @@ h3, .h2{
             width: 100%;
             left: 0;
             bottom: 0;
-            height: 0.1rem;
+            height: vw(1);
             background: currentColor;
             transform: scaleX(1);
             transform-origin: bottom left;
@@ -2234,12 +2235,12 @@ h3, .h2{
         }
     }
     .home_contact_label{
-        font-size: 1.5rem;
+        font-size: vw(15);
         letter-spacing: 0.2em;
         text-transform: uppercase;
         color: #00000098;
         @include mobile(){
-            font-size: 2.2rem;
+            font-size: vw-mobile(8.8);
         }
     }
     // Same underlined form as the banner (Klaviyo form Rq3tfh); sizes are
@@ -2247,17 +2248,17 @@ h3, .h2{
     .home_contact_form{
         width: 100%;
         container-type: inline-size;
-        --form-input-size: 2rem;
-        --form-btn-size: 1.8rem;
-        --form-row-gap: 4rem;
-        --form-btn-pad-y: 1.6rem;
-        --form-btn-pad-x: 4rem;
+        --form-input-size: #{vw(20)};
+        --form-btn-size: #{vw(18)};
+        --form-row-gap: #{vw(40)};
+        --form-btn-pad-y: #{vw(16)};
+        --form-btn-pad-x: #{vw(40)};
         @include mobile(){
-            --form-input-size: 3.4rem;
-            --form-btn-size: 3.2rem;
-            --form-row-gap: 6rem;
-            --form-btn-pad-y: 3rem;
-            --form-btn-pad-x: 8rem;
+            --form-input-size: #{vw-mobile(13.6)};
+            --form-btn-size: #{vw-mobile(12.8)};
+            --form-row-gap: #{vw-mobile(24)};
+            --form-btn-pad-y: #{vw-mobile(12)};
+            --form-btn-pad-x: #{vw-mobile(32)};
         }
         @include klaviyo_underline_form;
 
@@ -2278,12 +2279,12 @@ h3, .h2{
             gap: 0.6em;
             margin: 5cqw 0 0;
             padding: 0 0 0.3em;
-            border-bottom: 0.1rem solid #000;
+            border-bottom: vw(1) solid #000;
             color: #000 !important;
             font-size: var(--form-btn-size);
             font-weight: 400;
             line-height: 1.2;
-            letter-spacing: 0.05rem;
+            letter-spacing: vw(0.5);
             white-space: nowrap;
             transition: opacity 0.3s ease;
 
@@ -2297,10 +2298,10 @@ h3, .h2{
 
 // Team section (below the awards): blank photo placeholders for now.
 .team_section{
-    margin: 0 8rem 13.5rem;
+    margin: 0 vw(80) vw(135);
     // Same side gutter as `.awards` (which keeps 8rem on phones).
     @include mobile(){
-        margin: 0 8rem 10rem;
+        margin: 0 vw-mobile(32) vw-mobile(40);
     }
     .sub_heading{
         max-width: 8em;
@@ -2312,13 +2313,13 @@ h3, .h2{
     .team_grid{
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 3rem;
-        margin-top: 6rem;
+        gap: vw(30);
+        margin-top: vw(60);
         // Phones: members stacked one after another.
         @include mobile(){
             grid-template-columns: 1fr;
-            gap: 8rem;
-            margin-top: 6rem;
+            gap: vw-mobile(32);
+            margin-top: vw-mobile(24);
         }
     }
     .team_photo{
@@ -2329,30 +2330,31 @@ h3, .h2{
         background: #808080;
         .team_photo_img{
             object-fit: cover;
+            filter: grayscale(1);
         }
         @include mobile(){
             width: 100%;
         }
     }
     .team_role{
-        margin-top: 4.6rem;
-        font-size: 1.2rem;
-        letter-spacing: 1.2rem;
+        margin-top: vw(46);
+        font-size: vw(12);
+        letter-spacing: vw(12);
         text-transform: uppercase;
         @include mobile(){
-            margin-top: 4rem;
-            font-size: 2.4rem;
-            letter-spacing: 0.8rem;
+            margin-top: vw-mobile(16);
+            font-size: vw-mobile(9.6);
+            letter-spacing: vw-mobile(3.2);
         }
     }
     .team_name{
-        margin-top: 1.4rem;
-        font-size: 3.2rem;
+        margin-top: vw(14);
+        font-size: vw(32);
         line-height: 1.2;
         font-weight: $exlight;
         text-transform: uppercase;
         @include mobile(){
-            font-size: 6.4rem;
+            font-size: vw-mobile(25.6);
         }
     }
     // Designation on the left, "View Profile" on the right of the same line;
@@ -2361,10 +2363,10 @@ h3, .h2{
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        gap: 2rem;
-        margin-top: 4.6rem;
+        gap: vw(20);
+        margin-top: vw(46);
         @include mobile(){
-            margin-top: 4rem;
+            margin-top: vw-mobile(16);
         }
         .team_role{
             margin-top: 0;
@@ -2375,15 +2377,15 @@ h3, .h2{
     .team_link{
         display: inline-flex;
         align-items: center;
-        gap: 1rem;
-        margin-top: 2.4rem;
-        padding-bottom: 0.6rem;
+        gap: vw(10);
+        margin-top: vw(24);
+        padding-bottom: vw(6);
         color: $black;
-        font-size: 1.8rem;
+        font-size: vw(18);
         font-weight: $light;
-        letter-spacing: 0.05rem;
+        letter-spacing: vw(0.5);
         line-height: 1;
-        background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 0.1rem;
+        background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 vw(1);
         transition: background-size 0.4s ease;
         &::after{
             content: "\2192";
@@ -2391,20 +2393,20 @@ h3, .h2{
         }
         &:hover,
         &:focus-visible{
-            background-size: 100% 0.1rem;
+            background-size: 100% vw(1);
             &::after{
-                transform: translateX(0.6rem);
+                transform: translateX(vw(6));
             }
         }
         @include mobile(){
-            gap: 2rem;
-            margin-top: 4rem;
-            padding-bottom: 1.2rem;
-            font-size: 3.4rem;
+            gap: vw-mobile(8);
+            margin-top: vw-mobile(16);
+            padding-bottom: vw-mobile(4.8);
+            font-size: vw-mobile(13.6);
             &:hover,
             &:focus-visible{
                 &::after{
-                    transform: translateX(1.2rem);
+                    transform: translateX(vw-mobile(4.8));
                 }
             }
         }
@@ -2418,10 +2420,10 @@ h3, .h2{
 .testimonial{
     .testimonial_top > img,
     .testimonial_top > span{
-        top: -6rem;
-        height: 48rem !important;
+        top: vw(-60);
+        height: vw(480) !important;
         width: auto !important;
-        max-width: 67.8rem;
+        max-width: vw(678);
         right: 0;
         @include mobile(){
             position: relative;
@@ -2438,9 +2440,9 @@ h3, .h2{
         z-index: 1;
         width: 100%;
         // Clears the illustration above, which otherwise touches the cards.
-        margin: 10rem 0 0;
+        margin: vw(100) 0 0;
         @include mobile(){
-            margin-top: 8rem;
+            margin-top: vw-mobile(32);
         }
         .swiper-slide{
             height: auto !important;
@@ -2456,16 +2458,16 @@ h3, .h2{
         position: relative;
         z-index: 1;
         width: auto;
-        margin-top: 6rem;
-        gap: 4rem;
+        margin-top: vw(60);
+        gap: vw(40);
         // Chevron beside each label (v2 got it from Swiper's Navigation module).
         .slide_cta_icon{
-            width: 1.1rem;
-            height: 2rem;
+            width: vw(11);
+            height: vw(20);
             flex-shrink: 0;
             @include mobile(){
-                width: 2.2rem;
-                height: 4rem;
+                width: vw-mobile(8.8);
+                height: vw-mobile(16);
             }
         }
         // Muted by default, full black on hover with the chevron nudging in
@@ -2487,22 +2489,22 @@ h3, .h2{
         }
         .swiper-button-prev:hover .slide_cta_icon,
         .swiper-button-prev:focus-visible .slide_cta_icon{
-            transform: translateX(-0.7rem);
+            transform: translateX(vw(-7));
             @include mobile(){
-                transform: translateX(-1.4rem);
+                transform: translateX(vw-mobile(-5.6));
             }
         }
         .swiper-button-next:hover .slide_cta_icon,
         .swiper-button-next:focus-visible .slide_cta_icon{
-            transform: translateX(0.7rem);
+            transform: translateX(vw(7));
             @include mobile(){
-                transform: translateX(1.4rem);
+                transform: translateX(vw-mobile(5.6));
             }
         }
         @include mobile(){
             justify-content: flex-start;
-            margin-top: 8rem;
-            gap: 8rem;
+            margin-top: vw-mobile(32);
+            gap: vw-mobile(32);
         }
     }
     // Card: company name, quote icon, quote, then a divider with the
@@ -2512,80 +2514,99 @@ h3, .h2{
         display: flex;
         flex-direction: column;
         margin: 0;
-        padding: 0 2rem;
+        padding: 0 vw(20);
         text-align: left;
     }
     .testimonial_company{
-        font-size: 2.2rem;
+        font-size: vw(22);
         font-weight: $regular;
         line-height: 1.2;
         color: $black;
         @include mobile(){
-            font-size: 4.4rem;
+            font-size: vw-mobile(17.6);
         }
     }
     .testimonial_quote_icon{
         display: block;
-        width: 10rem;
+        width: vw(100);
         height: auto;
-        margin: 5rem 0 3.5rem;
+        margin: vw(50) 0 vw(35);
         @include mobile(){
-            width: 24rem;
-            margin: 8rem 0 7rem;
+            width: vw-mobile(96);
+            margin: vw-mobile(32) 0 vw-mobile(28);
         }
     }
     .testimonial_quote{
-        margin: 0 0 4rem;
-        font-size: 1.7rem;
+        margin: 0 0 vw(40);
+        font-size: vw(17);
         line-height: 1.65;
         font-weight: $exlight;
         color: $black;
         @include mobile(){
-            margin-bottom: 8rem;
-            font-size: 3.4rem;
+            margin-bottom: vw-mobile(32);
+            font-size: vw-mobile(13.6);
         }
     }
     .testimonial_person{
         margin-top: auto;
-        padding-top: 3rem;
-        border-top: 0.1rem solid $gray_light;
+        padding-top: vw(30);
+        border-top: vw(1) solid $gray_light;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 2rem;
+        gap: vw(20);
         @include mobile(){
-            padding-top: 6rem;
+            padding-top: vw-mobile(24);
         }
         .name{
-            font-size: 1.9rem;
+            font-size: vw(19);
             line-height: 1.2;
-            margin-bottom: 0.6rem;
+            margin-bottom: vw(6);
             color: $black;
             text-transform: uppercase;
             @include mobile(){
-                font-size: 3.8rem;
-                margin-bottom: 1.2rem;
+                font-size: vw-mobile(15.2);
+                margin-bottom: vw-mobile(4.8);
             }
         }
-        .work{
-            font-size: 1.5rem;
+        .work,
+        .testimonial_company{
+            font-size: vw(15);
             line-height: 1.2;
             color: $gray_dark;
             @include mobile(){
-                font-size: 3.2rem;
+                font-size: vw-mobile(12.8);
+            }
+        }
+        // Company name sits under the role, in the same muted style.
+        .testimonial_company{
+            margin-top: vw(6);
+            @include mobile(){
+                margin-top: vw-mobile(4.8);
             }
         }
     }
+    // Company logo takes the place of the company name at the top of the card.
     .testimonial_photo{
-        flex: 0 0 auto;
+        display: block;
         width: auto;
-        max-width: 14rem;
-        height: 4.8rem;
+        max-width: vw(200);
+        height: vw(56);
         border-radius: 0;
         object-fit: contain;
+        object-position: left center;
         @include mobile(){
-            max-width: 28rem;
-            height: 10rem;
+            max-width: vw-mobile(160);
+            height: vw-mobile(44);
         }
+    }
+}
+
+// "Let's Connect" in the header scrolls here; the fixed header would otherwise
+// cover the top of the section.
+#home_contact{
+    scroll-margin-top: vw(120);
+    @include mobile(){
+        scroll-margin-top: vw-mobile(70);
     }
 }

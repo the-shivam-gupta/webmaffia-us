@@ -9,11 +9,13 @@ export const TEAM_LEADERS = [
   {
     role: "Co-founder",
     name: "Prasad Devadiga",
+    photo: "https://cms.webmaffia.com/uploads/prasad_a18e67b0e2.webp",
     linkedin: "https://www.linkedin.com/in/prasad-devadiga-68752927",
   },
   {
     role: "CTO",
     name: "Ankit Tomer",
+    photo: "https://cms.webmaffia.com/uploads/ankit_3829490f9b.png",
     linkedin: "https://www.linkedin.com/in/ankittomer",
   },
   {

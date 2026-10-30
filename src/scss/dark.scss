@@ -56,7 +56,7 @@ html{
                 @media (hover: hover){
                     &:hover{
                         background-color: rgba(255, 255, 255, .07);
-                        box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
+                        box-shadow: inset 0 vw(1) 0 rgba(255, 255, 255, .1), 0 vw(20) vw(40) vw(-10) rgba(0, 0, 0, .8);
                     }
                 }
             }
@@ -97,7 +97,7 @@ html{
         a.blog_category_badge{
             color: $black;
             background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 .6rem 1.8rem rgba(0, 0, 0, .4);
+            box-shadow: 0 vw(6) vw(18) rgba(0, 0, 0, .4);
             &:hover{
                 color: $white;
                 background: $black;
@@ -228,7 +228,7 @@ html{
                 @media (hover: hover){
                     &:hover{
                         background-color: rgba(255, 255, 255, .07);
-                        box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
+                        box-shadow: inset 0 vw(1) 0 rgba(255, 255, 255, .1), 0 vw(20) vw(40) vw(-10) rgba(0, 0, 0, .8);
                     }
                 }
                 .recommended_heading{
@@ -246,7 +246,6 @@ html{
             @media (hover: hover){
                 &:hover{
                     background-color: rgba(255, 255, 255, .07);
-                    box-shadow: inset 0 .1rem 0 rgba(255, 255, 255, .1), 0 2rem 4rem -1rem rgba(0, 0, 0, .8);
                 }
             }
         }
@@ -421,7 +420,7 @@ html{
             .form_service_select__menu {
                 background: $black_light;
                 border-color: rgba($white, 0.15);
-                box-shadow: 0 0.4rem 2rem rgba($black, 0.5);
+                box-shadow: 0 vw(4) vw(20) rgba($black, 0.5);
 
                 li button {
                     color: rgba($white, 0.7);
@@ -810,7 +809,7 @@ html{
         }
         .tools_pill{
             border-color: rgba(255,255,255,0.2);
-            box-shadow: -7px 1rem 0rem #5C5C6D;
+            box-shadow: -7px vw(10) 0 #5C5C6D;
         }
         .tools_name{
             color: $white;
@@ -889,7 +888,7 @@ html.active .banner_media__form_title{
             button.klaviyo-form-button{
                 background: $white !important;
                 color: $black !important;
-                box-shadow: inset 0 0 0 0.1rem $white !important;
+                box-shadow: inset 0 0 0 vw(1) $white !important;
                 &:hover,
                 &:focus-visible{
                     background: transparent !important;
@@ -935,7 +934,7 @@ html.active .home_contact{
         button.klaviyo-form-button{
             background: $white !important;
             color: $black !important;
-            box-shadow: inset 0 0 0 0.1rem $white !important;
+            box-shadow: inset 0 0 0 vw(1) $white !important;
             &:hover,
             &:focus-visible{
                 background: transparent !important;
@@ -978,6 +977,9 @@ html.active .testimonial{
     .testimonial_quote,
     .testimonial_person .name{
         color: $white;
+    }
+    .testimonial_person .testimonial_company{
+        color: rgba($white, 0.55);
     }
 }
 

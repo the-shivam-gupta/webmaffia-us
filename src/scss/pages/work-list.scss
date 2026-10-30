@@ -2,12 +2,12 @@
   .hero_section {
     picture {
       margin-top: 0;
-      right: 6.5rem;
+      right: vw(65);
       @include mobile() {
         right: 0;
       }
       img {
-        width: 67.2rem;
+        width: vw(672);
         @include mobile() {
           width: 100%;
         }
@@ -20,19 +20,19 @@
     .cta_work {
       display: block !important;
       text-align: center;
-      margin-top: 8rem;
+      margin-top: vw(80);
     }
   }
 }
 .work_section {
-  margin: 5rem 8rem 5rem;
+  margin: vw(50) vw(80) vw(50);
   @include mobile() {
-    margin: 5rem 4rem 5rem;
+    margin: vw-mobile(20) vw-mobile(16) vw-mobile(20);
   }
   .work_box {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    column-gap: 3rem;
+    column-gap: vw(30);
     justify-content: center;
 
     > *:nth-child(n + 10) {
@@ -59,7 +59,7 @@
 
     @include mobile() {
       grid-template-columns: 1fr;
-      row-gap: 8rem;
+      row-gap: vw-mobile(32);
     }
   }
   .cta_work {
@@ -86,19 +86,19 @@
 .work_box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: vw(30);
 
   @include mobile() {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: vw-mobile(8);
   }
 
   .work_item {
     width: 100%;
-    margin-bottom: 9.5rem;
+    margin-bottom: vw(95);
     @include mobile() {
       width: 100%;
-      margin-bottom: 8rem;
+      margin-bottom: vw-mobile(32);
     }
     &:hover {
       .work_img {
@@ -111,7 +111,7 @@
       &.work_img {
         overflow: hidden;
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: vw(20);
         img {
           width: 100%;
           transition: scale 0.5s ease-in;
@@ -120,17 +120,17 @@
       display: inline-block;
       color: $black;
       .work_name {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
+        font-size: vw(30);
+        margin-bottom: vw(5);
         letter-spacing: normal;
         @include mobile() {
-          font-size: 6rem;
+          font-size: vw-mobile(24);
         }
       }
       .work_title {
-        font-size: 1.6rem;
+        font-size: vw(16);
         @include mobile() {
-          font-size: 3.2rem;
+          font-size: vw-mobile(12.8);
         }
       }
     }

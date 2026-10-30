@@ -1,37 +1,37 @@
 .contact_us{
     .hero_section{
-        padding-top: 5rem;
+        padding-top: vw(50);
         @include mobile(){
-            gap: 18rem;
+            gap: vw-mobile(72);
         }
         picture{
             margin-top: 0;
-            right: 1.8rem;
-            top: -8rem;
+            right: vw(18);
+            top: vw(-80);
             @include mobile(){
                 top: 0;
                 right: 0;
             }
             img{
-                width: 95rem;
+                width: vw(950);
                 @include mobile(){
                     width: 100%;
                 }
             }
         }
         h1{
-            margin-bottom: 4rem;
+            margin-bottom: vw(40);
             @include mobile(){
-                margin-bottom: 5rem;
+                margin-bottom: vw-mobile(20);
             }
         }
         p{
-            margin-bottom: 3rem;
+            margin-bottom: vw(30);
         }
     }
     .form{
-        margin-left: 8rem;
-        margin-bottom: 14rem;
+        margin-left: vw(80);
+        margin-bottom: vw(140);
         overflow: visible;
 
         .formWarpperx,
@@ -43,7 +43,7 @@
         }
         @include mobile(){
             margin-left: 0;
-            padding: 0 6.5rem;
+            padding: 0 vw-mobile(26);
             width: 100%;
         }
         label:not(.checkmark), input:not([type="checkbox"]):not(.form_service_select__validator){
@@ -56,20 +56,20 @@
         }
         input:not([type="checkbox"]):not(.form_service_select__validator){
             border-color: $gray_medium_dark;
-            margin-left: 0.5rem;
-            scroll-margin-top: 20rem;
+            margin-left: vw(5);
+            scroll-margin-top: vw(200);
 
             @include mobile() {
-                scroll-margin-top: 24rem;
+                scroll-margin-top: vw-mobile(96);
             }
         }
         .form_service_select {
             width: 100%;
-            margin-left: 0.5rem;
-            scroll-margin-top: 20rem;
+            margin-left: vw(5);
+            scroll-margin-top: vw(200);
 
             @include mobile() {
-                scroll-margin-top: 24rem;
+                scroll-margin-top: vw-mobile(96);
             }
 
             &__trigger {
@@ -83,9 +83,9 @@
         }
         .cta_text{
             display: inline-block;
-            margin-top: 2rem;
+            margin-top: vw(20);
             overflow: visible;
-            font-size: 3.6rem;
+            font-size: vw(36);
             span{
                 color: $gray_dark;
                 &::before{
@@ -94,9 +94,9 @@
             }
         }
         .input_checkox{
-            width: 100rem;
-            margin-top: 5.2rem;
-            margin-bottom: 6rem;
+            width: vw(1000);
+            margin-top: vw(52);
+            margin-bottom: vw(60);
             overflow: visible;
 
             @include mobile(){
@@ -110,12 +110,12 @@
         }
     }
     .contact_address{
-        margin-left: 12rem;
-        margin-bottom: 21rem;
+        margin-left: vw(120);
+        margin-bottom: vw(210);
         @include mobile(){
             width: 100%;
             margin-left: 0;
-            padding: 0 6.5rem;
+            padding: 0 vw-mobile(26);
         }
         &>div{
             @include mobile(){
@@ -125,12 +125,12 @@
         address{
             padding: 0;
             a{
-                font-size: 2.1rem;
+                font-size: vw(21);
                 color: $black;
                 line-height: 1.4;
 
                 @include mobile(){
-                    font-size: 3rem;
+                    font-size: vw-mobile(12);
                 }
             }
         }
@@ -144,15 +144,15 @@
         width: auto;
         display: inline-block;
         margin-left: 0 !important;
-        margin-right: 2.3rem;
-        margin-bottom: 3.5rem;
+        margin-right: vw(23);
+        margin-bottom: vw(35);
         padding: 0;
         position: relative;
         cursor: pointer;
         span{
-            border: 0.2rem solid $gray_dark;
-            border-radius: 50rem;
-            padding: 2rem 4rem;
+            border: vw(2) solid $gray_dark;
+            border-radius: vw(500);
+            padding: vw(20) vw(40);
             text-align: center;
             display: block;
             color: $gray_dark;
@@ -184,13 +184,13 @@
 
 
 .region_text{
-    font-size: 3rem;
+    font-size: vw(30);
     font-weight: 500;
     color: $black;
-    margin-bottom: 2rem;
+    margin-bottom: vw(20);
     @include mobile(){
-        font-size: 3.2rem;
-        margin-bottom: 2rem;
+        font-size: vw-mobile(12.8);
+        margin-bottom: vw-mobile(8);
     }
 }
 
@@ -201,18 +201,18 @@
     @include mobile(){
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 7rem;
+        gap: vw-mobile(28);
     }
 }
 
 .contact_person{
-    font-size: 2.1rem;
+    font-size: vw(21);
 
     @include mobile(){
-        font-size: 3rem;
+        font-size: vw-mobile(12);
         line-height: 1.4;
         display: block;
-        margin-bottom: 1.2rem;
+        margin-bottom: vw-mobile(4.8);
     }
 }
 
@@ -231,7 +231,7 @@
         @include mobile(){
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 5rem 3rem;
+            gap: vw-mobile(20) vw-mobile(12);
             align-items: start;
         }
 
@@ -250,31 +250,31 @@
         }
     }
     .h2{
-        margin-bottom: 5rem;
+        margin-bottom: vw(50);
     }
     &>img{
-        width: 57.6rem;
-        margin-top: -10rem;
+        width: vw(576);
+        margin-top: vw(-100);
         @include mobile(){
             margin: 0;
             width: 100%;
             position: relative;
-            right: -6.5rem;
+            right: vw-mobile(-26);
         }
     }
     
     &>div{
         .contact_info{
-            margin-top: 1.5rem;
-            margin-bottom: 4rem;
+            margin-top: vw(15);
+            margin-bottom: vw(40);
 
             a{
                 display: block;
-                font-size: 2.1rem;
+                font-size: vw(21);
                 @include mobile(){
-                    font-size: 2.8rem;
-                    letter-spacing: 0.05rem;
-                    margin-bottom: 1.2rem;
+                    font-size: vw-mobile(11.2);
+                    letter-spacing: vw-mobile(0.2);
+                    margin-bottom: vw-mobile(4.8);
                 }
             }
         }
@@ -283,9 +283,9 @@
         &>div{
             display: flex;
             align-items: center;
-            gap: 6rem;
+            gap: vw(60);
             img{
-                width: 5rem;
+                width: vw(50);
                 transition: all 0.3s ease-in;
                 &:hover{
                     filter: brightness(0.5);

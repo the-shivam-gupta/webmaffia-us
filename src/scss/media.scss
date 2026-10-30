@@ -2,14 +2,14 @@
     html{
         font-size: 54.6893%;
         p{
-            font-size: 2.2rem ;
+            font-size: vw(22) ;
         }
     }
 }
 
 @media screen and (min-width: 1679px) and (max-width: 1685px){
     .menu_wrapper{
-        top: -150rem;
+        top: vw(-1500);
     }
 }
 
@@ -23,7 +23,7 @@
     html{
         font-size: 52.086%;
         p{
-            font-size: 2.2rem ;
+            font-size: vw(22) ;
         }
     }
 }
@@ -34,13 +34,13 @@
     }
     .our_work .work_box a, .our_work .work_box .awards_work{
         width: 100%;
-        height: 31.6rem;
+        height: vw(316);
     }
     .menu_wrapper{
-        top: -150rem;
+        top: vw(-1500);
     }
     .work_section .work_box{
-        gap: 6rem;
+        gap: vw(60);
     }
 }
 
@@ -49,7 +49,7 @@
         font-size: 46.87%;
     }
     .menu_wrapper{
-        top: -250rem;
+        top: vw(-2500);
     }
 }
 
@@ -70,21 +70,21 @@
     html{
         font-size: 33.3348%;
         p{
-            font-size: 2.4rem ;
+            font-size: vw(24) ;
         }
         .our_work .work_box a img, .our_work .work_box .awards_work img {
-            width: 26rem;
+            width: vw(260);
         }
         // rem is ~5.3px here, so the shared 31.6rem client cell is only ~168px
         // tall and tall logos (Lupin) touch the card edges.
         .our_work .work_box a{
-            height: 42rem;
+            height: vw(420);
         }
         .testimonial-swiper .testimonial_content span{
-            font-size: 2.801rem;
+            font-size: vw(28.01);
         }
         .menu_wrapper{
-            top: -300rem;
+            top: vw(-3000);
         }
     }
 }
@@ -92,29 +92,29 @@
     html{
         font-size: 25%;
         p{
-            font-size: 3rem ;
+            font-size: vw(30) ;
         }
         .sub_title{
-            font-size: 2.4rem ;
+            font-size: vw(24) ;
         }
         .cta{
-            width: 20.4rem;
+            width: vw(204);
         }
         .right_menu{
             a{
-                font-size: 3rem;
+                font-size: vw(30);
             }    
             button img {
-                width: 3.3rem;
+                width: vw(33);
             }
         }
         .logo img {
-            width: 22.6rem;
+            width: vw(226);
         }
         .testimonial-swiper{
-            width: 120.5rem;
+            width: vw(1205);
             .company{
-                font-size: 2.801rem;
+                font-size: vw(28.01);
             }
         }
         .testimonial .testimonial-swiper{
@@ -123,50 +123,50 @@
             height: auto !important;
         }
         .slide_cta{
-            width: 37rem;
+            width: vw(370);
         }
         .blog_container .blog_box {
             .top_text{
-                font-size: 3.5rem;
+                font-size: vw(35);
             }
             .bottom_text{
-                font-size: 2.6rem;
+                font-size: vw(26);
             }
         }
         .form{
             label, input{
-                font-size: 3rem;
+                font-size: vw(30);
             }
         }
         .menu_container .left_container {
             .menu_link>a{
-                font-size: 5.8rem;
+                font-size: vw(58);
             }
             .contact_info a{
-                font-size: 2.8rem;
+                font-size: vw(28);
             }
         }
         address a{
-            font-size: 2.6rem;
+            font-size: vw(26);
         }
         .cta_text.close{
-            font-size: 3.5rem;
+            font-size: vw(35);
             span::before{
-                left: 4.3rem;
+                left: vw(43);
             }
         }
         .blogs_date{
-            font-size: 2.6rem;
+            font-size: vw(26);
             span::before{
-                top: 1.8rem;
+                top: vw(18);
                 left: -42%;
             }
         }
         .menu_wrapper{
-            top: -300rem;
+            top: vw(-3000);
         }
         .our_work .work_box a, .our_work .work_box .awards_work{
-            height: 33.6rem;
+            height: vw(336);
         }
     }
 }
@@ -175,10 +175,10 @@
     html{
         font-size: 18%;
         p{
-            font-size: 3rem ;
+            font-size: vw-mobile(12) ;
         }
         .sub_title{
-            font-size: 2.4rem ;
+            font-size: vw-mobile(9.6) ;
         }
     }
 }
@@ -189,12 +189,12 @@
     }
     .our_work .work_box a, .our_work .work_box .awards_work{
         width: 100%;
-        height: 30rem;
+        height: vw-mobile(120);
     }
     // Phones: rem is 4px here, so this is ~112px wide. Overrides the shared
     // `html .our_work ... img` width set in the 1024px block above.
     html .our_work .work_box a img, html .our_work .work_box .awards_work img{
-        width: 28rem;
+        width: vw-mobile(112);
     }
 }
 

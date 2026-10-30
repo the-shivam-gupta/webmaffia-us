@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/SiteLink";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Banner from "@/components/Banner";
@@ -437,7 +437,15 @@ function TestimonialsSection({ section, testimonials }) {
         {testimonials.map((t) => (
           <SwiperSlide key={t.id}>
             <figure className="testimonial_card">
-              {t.company ? (
+              {t.logo ? (
+                <Image
+                  src={t.logo.src}
+                  alt={t.company || t.author}
+                  width={t.logo.w}
+                  height={t.logo.h}
+                  className="testimonial_photo"
+                />
+              ) : t.company ? (
                 <div className="testimonial_company">{t.company}</div>
               ) : null}
               <Image
@@ -453,16 +461,10 @@ function TestimonialsSection({ section, testimonials }) {
                 <div>
                   <div className="name">{t.author}</div>
                   {t.role ? <div className="work">{t.role}</div> : null}
+                  {t.logo && t.company ? (
+                    <div className="testimonial_company">{t.company}</div>
+                  ) : null}
                 </div>
-                {t.logo ? (
-                  <Image
-                    src={t.logo.src}
-                    alt={t.company || t.author}
-                    width={t.logo.w}
-                    height={t.logo.h}
-                    className="testimonial_photo"
-                  />
-                ) : null}
               </figcaption>
             </figure>
           </SwiperSlide>
@@ -560,7 +562,7 @@ function BlogsSection({ section, blogs }) {
 // that page's form styling (labels, inputs, custom select, dark mode).
 function ContactSection() {
   return (
-    <section data-section="contact" className="home_contact">
+    <section id="home_contact" data-section="contact" className="home_contact">
       <div className="home_contact_info">
         <h2 className="sub_title">LET&apos;S CONNECT</h2>
         <div className="sub_heading">
