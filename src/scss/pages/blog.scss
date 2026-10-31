@@ -197,7 +197,7 @@
             transform: translate(-50%, -50%);
             @include mobile(){
                 top: vw-mobile(10);
-                left: -15%;
+                left: -8%;
             }
         }
         &:nth-child(1){
