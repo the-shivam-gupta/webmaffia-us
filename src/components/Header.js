@@ -28,7 +28,7 @@ const Header = () => {
 
         <div className="right_menu">
           <a href="tel:+18669849786" className="header_phone">
-            +1 866-984-9786
+            +1 (866) 984-9786
           </a>
 
           <button type="button">

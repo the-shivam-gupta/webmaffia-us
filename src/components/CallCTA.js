@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const PHONE_DISPLAY = "+1 866-984-9786";
+const PHONE_DISPLAY = "+1 (866) 984-9786";
 const PHONE_HREF = "tel:+18669849786";
 
 // Round call button under the chat button (bottom right). Colours and the

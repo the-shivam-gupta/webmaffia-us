@@ -477,7 +477,7 @@ function TestimonialsSection({ section, testimonials }) {
           className="swiper-button-prev cta_text"
           onClick={() => swiperRef.current?.slidePrev()}
         >
-          <span>Previous</span> View
+          <span>Previous</span>
           <svg
             className="slide_cta_icon"
             viewBox="0 0 27 44"
@@ -492,7 +492,7 @@ function TestimonialsSection({ section, testimonials }) {
           className="swiper-button-next cta_text"
           onClick={() => swiperRef.current?.slideNext()}
         >
-          View <span>Next</span>
+          <span>Next</span>
           <svg
             className="slide_cta_icon"
             viewBox="0 0 27 44"
@@ -610,7 +610,7 @@ function ContactSection() {
                 />
               </svg>
             </span>
-            <a href="tel:+18669849786">+1 866-984-9786</a>
+            <a href="tel:+18669849786">+1 (866) 984-9786</a>
           </div>
         </div>
       </div>

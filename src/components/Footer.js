@@ -7,8 +7,7 @@ import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
-// TODO: placeholder - replace with the real USA office address.
-const USA_OFFICE_ADDRESS = "123 Main Street, New York, NY 10001, United States";
+const USA_OFFICE_ADDRESS = "30 N Gould St, STE R, Sheridan, WY 82801, USA";
 
 // Fallback for offices that have no map link set in the CMS.
 const mapsSearchUrl = (address) =>
@@ -17,7 +16,7 @@ const mapsSearchUrl = (address) =>
 // Email + phone shown under an office address, like the main office has.
 // One contact email for every office in the footer.
 const CONTACT_EMAIL = "hello@webmaffia.com";
-const USA_OFFICE_CONTACT = { email: CONTACT_EMAIL, phone: "+1 866-984-9786" };
+const USA_OFFICE_CONTACT = { email: CONTACT_EMAIL, phone: "+1 (866) 984-9786" };
 const OFFICE_CONTACTS = [
   { match: /dubai/i, email: CONTACT_EMAIL, phone: "+971 544949429" },
   { match: /bangaluru|bengaluru/i, email: CONTACT_EMAIL, phone: "+91 9867625909" },
@@ -116,7 +115,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
 
             <div className="footer_pixtop_logo">
               <Image src="/assets/images/pixtop-logo.svg" alt="Pixtop Logo" width={100} height={50} />
-              <p>PIXTOP MEDIA SOLUTIONS PVT LTD</p>
+              <p>Webmaffia LLC</p>
             </div>
 
             <div className="footer_iso_certificate_wrap">
@@ -141,7 +140,6 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
             </div>
 
             <div className="footer_connect_details">
-              {/* TODO: placeholder - replace with the real USA office address. */}
               <div className="footer_connect_office footer_connect_usa">
                 <address>
                   <div className="footer_connect_region_head">
@@ -151,7 +149,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
                     </span>
                   </div>
                   <a
-                    href={mapsSearchUrl(`USA ${USA_OFFICE_ADDRESS}`)}
+                    href={mapsSearchUrl(USA_OFFICE_ADDRESS)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
