@@ -3,7 +3,7 @@ export const TEAM_LEADERS = [
   {
     role: "Co-founder",
     name: "Veera Roy",
-    photo: "https://cms.webmaffia.com/uploads/veera_f6eca0edb4.jpeg?v=2",
+    photo: "https://cms.webmaffia.com/uploads/veera_f6eca0edb4.jpeg",
     linkedin: "https://linkedin.com/in/veera-roy-7249506",
   },
   {

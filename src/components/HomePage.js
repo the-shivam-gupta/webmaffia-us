@@ -316,6 +316,9 @@ function TeamSection() {
                   fill
                   sizes="(max-width: 540px) 90vw, 25vw"
                   className="team_photo_img"
+                  // Served straight from Strapi (not Vercel's image cache) so a
+                  // photo replaced in the CMS shows up without a code change.
+                  unoptimized
                 />
               ) : null}
             </div>
