@@ -600,7 +600,9 @@ p{
         }
     }
     @include mobile(){
-        font-size: vw-mobile(24.752);
+        padding-bottom: vw-mobile(5.6);
+        gap: vw-mobile(8);
+        font-size: vw-mobile(14.4);
     }
 }
 
@@ -631,13 +633,6 @@ p{
         &::after{
             transform: translateX(vw(8));
         }
-    }
-    // Phones: the base `.cta_text` jumps to 6.188rem there, far bigger than the
-    // "See all projects" link. Every link here uses that link's size instead.
-    @include mobile(){
-        padding-bottom: vw-mobile(5.6);
-        gap: vw-mobile(8);
-        font-size: vw-mobile(14.4);
     }
 }
 
@@ -1368,6 +1363,12 @@ h2, .sub_heading{
         font-weight: $exlight;
         line-height: 1;
         color: $black;
+
+        @include mobile(){
+            padding-bottom: vw-mobile(5.6);
+            gap: vw-mobile(8);
+            font-size: vw-mobile(14.4);
+        }
     }
 
     // Scroll reveal (class added by HomePage once JS is running).
