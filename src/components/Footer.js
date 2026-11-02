@@ -67,7 +67,9 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
   const dubaiOffice = offices.find((o) => /dubai/i.test(officeText(o)));
   const indiaOffices = [mumbaiOffice, bengaluruOffice].filter(Boolean);
 
-  const copyrightText = copyright?.description || copyright?.brand || null;
+  // The CMS copyright line still names Pixtop; show Webmaffia LLC instead.
+  const copyrightText = (copyright?.description || copyright?.brand || "")
+    .replace(/pixtop media solutions(?:\s+(?:pvt\.?\s*ltd\.?|private limited))?/i, "Webmaffia LLC") || null;
 
   return (
     <footer>
@@ -115,7 +117,7 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
 
             <div className="footer_pixtop_logo">
               <Image src="/assets/images/pixtop-logo.svg" alt="Pixtop Logo" width={100} height={50} />
-              <p>Webmaffia LLC</p>
+              <p>PIXTOP MEDIA SOLUTIONS PVT LTD</p>
             </div>
 
             <div className="footer_iso_certificate_wrap">
