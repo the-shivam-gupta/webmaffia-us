@@ -187,7 +187,10 @@
     html{
         font-size: 4px !important;
     }
-    .our_work .work_box a, .our_work .work_box .awards_work{
+    // `html` prefix: the 1024px block sets the client cell height under
+    // `html .our_work ... a`, which would otherwise win and squash client
+    // cells into short rectangles next to the taller award cells.
+    html .our_work .work_box a, html .our_work .work_box .awards_work{
         width: 100%;
         height: vw-mobile(120);
     }

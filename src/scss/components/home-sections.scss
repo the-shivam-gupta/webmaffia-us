@@ -62,7 +62,7 @@
         img{
             width: vw(868);
             @include mobile(){
-                width: 98%;
+                width: 100%;
             }
         }
     }
@@ -74,6 +74,20 @@
         width: 100%;
     }
 }
+// Pointed (sharp-cornered) arrow drawn as a mask, so it takes the text colour
+// and scales with the element's font-size on desktop and phones alike. Used
+// by every `::after` arrow instead of the "→" glyph.
+@mixin pointed_arrow {
+    content: "";
+    display: inline-block;
+    flex: none;
+    width: 1em;
+    height: 0.5em;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6H22.5M17 .8L22.7 6L17 11.2' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'%3E%3Cpath d='M0 6H22.5M17 .8L22.7 6L17 11.2' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
 // Underlined, uppercase Klaviyo form styling shared by the banner form and the
 // homepage contact form. Sizes come from the --form-* custom properties.
 @mixin klaviyo_underline_form {
@@ -259,6 +273,12 @@
             box-shadow: inset 0 0 0 vw(1) #000 !important;
             transition: background-color 0.3s ease, color 0.3s ease;
 
+            // vw() is scaled to the 1920px desktop width: too small to
+            // round the button into a pill on phones.
+            @include mobile(){
+                border-radius: vw-mobile(50) !important;
+            }
+
             &::before,
             &::after {
                 font-size: var(--form-btn-size);
@@ -269,7 +289,7 @@
             }
 
             &::after {
-                content: "\2192";
+                @include pointed_arrow;
                 margin-left: 3cqw;
                 transition: transform 0.3s ease;
             }
@@ -419,7 +439,7 @@
             // cropped); this negative margin is what pulls the card up over
             // it. It is a % of the width, so the overlap scales with the
             // image. Tune it: more negative = less of the image visible.
-            margin-top: -63%;
+            margin-top: -67%;
             padding: 8% 8%;
             justify-content: flex-start;
             border-radius: vw-mobile(8);
@@ -444,6 +464,10 @@
             gap: 0 3cqw;
             width: 100% !important;
             min-width: 0 !important;
+            // Phones: the link wraps under Submit, so give it more room.
+            @include mobile(){
+                gap: vw-mobile(30);
+            }
         }
 
         .banner_book_call {
@@ -451,8 +475,6 @@
             align-items: center;
             gap: 0.6em;
             margin: 5cqw 0 0;
-            padding: 0 0 0.3em;
-            border-bottom: vw(1) solid #000;
             color: #000 !important;
             font-size: max(4.1cqw, 14px);
             font-weight: 400;
@@ -624,7 +646,7 @@ p{
         }
     }
     &::after{
-        content: "\2192";
+        @include pointed_arrow;
         transition: transform 0.3s ease;
     }
     &:hover,
@@ -674,7 +696,8 @@ p{
             color: $black;
         }
         @include mobile(){
-            padding: vw-mobile(11.2) vw-mobile(22.4);
+            border-radius: vw-mobile(50);
+            padding: vw-mobile(14.2) vw-mobile(28.4);
             font-size: vw-mobile(13.6);
         }
     }
@@ -743,7 +766,7 @@ p{
         gap: vw(90) vw(60);
         @include mobile(){
             grid-template-columns: 1fr;
-            gap: vw-mobile(48);
+            gap: vw-mobile(68);
         }
     }
     .services_item{
@@ -813,10 +836,26 @@ p{
             padding-bottom: vw-mobile(4.8);
         }
         &::after{
+            // Underline only the text: stop short of the arrow (its width
+            // plus the margin before it, see .services_item_arrow).
+            width: calc(100% - 1.5em);
             height: vw(1);
             @include mobile(){
                 height: vw-mobile(0.8);
             }
+        }
+        // Plain pointed arrow (not the animated ::after arrow of .cta_text).
+        .services_item_arrow{
+            display: inline-block;
+            // Same size as the `::after` arrows (see @mixin pointed_arrow).
+            width: 1em;
+            height: 0.5em;
+            margin-left: 0.5em;
+            vertical-align: middle;
+            transition: transform 0.3s ease;
+        }
+        &:hover .services_item_arrow{
+            transform: translateX(vw(4));
         }
     }
 }
@@ -913,6 +952,10 @@ h2, .sub_heading{
     margin-bottom: vw(230);
     justify-content: flex-start;
     gap: vw(180);
+    // Phones: 120px between sections (vw-mobile is based on a 414px screen).
+    @include mobile(){
+        margin-bottom: vw-mobile(120);
+    }
 }
 
 // Testimonials is a grid, so the shared 18rem `gap` above opened a huge space
@@ -2069,6 +2112,7 @@ h3, .h2{
         }
     }
     .home_industries_arrow{
+        @include pointed_arrow;
         font-style: normal;
         font-size: vw(28);
         line-height: 1;
@@ -2279,8 +2323,6 @@ h3, .h2{
             align-items: center;
             gap: 0.6em;
             margin: 5cqw 0 0;
-            padding: 0 0 0.3em;
-            border-bottom: vw(1) solid #000;
             color: #000 !important;
             font-size: var(--form-btn-size);
             font-weight: 400;
@@ -2389,7 +2431,7 @@ h3, .h2{
         background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 vw(1);
         transition: background-size 0.4s ease;
         &::after{
-            content: "\2192";
+            @include pointed_arrow;
             transition: transform 0.3s ease;
         }
         &:hover,

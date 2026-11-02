@@ -110,6 +110,21 @@ function ServicesSection({ section }) {
                 target="_blank" rel="noopener noreferrer"
               >
                 {card.button.title}
+                <svg
+                  className="services_item_arrow"
+                  viewBox="0 0 24 12"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M0 6H22.5M17 0.8L22.7 6L17 11.2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinejoin="miter"
+                    strokeLinecap="butt"
+                  />
+                </svg>
               </Link>
             ) : null}
           </article>
@@ -277,6 +292,7 @@ export function LogoGridSection({ section }) {
                 alt={card.image.alt}
                 width={127}
                 height={88}
+                style={card.scale ? { transform: `scale(${card.scale})` } : undefined}
               />
             </Link>
           ) : (
@@ -286,6 +302,7 @@ export function LogoGridSection({ section }) {
                 alt={card.image.alt}
                 width={card.image.width}
                 height={card.image.height}
+                style={card.scale ? { transform: `scale(${card.scale})` } : undefined}
               />
               <AwardDetails text={card.details || card.label} />
             </div>
@@ -358,9 +375,7 @@ function IndustriesSection({ section }) {
                   <span className="home_industries_cta_label">
                     {card.button.title}
                   </span>
-                  <i className="home_industries_arrow" aria-hidden="true">
-                    &rarr;
-                  </i>
+                  <i className="home_industries_arrow" aria-hidden="true" />
                 </span>
               ) : null}
             </>

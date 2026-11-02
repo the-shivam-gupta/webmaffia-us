@@ -229,6 +229,9 @@ header{
         background: $white;
     }
     @include mobile(){
+        // vw() is scaled to the 1920px desktop width, which leaves the
+        // radius too small to round this button on phones.
+        border-radius: vw-mobile(50);
         font-size: vw-mobile(13.6);
         padding: vw-mobile(11.2) vw-mobile(22.4);
     }

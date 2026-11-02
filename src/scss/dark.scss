@@ -887,7 +887,6 @@ html.active .home_contact{
     // (the banner form keeps black since it sits on a light card).
     .home_contact_form .banner_book_call{
         color: $white !important;
-        border-bottom-color: $white;
     }
     .home_contact_form form{
         input:not([type="submit"]):not([type="checkbox"]):not([type="tel"]),
