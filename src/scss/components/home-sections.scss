@@ -425,6 +425,36 @@
             padding-top: 2%;
         }
 
+        // Loading skeleton: Klaviyo injects the form late, so until its Submit
+        // button exists the card shows pulsing placeholder fields instead of
+        // sitting empty. It disappears by itself once the form renders.
+        &:not(:has(button.klaviyo-form-button))::after {
+            content: "";
+            display: block;
+            flex: none;
+            width: 100%;
+            // 3 fields (5cqw tall, one row gap apart) + the Submit pill.
+            height: calc(3 * (5cqw + var(--form-row-gap)) + 13cqw);
+            background:
+                linear-gradient(#d2d2d2, #d2d2d2) 0 0 / 100% 5cqw no-repeat,
+                linear-gradient(#d2d2d2, #d2d2d2) 0 calc(5cqw + var(--form-row-gap)) / 100% 5cqw no-repeat,
+                linear-gradient(#d2d2d2, #d2d2d2) 0 calc(2 * (5cqw + var(--form-row-gap))) / 100% 5cqw no-repeat,
+                linear-gradient(#bdbdbd, #bdbdbd) 0 100% / 36cqw 13cqw no-repeat;
+            // The Submit placeholder is a pill, the fields are slightly soft.
+            border-radius: 2cqw;
+            animation: banner_form_skeleton 1.4s ease-in-out infinite;
+            @media (prefers-reduced-motion: reduce) {
+                animation: none;
+            }
+            // Phones: the real form is taller than three fields + Submit, so
+            // the grey card stopped short of the artwork's card underneath
+            // (its lower-right corner showed). The extra height closes that
+            // gap; tune it if the card still ends early/late.
+            @include mobile() {
+                height: calc(3 * (5cqw + var(--form-row-gap)) + 13cqw + 9cqw);
+            }
+        }
+
         // Phones: the card in the artwork is too narrow for the fields, so
         // the form drops out of the overlay and becomes a block below the
         // image; `.banner_media` is a flex column on phones.
@@ -2663,4 +2693,10 @@ h3, .h2{
     @include mobile(){
         scroll-margin-top: vw-mobile(70);
     }
+}
+
+// Pulse for the banner form's loading skeleton (see `&__form::after`).
+@keyframes banner_form_skeleton {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
 }
