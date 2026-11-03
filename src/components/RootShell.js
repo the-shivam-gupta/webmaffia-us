@@ -21,7 +21,7 @@ const albertSans = Albert_Sans({
 });
 
 export const siteMetadata = {
-  title: "Webmaffia | Creative Digital Agency",
+  title: "Webmaffia | TECHNOLOGY-LED CREATIVE AGENCY",
   description:
     "Webmaffia is a full-service creative and digital marketing agency in Mumbai.",
   verification: {

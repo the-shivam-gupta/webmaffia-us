@@ -9,33 +9,6 @@
   pointer-events: none; /* only the button and the open list react to hover */
 }
 
-.ai-cta__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px; /* same size as the WhatsApp button */
-  height: 56px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 4px 14px rgba(91, 108, 255, 0.45);
-  cursor: pointer;
-  pointer-events: auto;
-  transition: transform 0.3s ease;
-}
-
-.ai-cta__btn:hover {
-  transform: scale(1.06);
-}
-
-.ai-cta__btn img {
-  display: block;
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
 .ai-cta__icon svg,
 .ai-cta__icon img {
   width: 100%;
@@ -147,16 +120,6 @@
   .ai-cta {
     right: 32px;
     bottom: 84px; /* 28px + 44px chat button + 12px gap */
-  }
-
-  .ai-cta__btn {
-    width: 44px;
-    height: 44px;
-
-    img {
-      width: 26px;
-      height: 26px;
-    }
   }
 
   .ai-cta__list {

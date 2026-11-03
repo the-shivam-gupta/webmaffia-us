@@ -6,7 +6,12 @@ import {
   buildSections,
   mapBlogCard,
 } from "@/lib/homeSections";
-import { ORGANIZATION_SCHEMA, LOCAL_BUSINESS_SCHEMA } from "@/lib/schema";
+import {
+  ORGANIZATION_SCHEMA,
+  LOCAL_BUSINESS_SCHEMA,
+  buildFaqSchema,
+} from "@/lib/schema";
+import { HOME_FAQS } from "@/lib/faqs";
 
 export const metadata = {
   alternates: {
@@ -29,6 +34,7 @@ export default async function Home() {
     <>
       <JsonLd data={ORGANIZATION_SCHEMA} />
       <JsonLd data={LOCAL_BUSINESS_SCHEMA} />
+      <JsonLd data={buildFaqSchema(HOME_FAQS.items)} />
       <HomePage
         bannerData={bannerData}
         sections={sections}

@@ -9,7 +9,9 @@ import Banner from "@/components/Banner";
 import StatisticsBar from "@/components/StatisticsBar";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 import TeamLinkedIn from "@/components/TeamLinkedIn";
+import HomeFaq from "@/components/HomeFaq";
 import { TEAM_LEADERS } from "@/lib/team";
+import { HOME_FAQS } from "@/lib/faqs";
 
 // Where the "Book a 20-min call" button goes (Cal.com booking page).
 const BOOK_CALL_URL =
@@ -697,7 +699,10 @@ export default function HomePage({
               );
             case "blogs":
               return (
-                <BlogsSection key={section.key} section={section} blogs={blogs} />
+                <Fragment key={section.key}>
+                  <BlogsSection section={section} blogs={blogs} />
+                  <HomeFaq {...HOME_FAQS} />
+                </Fragment>
               );
             default:
               return null;

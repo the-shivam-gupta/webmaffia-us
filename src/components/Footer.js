@@ -115,11 +115,6 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
 
             {/* <div className="footer_connect_divider" aria-hidden="true" /> */}
 
-            <div className="footer_pixtop_logo">
-              <Image src="/assets/images/pixtop-logo.svg" alt="Pixtop Logo" width={100} height={50} />
-              <p>PIXTOP MEDIA SOLUTIONS PVT LTD</p>
-            </div>
-
             <div className="footer_iso_certificate_wrap">
               <a
                 href="https://cms.webmaffia.com/uploads/ISO_certificate_9e1dbc303c.pdf"

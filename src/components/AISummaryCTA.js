@@ -82,16 +82,6 @@ export default function AISummaryCTA() {
             </li>
           ))}
         </ul>
-
-        <button
-          type="button"
-          className="ai-cta__btn"
-          aria-label="Ask AI about Webmaffia"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <img src="/assets/images/chatgpt.png" alt="" width="34" height="34" />
-        </button>
       </div>
     </>
   );
