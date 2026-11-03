@@ -2160,6 +2160,14 @@ h3, .h2{
         margin-left: vw-mobile(26);
         margin-right: vw-mobile(26);
     }
+    // Same 8em heading width as the awards and team sections.
+    .sub_heading{
+        max-width: 8em;
+        text-wrap: balance;
+        @include mobile(){
+            max-width: 100%;
+        }
+    }
     .section_description{
         margin-top: vw(30);
     }
