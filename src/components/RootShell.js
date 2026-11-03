@@ -88,6 +88,7 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-T2G85GJLPP');
+            gtag('config', 'G-NNEH16QDF3');
           `}
         </Script>
         <KlaviyoScript />
