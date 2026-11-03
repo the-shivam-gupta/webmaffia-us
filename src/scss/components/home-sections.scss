@@ -39,7 +39,7 @@
         @include mobile(){
             width: auto;
             margin-bottom: 0;
-            margin: 0 vw-mobile(26);
+            margin: vw-mobile(42) vw-mobile(26) 0;
         }
         h1 .banner_title_line {
             display: block;
