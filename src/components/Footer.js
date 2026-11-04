@@ -42,7 +42,7 @@ const OfficeContact = ({ email, phone }) =>
     </div>
   ) : null;
 
-const Footer = ({ footerData, campaignSlugs = [] }) => {
+const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy" }) => {
   const pathname = usePathname();
   const slugMatch = pathname?.match(/^\/case-study\/([^/]+)$/);
   const isCampaignPage =
@@ -273,9 +273,16 @@ const Footer = ({ footerData, campaignSlugs = [] }) => {
         />
       </Link>
 
-      {copyrightText && (
-        <div className="footer_copyright">{copyrightText}</div>
-      )}
+      <div className="footer_bottom">
+        {copyrightText && (
+          <div className="footer_copyright">{copyrightText}</div>
+        )}
+        <div className="footer_legal">
+          <a href={privacyUrl} target="_blank" rel="noopener noreferrer">
+            Privacy Policy
+          </a>
+        </div>
+      </div>
     </footer>
   );
 };
