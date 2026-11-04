@@ -26,6 +26,26 @@ function awardPlaceholderDetails(label) {
   return [`${entry.year} · ${entry.rank}`, entry.award, entry.category].join("\n");
 }
 
+// Industry pages live on the main (v2) site. Each homepage industry card is
+// matched to one of them by its title (or its CMS link) and pointed at
+// `${MAIN_DOMAIN}/<slug>`. A card that matches nothing keeps its CMS link.
+const INDUSTRY_PAGES = [
+  { slug: "real-estate", match: /real[ -]*estate/i },
+  { slug: "pharma-healthcare", match: /pharma|health/i },
+  { slug: "infrastructure-telecom", match: /infrastructure|telecom/i },
+  { slug: "energy-metals-manufacturing", match: /energy|metal|manufactur/i },
+  { slug: "bfsi-fintech", match: /bfsi|fintech|financ|bank/i },
+  { slug: "consumer-lifestyle", match: /consumer|lifestyle/i },
+];
+
+function industryButton(card, button) {
+  const domain = (process.env.MAIN_DOMAIN ?? "").trim().replace(/[/]+$/, "");
+  if (!domain || !button) return button;
+  const haystack = `${card.title ?? ""} ${button.href}`;
+  const page = INDUSTRY_PAGES.find((p) => p.match.test(haystack));
+  return page ? { ...button, href: `${domain}/${page.slug}` } : button;
+}
+
 // Returns null when the CMS banner is missing or has no title; HomePage then
 // renders no banner.
 export function buildHomeBannerData(rawBanner) {
@@ -173,7 +193,7 @@ export function buildSections(rawSections) {
               id: card.id,
               title: card.title?.trim() || "",
               subtitle: card.subtitle?.trim() || "",
-              button: mapButton(card.button),
+              button: industryButton(card, mapButton(card.button)),
             })),
           };
         case "services.testimonial":
