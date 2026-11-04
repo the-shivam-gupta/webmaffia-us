@@ -2,43 +2,43 @@
 // FAQPage structured data). Answers are plain text.
 export const HOME_FAQS = {
   tagline: "FAQs",
-  title: "About the Webmaffia team",
+  title: "About the Webmaffia",
   items: [
     {
       id: "founders",
-      question: "Who founded Webmaffia?",
+      question: "Who Founded Webmaffia, and When Was the Company Established?",
       answer:
-        "Webmaffia was co-founded by Veera Ghuara Roy and Prasad Devadiga in 2012. It operates as Pintop Media Solutions Pvt Ltd from Mumbai, with offices in Bengaluru and Dubai.",
+        "Webmaffia was founded in 2012 by Prasad Devadiga, Veera Ghyara, and Sagar Jadhav. With over 14 years of industry experience, the company has grown into a digital solutions partner, helping businesses strengthen their online presence through innovative strategies, creative solutions, and technology-driven services.",
     },
     {
-      id: "services-usa",
-      question: "What digital marketing services does Webmaffia offer in the USA?",
+      id: "choose-webmaffia",
+      question: "Why Should I Choose Webmaffia for My Business?",
       answer:
-        "Webmaffia offers a comprehensive range of digital marketing services for businesses in the USA, including website design and development, AI-powered solutions, SEO, Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), social media marketing, digital strategy, and content marketing. We combine strategy, creativity, and technology to help businesses strengthen their online presence and achieve measurable growth.",
+        "Webmaffia combines industry experience, creative thinking, and technical expertise to deliver solutions that align with your business goals. With over 14 years of experience, we help businesses strengthen their online presence, connect with their target audience, and discover new growth opportunities through innovative digital solutions.",
     },
     {
-      id: "why-webmaffia",
-      question: "Why should I choose Webmaffia as my digital marketing agency in the USA?",
+      id: "services-offered",
+      question: "What Services Does Webmaffia Offer?",
       answer:
-        "Webmaffia brings over 14 years of digital experience, having served more than 250 brands across different industries. Our integrated approach brings strategy, design, technology, and marketing together under one roof. We focus on understanding your business objectives, identifying growth opportunities, and developing digital solutions aligned with your marketing goals.",
+        "Webmaffia offers comprehensive digital services, including SEO, social media marketing, website design and development, content marketing, digital strategy, and AI-powered solutions to help businesses strengthen their online presence and achieve their goals.",
     },
     {
-      id: "ai-visibility",
-      question: "How can Webmaffia help my business appear in Google AI Overviews and ChatGPT?",
+      id: "business-growth",
+      question: "How Can Webmaffia Help My Business Grow?",
       answer:
-        "Webmaffia uses an integrated SEO, AEO, and GEO strategy to strengthen your website's content quality, technical accessibility, topical authority, and brand presence. This includes optimizing content for search intent, implementing relevant structured data, improving entity signals, and building authoritative online mentions. These efforts can improve your eligibility for AI-driven search visibility, although placement in AI-generated answers cannot be guaranteed.",
+        "Webmaffia helps businesses reach potential customers, increase brand awareness, improve online visibility, generate qualified leads, and build stronger customer relationships through customized digital solutions aligned with their business goals.",
     },
     {
-      id: "industries",
-      question: "Which industries does Webmaffia serve?",
+      id: "usa-businesses",
+      question: "Does Webmaffia Work With Businesses Across the USA?",
       answer:
-        "Webmaffia has experience working with brands across multiple industries, including real estate, pharmaceuticals and healthcare, infrastructure, telecommunications, energy, manufacturing, BFSI, fintech, consumer goods, and lifestyle. Our experience across different sectors helps us understand industry-specific audiences and develop relevant digital strategies.",
+        "Yes. Webmaffia works with businesses across the United States, helping them improve their digital presence, connect with their target audiences, and identify new growth opportunities through customized digital solutions.",
     },
     {
-      id: "get-started",
-      question: "How can I get started with Webmaffia's digital marketing services in the USA?",
+      id: "get-started-simple",
+      question: "How Can I Get Started With Webmaffia?",
       answer:
-        "Getting started is simple. Contact Webmaffia at hello@webmaffia.com or call +1 (866) 984-9786. Share your business requirements, marketing objectives, and current challenges. Our team will review your needs and get back to you with a suitable plan within two business days.",
+        "Getting started is simple. Contact our team through the website, share your business requirements and goals, and our team will connect with you to discuss suitable digital solutions for your business.",
     },
   ],
 };
