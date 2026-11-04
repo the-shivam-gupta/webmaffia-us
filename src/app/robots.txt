@@ -6,13 +6,13 @@ User-agent: AdsBot
 Disallow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
 User-agent: GPTBot
 Allow: /
 
 User-agent: CCBot
-Disallow: /
+Allow: /
 
 User-agent: OAI-SearchBot
 Allow: /
