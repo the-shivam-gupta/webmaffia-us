@@ -2,11 +2,17 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
-import BookCallButton from "@/components/BookCallButton";
-import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 import BlogListItem from "@/components/BlogListItem";
 import JsonLd from "@/components/JsonLd";
-import ServiceFaqAccordion from "@/components/ServiceFaqAccordion";
+import ContactSection from "@/components/ContactSection";
+import ServiceTeamFaq from "@/components/ServiceTeamFaq";
+import StatisticsBar from "@/components/StatisticsBar";
+import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
+import BookCallButton from "@/components/BookCallButton";
+import ServiceWorkSlider from "@/components/ServiceWorkSlider";
+import { TestimonialsSection } from "@/components/HomePage";
+import { getTestimonials } from "@/lib/strapiPage";
+import { industryHref, mainDomainHref } from "@/lib/homeSections";
 import { buildBreadcrumbSchema, buildFaqSchema } from "@/lib/schema";
 import { getLatestBlogItems, getLatestWorkItems } from "@/lib/case-study-helpers";
 
@@ -31,7 +37,7 @@ function FeaturesSection({ section }) {
             className="feature_box"
             key={`${section.dataSection}-${feature.number}-${index}`}
           >
-            <h2
+            <h3
               className={
                 feature.influencerTitle
                   ? "feature_title influencer_title"
@@ -40,7 +46,7 @@ function FeaturesSection({ section }) {
               data-sf-number={feature.number}
             >
               {feature.title}
-            </h2>
+            </h3>
             {Array.isArray(feature.description) ? (
               feature.description.map((para, i) => <p key={i}>{para}</p>)
             ) : (
@@ -63,15 +69,37 @@ function IntroductionSection({ section }) {
   );
 }
 
+// Pages that live in this project stay on-site; every other site path (e.g.
+// /about) lives on the main site, so it points at MAIN_DOMAIN in a new tab.
+function CtaLink({ href, ...props }) {
+  const onSite = /^\/(services|case-study)(\/|$|\?|#)/.test(href ?? "");
+  if (!href || onSite || !href.startsWith("/")) {
+    return <Link href={href} {...props} />;
+  }
+  const external = mainDomainHref(href);
+  return external === href ? (
+    <Link href={href} {...props} />
+  ) : (
+    <a href={external} target="_blank" rel="noopener noreferrer" {...props} />
+  );
+}
+
+// Banner buttons to pages outside this project (e.g. /contact) go to MAIN_DOMAIN.
+function mainDomainCta(cta) {
+  if (!cta?.href?.startsWith("/")) return cta;
+  if (/^\/(services|case-study)(\/|$|\?|#)/.test(cta.href)) return cta;
+  return { ...cta, href: mainDomainHref(cta.href) };
+}
+
 function WhyChooseUsSection({ section }) {
   return (
     <>
       {section.heading ? <h2 className="h2">{section.heading}</h2> : null}
       <RichText html={section.description} />
       {section.cta ? (
-        <Link href={section.cta.href} className="cta_text">
+        <CtaLink href={section.cta.href} className="cta_text">
           <span>{section.cta.text}</span>
-        </Link>
+        </CtaLink>
       ) : null}
     </>
   );
@@ -135,7 +163,7 @@ function BlogsSection({ section }) {
       <h2 className="h2">{section.heading}</h2>
       <div className="other_blogs">
         {section.posts.map((post) => (
-          <BlogListItem post={post} key={post.slug} />
+          <BlogListItem post={post} key={post.slug} TitleTag="h3" />
         ))}
       </div>
     </>
@@ -150,20 +178,62 @@ function IndustriesSection({ section }) {
     <>
       {section.heading ? <h2 className="h2">{section.heading}</h2> : null}
       <div className="industries_grid">
-        {section.items.map((item, index) => (
-          <div className="industries_cell" key={`${item.title}-${index}`}>
-            {item.logo ? (
-              <Image
-                className="industries_icon"
-                src={item.logo.url}
-                alt={item.logo.alt}
-                width={item.logo.width ?? 110}
-                height={item.logo.height ?? 135}
-              />
-            ) : null}
-            <h3 className="industries_name">{item.title}</h3>
-          </div>
-        ))}
+        {section.items.map((rawItem, index) => {
+          // Industry pages live on the main site (MAIN_DOMAIN).
+          const item = { ...rawItem, href: industryHref(rawItem.title, rawItem.href) };
+          const content = (
+            <>
+              {item.logo ? (
+                <Image
+                  className="industries_icon"
+                  src={item.logo.url}
+                  alt={item.logo.alt}
+                  width={item.logo.width ?? 110}
+                  height={item.logo.height ?? 135}
+                />
+              ) : null}
+              <h3 className="industries_name">
+                {item.title}
+                {item.href ? (
+                  <svg
+                    className="industries_arrow"
+                    viewBox="0 0 24 12"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M0 6H22.5M17 0.8L22.7 6L17 11.2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                      strokeLinejoin="miter"
+                      strokeLinecap="butt"
+                    />
+                  </svg>
+                ) : null}
+              </h3>
+            </>
+          );
+          const key = `${item.title}-${index}`;
+
+          // A tile links to its industry page when the CMS gives it a url.
+          return item.href ? (
+            <a
+              href={item.href}
+              className="industries_cell"
+              key={key}
+              {...(/^https?:/i.test(item.href)
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              {content}
+            </a>
+          ) : (
+            <div className="industries_cell" key={key}>
+              {content}
+            </div>
+          );
+        })}
       </div>
     </>
   );
@@ -180,13 +250,17 @@ function ToolsSection({ section }) {
             <div className="tools_img">
               {item.icons.map((icon, iconIndex) => (
                 <div key={`${item.title}-${iconIndex}-${icon.url}`}>
-                  <Image
-                    src={icon.url}
-                    title={icon.title}
-                    alt={icon.alt}
-                    width={icon.width ?? 110}
-                    height={icon.height ?? 110}
-                  />
+                  {icon.url ? (
+                    <Image
+                      src={icon.url}
+                      title={icon.title}
+                      alt={icon.alt}
+                      width={icon.width ?? 110}
+                      height={icon.height ?? 110}
+                    />
+                  ) : (
+                    <span className="tool_name">{icon.title}</span>
+                  )}
                 </div>
               ))}
             </div>
@@ -214,7 +288,7 @@ function renderSectionBody(section) {
     case "blogs":
       return <BlogsSection section={section} />;
     case "faqs":
-      return <ServiceFaqAccordion heading={section.heading} items={section.items} />;
+      return <ServiceTeamFaq tagline={section.tagline || "FAQ"} heading="Got questions? We’ve got answers." items={section.items} />;
     case "features":
     default:
       return <FeaturesSection section={section} />;
@@ -239,19 +313,7 @@ function LatestWorkSection({ latestWork }) {
   return (
     <section data-section="services_work" className="services_work">
       <h2 className="h2">Latest work</h2>
-      <div className="workspace">
-        {latestWork.map((item) => (
-          <div className="service_item" key={item.name}>
-            <Link href={item.url || "#"} className="service_img">
-              <Image src={item.image} alt="" width={821} height={601} />
-            </Link>
-            <Link href={item.url || "#"}>
-              <h3 className="service_name">{item.name}</h3>
-              <div className="service_type">{item.type}</div>
-            </Link>
-          </div>
-        ))}
-      </div>
+      <ServiceWorkSlider items={latestWork} />
       <div className="cta_work">
         <Link href="/case-study" className="cta_text">
           View All <span>Work</span>
@@ -261,25 +323,44 @@ function LatestWorkSection({ latestWork }) {
   );
 }
 
+// Last fold of every service page: the homepage "Let's talk" block with
+// service-specific copy and without the email / phone rows.
+function ServiceContact() {
+  return (
+    <ContactSection
+      heading={
+        <>
+          Your brand deserves <br/> a 
+          website as exceptional 
+          as you are.
+        </>
+      }
+      description="Let’s build it together!"
+      showDetails={false}
+    />
+  );
+}
+
 function OtherServicesSection({ otherServices }) {
   if (!otherServices?.items?.length) return null;
 
-  // Exactly the blog sidebar's "Services that we cater" box
-  // (.aside_title/.service_text, blog-detail.scss) — same narrow vertical
-  // list, just fed from the CMS otherServices data instead of a hardcoded
-  // array.
+  // Wrapping row of pill buttons below the FAQ: numbered badge and service name.
   return (
-    <div className="other_services">
-      <div className="aside_title">{otherServices.heading}</div>
-      <div className="other_services_list">
+    <div className="other_services_row">
+      <div className="other_services_row_head">
+        <h2 className="other_services_row_title">{otherServices.heading}</h2>
+      </div>
+      <div className="other_services_row_list">
         {otherServices.items.map((item, index) => (
           <Link
             href={item.href}
-            className="other_services_item"
-            data-service={String(index + 1).padStart(2, "0")}
+            className="other_services_row_item"
             key={item.href}
           >
-            {item.title}
+            <span className="other_services_row_num">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 className="other_services_row_name h3_plain">{item.title}</h3>
           </Link>
         ))}
       </div>
@@ -287,22 +368,13 @@ function OtherServicesSection({ otherServices }) {
   );
 }
 
-function FaqsWithOtherServices({ section, otherServices }) {
-  const hasOtherServices = Boolean(otherServices?.items?.length);
-
-  return (
-    <div className={`faqs_with_other_services${hasOtherServices ? "" : " faqs_with_other_services--solo"}`}>
-      <div className="faqs_col">
-        <ServiceFaqAccordion heading={section.heading} items={section.items} />
-      </div>
-      {hasOtherServices && (
-        <div className="other_services_col">
-          <OtherServicesSection otherServices={otherServices} />
-        </div>
-      )}
-    </div>
-  );
-}
+// Same testimonials slider as the homepage, placed above the blog section.
+const TESTIMONIAL_HEAD = {
+  tagline: "Word on the street",
+  title: "Don't take our\nword for it",
+  description:
+    "Approvals, compliance, investors, dealers, plant heads. We've sat in those meetings, so your project moves faster.",
+};
 
 function TechnologyBlock({ technologies }) {
   if (!technologies) return null;
@@ -322,7 +394,7 @@ function TechnologyBlock({ technologies }) {
                 <Image
                   src={icon.src}
                   title={icon.title}
-                  alt=""
+                  alt={icon.title || group.label || "Technology icon"}
                   width={75}
                   height={75}
                 />
@@ -337,7 +409,14 @@ function TechnologyBlock({ technologies }) {
 
 export default async function ServiceDetailPage({ config, breadcrumbs }) {
   const { hero, sections, workCategories, otherServices, latestWork: fallbackLatestWork } = config;
-  const dynamicLatestWork = await getLatestWorkItems(2, workCategories ?? []);
+  const testimonials = await getTestimonials();
+  // Every relevant project (not just two) — they go in a slider.
+  const dynamicLatestWork = await getLatestWorkItems(
+    Infinity,
+    workCategories ?? [],
+    undefined,
+    true
+  );
   const latestWork = dynamicLatestWork.length > 0 ? dynamicLatestWork : fallbackLatestWork;
 
   // "blogs" sections only carry category tags from the CMS — resolve the
@@ -367,7 +446,8 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
   const bannerData = {
     imagePosition: "right",
     priority: true,
-    cta: hero.cta,
+    cta: mainDomainCta(hero.cta),
+    secondaryCta: mainDomainCta(hero.secondaryCta),
     subheading: {
       enabled: true,
       text: hero.subtitle,
@@ -377,8 +457,8 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
     title: {
       line1: hero.title,
     },
-    // Same artwork + enquiry form as the home page banner, on every service
-    // page (static asset, not the CMS banner image).
+    // Same artwork as the home banner (it has the card the enquiry form sits
+    // on), on every service page — a static asset, not the CMS banner image.
     images: {
       banner: {
         url: "/assets/images/home-banner-form.png",
@@ -426,6 +506,7 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
           const hasFaqs = resolvedSections.some((s) => s.type === "faqs");
           let insertedLatestWork = false;
           let insertedOtherServices = false;
+          const hasBlogs = resolvedSections.some((s) => s.type === "blogs");
 
           return (
             <div className="services_parent">
@@ -433,23 +514,38 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
                 const showLatestWorkAfter = section.type === "features" && !insertedLatestWork;
                 if (showLatestWorkAfter) insertedLatestWork = true;
 
-                // "Other services" sits beside the first FAQ section rather
-                // than as its own row — see FaqsWithOtherServices.
-                const pairOtherServicesHere = section.type === "faqs" && !insertedOtherServices;
-                if (pairOtherServicesHere) insertedOtherServices = true;
+                // "Other services" gets its own horizontal row right below
+                // the first FAQ section.
+                const showOtherServicesAfter = section.type === "faqs" && !insertedOtherServices;
+                if (showOtherServicesAfter) insertedOtherServices = true;
+
+                // The statistics bar renders its own <section> (same markup as
+                // the homepage), so it skips the generic wrapper below.
+                if (section.type === "statistics") {
+                  return (
+                    <StatisticsBar key={section.dataSection} stats={section.stats} />
+                  );
+                }
 
                 return (
                   <Fragment key={section.dataSection}>
+                    {section.type === "blogs" && (
+                      <TestimonialsSection
+                        section={TESTIMONIAL_HEAD}
+                        testimonials={testimonials}
+                      />
+                    )}
                     <section
                       data-section={section.dataSection}
                       className={SECTION_CLASS_NAMES[section.type] ?? "service_features"}
                     >
-                      {pairOtherServicesHere ? (
-                        <FaqsWithOtherServices section={section} otherServices={otherServices} />
-                      ) : (
-                        renderSectionBody(section)
-                      )}
+                      {renderSectionBody(section)}
                     </section>
+                    {showOtherServicesAfter && otherServices?.items?.length > 0 && (
+                      <section data-section="other_services">
+                        <OtherServicesSection otherServices={otherServices} />
+                      </section>
+                    )}
                     {showLatestWorkAfter && <LatestWorkSection latestWork={latestWork} />}
                   </Fragment>
                 );
@@ -462,6 +558,13 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
                   <OtherServicesSection otherServices={otherServices} />
                 </section>
               )}
+              {!hasBlogs && (
+                <TestimonialsSection
+                  section={TESTIMONIAL_HEAD}
+                  testimonials={testimonials}
+                />
+              )}
+              <ServiceContact />
             </div>
           );
         })()}
@@ -477,6 +580,11 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
                 <OtherServicesSection otherServices={otherServices} />
               </section>
             )}
+            <TestimonialsSection
+              section={TESTIMONIAL_HEAD}
+              testimonials={testimonials}
+            />
+            <ServiceContact />
           </>
         )}
       </div>

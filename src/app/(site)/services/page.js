@@ -68,7 +68,7 @@ function buildServicesBannerData(rawBanner) {
     images = {
       banner: {
         url: getStrapiImageUrl(rawBanner.desktopImage),
-        alt: rawBanner.desktopImage.alternativeText || "",
+        alt: rawBanner.desktopImage.alternativeText || "Webmaffia services",
         width: rawBanner.desktopImage.width || 871,
         height: rawBanner.desktopImage.height || 767,
       },
@@ -76,7 +76,7 @@ function buildServicesBannerData(rawBanner) {
     if (rawBanner.mobileImage?.url) {
       images.bannerMobile = {
         url: getStrapiImageUrl(rawBanner.mobileImage),
-        alt: rawBanner.mobileImage.alternativeText || "",
+        alt: rawBanner.mobileImage.alternativeText || "Webmaffia services",
       };
     }
   }

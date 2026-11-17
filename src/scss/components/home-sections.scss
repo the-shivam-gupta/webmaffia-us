@@ -2862,3 +2862,37 @@ h3, .h2{
         gap: vw-mobile(32);
     }
 }
+
+// FAQ questions are <h3> tags for SEO / outline only. These two resets cancel
+// every site `h3` rule (size, spacing, margin, letter-spacing, the industry
+// pages' own h3 styles) so the questions look exactly as they did before.
+// `.faq_heading` wraps the accordion buttons: the button inherits its type
+// from it, so it passes the parent's type straight through.
+.faq_heading.faq_heading{
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    font: inherit !important;
+    letter-spacing: inherit !important;
+    text-transform: inherit !important;
+    color: inherit !important;
+}
+// `.faq_title_reset` is the title itself (`.accord_title` keeps its own size
+// and line-height), so only the inherited h3 extras are cancelled.
+.faq_title_reset.faq_title_reset{
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    letter-spacing: inherit !important;
+    text-transform: inherit !important;
+}
+
+// `.h3_plain`: an <h3> that must look like the element it replaced and has its
+// own size / weight / line-height. Only the extras the site's `h3` rules add
+// (bottom margin, letter-spacing, case) are cancelled.
+.h3_plain.h3_plain{
+    margin: 0 !important;
+    letter-spacing: inherit !important;
+    text-transform: inherit !important;
+}
+

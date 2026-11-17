@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import {
-  buildBannerCta,
+  buildBannerCtas,
   getServicesTech,
   getServiceTechBySlug,
   getStrapiImageUrl,
@@ -91,7 +91,8 @@ export function buildServiceHero(banner) {
     imageWidth: banner.desktopImage?.width,
     imageHeight: banner.desktopImage?.height,
     mobileImage: banner.mobileImage ? getStrapiImageUrl(banner.mobileImage) : undefined,
-    cta: buildBannerCta(banner),
+    // { cta, secondaryCta } from the banner's button + secondaryButton
+    ...buildBannerCtas(banner),
   };
 }
 
@@ -120,6 +121,55 @@ function parseFaqItems(html) {
     .filter(Boolean);
 }
 
+const escapeHtml = (text) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+function inlineMarkdown(text) {
+  return escapeHtml(text)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, '<a href="$2">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+}
+
+/**
+ * Converts a CMS FAQ answer to HTML. Answers written in the Strapi rich-text
+ * (markdown) editor become paragraphs, lists, bold/italic and links; answers
+ * that already contain HTML tags are used as-is.
+ */
+function answerToHtml(answer) {
+  const text = String(answer ?? "").replace(/\r\n?/g, "\n").trim();
+  if (!text) return "";
+  if (/<[a-z][\s\S]*>/i.test(text)) return text;
+
+  return text
+    .split(/\n{2,}/)
+    .map((block) => {
+      const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+      if (lines.every((line) => /^[-*]\s+/.test(line))) {
+        return `<ul>${lines.map((line) => `<li>${inlineMarkdown(line.replace(/^[-*]\s+/, ""))}</li>`).join("")}</ul>`;
+      }
+      if (lines.every((line) => /^\d+[.)]\s+/.test(line))) {
+        return `<ol>${lines.map((line) => `<li>${inlineMarkdown(line.replace(/^\d+[.)]\s+/, ""))}</li>`).join("")}</ol>`;
+      }
+      return `<p>${lines.map(inlineMarkdown).join("<br>")}</p>`;
+    })
+    .join("");
+}
+
+/**
+ * Maps the `services-tech.fa-qs` `faqs` repeatable ({ question, answer })
+ * onto accordion items.
+ */
+function buildFaqItems(faqs) {
+  return (faqs ?? [])
+    .map((faq, index) => {
+      const question = faq.question?.trim();
+      const answer = answerToHtml(faq.answer);
+      return question && answer ? { id: `faq-${index}`, question, answer } : null;
+    })
+    .filter(Boolean);
+}
+
 /**
  * Maps a `services-tech.awards` `awardsList` (title + logo media) onto the
  * `{ url, alt, width, height }` shape the awards logo grid expects,
@@ -144,7 +194,7 @@ function buildAwardItems(awardsList) {
 
 /**
  * Maps the industries-we-serve `lists` repeatable onto
- * `{ title, logo: { url, alt, width, height } | null }` tiles. The CMS entry
+ * `{ title, href, logo: { url, alt, width, height } | null }` tiles. The CMS entry
  * now carries an `icons` repeatable of `{ logo }` media (same shape as
  * tools-we-use), so the first icon is used as the tile's logo; a legacy
  * single `logo` is still honoured. Entries with a title but no icon yet are
@@ -157,8 +207,19 @@ function buildLogoTitleItems(lists) {
       if (!title) return null;
 
       const media = item.logo ?? item.icons?.find((entry) => entry.logo)?.logo;
+      // Page the tile links to: the CMS `url` set on the icon entry (or on the
+      // tile itself), e.g. "/real-estate". Empty means the tile is not a link.
+      const rawUrl = (
+        item.url ?? item.icons?.find((entry) => entry.url?.trim())?.url ?? ""
+      ).trim();
+      const href = !rawUrl
+        ? null
+        : /^(https?:|mailto:|tel:|\/)/i.test(rawUrl)
+          ? rawUrl
+          : `/${rawUrl}`;
       return {
         title,
+        href,
         logo: media
           ? {
               url: getStrapiImageUrl(media),
@@ -242,6 +303,31 @@ export function buildServiceSections(cmsSections) {
             description: card.description?.trim(),
             influencerTitle: !card.description?.trim(),
           })),
+        });
+        return;
+      }
+
+      case "services.statistics-bar": {
+        const stats = (section.statisticsBar ?? [])
+          .map((stat) => ({
+            id: stat.id,
+            value: stat.value?.trim() || "",
+            label: stat.label?.trim() || "",
+            icon: stat.icon?.url
+              ? {
+                  url: getStrapiImageUrl(stat.icon),
+                  alt: stat.icon.alternativeText || stat.label?.trim() || "",
+                  width: stat.icon.width || 100,
+                  height: stat.icon.height || 100,
+                }
+              : null,
+          }))
+          .filter((stat) => stat.value || stat.icon || stat.label);
+        if (!stats.length) return;
+        merged.push({
+          type: "statistics",
+          dataSection: `service_statistics_${index}`,
+          stats,
         });
         return;
       }
@@ -334,12 +420,20 @@ export function buildServiceSections(cmsSections) {
       }
 
       case "services-tech.fa-qs": {
-        const items = parseFaqItems(section.description);
+        // Current CMS shape: tagline + title + `faqs` repeatable. Older entries
+        // used a heading + HTML `description` blob split on <h3>.
+        const items = section.faqs?.length
+          ? buildFaqItems(section.faqs)
+          : parseFaqItems(section.description);
         if (!items.length) return;
         merged.push({
           type: "faqs",
           dataSection: `service_faqs_${index}`,
-          heading: section.heading?.trim() || "Frequently Asked Questions",
+          tagline: section.tagline?.trim() || "",
+          heading:
+            section.title?.trim() ||
+            section.heading?.trim() ||
+            "Frequently Asked Questions",
           items,
         });
         return;

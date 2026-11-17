@@ -49,7 +49,8 @@ function matchesCategory(entry, wantedTags) {
 export async function getLatestWorkItems(
   limit = 2,
   categories = [],
-  fallbackCategories = ["Website Design", "Development"]
+  fallbackCategories = ["Website Design", "Development"],
+  matchedOnly = false
 ) {
   try {
     const caseStudies = await getCaseStudyThumbnails();
@@ -67,7 +68,12 @@ export async function getLatestWorkItems(
     }
 
     matched.sort(byInternalFirst);
-    const rest = eligible.filter((entry) => !matched.includes(entry)).sort(byInternalFirst);
+    // `matchedOnly`: just the relevant projects, no generic filler after them
+    // (unless nothing matched at all, so the section never renders empty).
+    const rest =
+      matchedOnly && matched.length
+        ? []
+        : eligible.filter((entry) => !matched.includes(entry)).sort(byInternalFirst);
 
     return [...matched, ...rest].slice(0, limit).map(toCaseStudyItem);
   } catch (e) {

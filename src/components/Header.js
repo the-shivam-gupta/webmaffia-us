@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import Link from "@/components/SiteLink";
+import Link from "next/link";
 import { toggleTheme } from "@/lib/theme";
 
 // Animate down to the contact section instead of jumping straight to it.
 const scrollToContact = (e) => {
   const section = document.getElementById("home_contact");
-  if (!section) return;
   e.preventDefault();
+  // Not on the homepage (e.g. a service page): go there, to the contact section.
+  if (!section) {
+    window.location.assign("/#home_contact");
+    return;
+  }
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   section.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 };

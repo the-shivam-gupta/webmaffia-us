@@ -1001,3 +1001,25 @@ html.active .home_faqs{
         color: rgba($white, 0.8);
     }
 }
+
+
+
+// Service detail FAQ (team-style accordion), dark theme.
+html.active .service_team_faq,
+html.active .team_faq{
+    .team_faq_question{
+        color: $white;
+    }
+    .team_faq_item{
+        border-color: rgba($white, 0.18);
+    }
+    .team_faq_answer_inner p,
+    .team_faq_rich li{
+        color: rgba($white, 0.8);
+    }
+    .team_faq_rich a{
+        color: $white;
+    }
+}
+
+// "Our Other Services" (dark theme): white names, dim numbers.

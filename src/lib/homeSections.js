@@ -38,12 +38,35 @@ const INDUSTRY_PAGES = [
   { slug: "consumer-lifestyle", match: /consumer|lifestyle/i },
 ];
 
-function industryButton(card, button) {
+// The blog lives on the main site: `/blog...` links point at `${MAIN_DOMAIN}`.
+// Unchanged when MAIN_DOMAIN is unset.
+export function mainDomainHref(path) {
   const domain = (process.env.MAIN_DOMAIN ?? "").trim().replace(/[/]+$/, "");
-  if (!domain || !button) return button;
-  const haystack = `${card.title ?? ""} ${button.href}`;
+  return domain ? `${domain}${path}` : path;
+}
+
+function blogButton(button) {
+  if (!button) return button;
+  const m = button.href.match(
+    /^(?:https?:\/\/(?:www\.)?webmaffia\.com)?(\/blog(?:[/?#].*)?)$/i
+  );
+  return m ? { ...button, href: mainDomainHref(m[1]) } : button;
+}
+
+// Resolves an industry link (by title / CMS href) to `${MAIN_DOMAIN}/<slug>`.
+// Returns the original href when MAIN_DOMAIN is unset or nothing matches.
+export function industryHref(title, href) {
+  const domain = (process.env.MAIN_DOMAIN ?? "").trim().replace(/[/]+$/, "");
+  if (!domain) return href;
+  const haystack = `${title ?? ""} ${href ?? ""}`;
   const page = INDUSTRY_PAGES.find((p) => p.match.test(haystack));
-  return page ? { ...button, href: `${domain}/${page.slug}` } : button;
+  return page ? `${domain}/${page.slug}` : href;
+}
+
+function industryButton(card, button) {
+  if (!button) return button;
+  const href = industryHref(card.title, button.href);
+  return href === button.href ? button : { ...button, href };
 }
 
 // Returns null when the CMS banner is missing or has no title; HomePage then
@@ -203,7 +226,7 @@ export function buildSections(rawSections) {
             key,
             type: "blogs",
             ...mapHead(section),
-            button: mapButton(section.button),
+            button: blogButton(mapButton(section.button)),
           };
         default:
           return null;
@@ -215,7 +238,7 @@ export function buildSections(rawSections) {
 export function mapBlogCard(post) {
   return {
     id: post.documentId ?? String(post.id),
-    href: `/blog/${post.slug}`,
+    href: mainDomainHref(`/blog/${post.slug}`),
     title: post.heading?.replace(/\s*\n\s*/g, " ") ?? "",
     excerpt: post.excerpt?.trim() || "",
     date: formatBlogDate(post.date),

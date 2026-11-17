@@ -29,6 +29,11 @@ export default function Banner({
   const linkTarget = newTab
     ? { target: "_blank", rel: "noopener noreferrer" }
     : {};
+  // Absolute CTA links (e.g. pages on MAIN_DOMAIN) always open in a new tab.
+  const ctaTarget = (href) =>
+    /^https?:/i.test(href ?? "")
+      ? { target: "_blank", rel: "noopener noreferrer" }
+      : linkTarget;
   const {
     imagePosition = "right",
     overlay = false,
@@ -140,7 +145,14 @@ export default function Banner({
               <Link href={subheading.link} {...linkTarget}>
                 {subheading.text}
               </Link>
-              {subheading.current ? <> / {subheading.current}</> : null}
+              {subheading.current ? (
+                <>
+                  <span className="sub_title_sep" aria-hidden="true">
+                    {" / "}
+                  </span>
+                  <span className="sub_title_current">{subheading.current}</span>
+                </>
+              ) : null}
             </>
           ) : (
             subheading.text
@@ -166,7 +178,7 @@ export default function Banner({
       {hasCta || hasSecondaryCta ? (
         <div className="banner_cta_group">
           {hasCta ? (
-            <Link href={cta.href} className="banner_cta" {...linkTarget}>
+            <Link href={cta.href} className="banner_cta" {...ctaTarget(cta.href)}>
               {cta.text}
             </Link>
           ) : null}
@@ -174,7 +186,7 @@ export default function Banner({
             <Link
               href={secondaryCta.href}
               className="banner_cta_secondary"
-              {...linkTarget}
+              {...ctaTarget(secondaryCta.href)}
             >
               {secondaryCta.text}
             </Link>

@@ -397,7 +397,7 @@ function IndustriesSection({ section }) {
 }
 
 
-function TestimonialsSection({ section, testimonials }) {
+export function TestimonialsSection({ section, testimonials }) {
   const swiperRef = useRef(null);
 
   if (!testimonials.length) return null;
@@ -626,6 +626,29 @@ export default function HomePage({
   testimonials = [],
   blogs = [],
 }) {
+  // Arriving from another page via "Let's Connect" (/#home_contact): the
+  // browser's own hash jump fires before the page has laid out, so scroll to
+  // the contact section once it has, and again if late images shifted it.
+  useEffect(() => {
+    if (window.location.hash !== "#home_contact") return undefined;
+    const go = (behavior) => {
+      document
+        .getElementById("home_contact")
+        ?.scrollIntoView({ behavior, block: "start" });
+    };
+    // An instant jump: a smooth scroll over this much page raced with late
+    // layout and overshot to the footer.
+    const first = setTimeout(() => go("auto"), 900);
+    const fix = setTimeout(() => {
+      const top = document.getElementById("home_contact")?.getBoundingClientRect().top;
+      if (top !== undefined && Math.abs(top) > 40) go("auto");
+    }, 2200);
+    return () => {
+      clearTimeout(first);
+      clearTimeout(fix);
+    };
+  }, []);
+
   return (
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
