@@ -269,9 +269,17 @@
             line-height: 1.2 !important;
             letter-spacing: vw(1);
             opacity: 1 !important;
-            cursor: pointer;
+            cursor: pointer !important;
             box-shadow: inset 0 0 0 vw(1) #000 !important;
             transition: background-color 0.3s ease, color 0.3s ease;
+
+            &,
+            &:hover,
+            &:focus-visible,
+            &::before,
+            &::after {
+                cursor: pointer !important;
+            }
 
             // vw() is scaled to the 1920px desktop width: too small to
             // round the button into a pill on phones.
@@ -301,7 +309,16 @@
                 -webkit-text-fill-color: #000 !important;
                 opacity: 1 !important;
 
+                &::before,
                 &::after {
+                    color: #000 !important;
+                    opacity: 1 !important;
+                }
+
+                // The arrow is a currentColor mask: pin its fill so hover
+                // can't leave it faded grey.
+                &::after {
+                    background-color: #000 !important;
                     transform: translateX(vw(4));
                 }
             }
@@ -428,7 +445,10 @@
         // Loading skeleton: Klaviyo injects the form late, so until its Submit
         // button exists the card shows pulsing placeholder fields instead of
         // sitting empty. It disappears by itself once the form renders.
-        &:not(:has(button.klaviyo-form-button))::after {
+        // Keyed on Klaviyo's mount point still being empty (not on the Submit
+        // button), so the "Thank You" state, which has no button, doesn't
+        // bring the skeleton back.
+        &:has(.formWarpperx > div:empty)::after {
             content: "";
             display: block;
             flex: none;
@@ -535,6 +555,25 @@
         z-index: 1;
         background: rgba($black, 0.4);
         pointer-events: none;
+    }
+}
+
+// Service pages shift/resize their hero picture (`.service_detail picture`),
+// but the enquiry form is positioned over the banner box, not the picture, so
+// the artwork's grey card slid out from under the form. When a form is
+// present, the picture uses the same geometry as the home banner.
+.service_detail .banner_media:has(.banner_media__form) picture {
+    margin-top: 0;
+    right: 0;
+    @include mobile() {
+        margin-top: 0;
+        right: vw-mobile(-28);
+    }
+    img {
+        width: vw(868);
+        @include mobile() {
+            width: 100%;
+        }
     }
 }
 

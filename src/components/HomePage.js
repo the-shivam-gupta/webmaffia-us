@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "@/components/SiteLink";
+import NextLink from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import Banner from "@/components/Banner";
@@ -10,45 +11,22 @@ import StatisticsBar from "@/components/StatisticsBar";
 import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
 import TeamLinkedIn from "@/components/TeamLinkedIn";
 import HomeFaq from "@/components/HomeFaq";
+import BookCallButton from "@/components/BookCallButton";
 import { TEAM_LEADERS } from "@/lib/team";
 import { HOME_FAQS } from "@/lib/faqs";
 
-// Where the "Book a 20-min call" button goes (Cal.com booking page).
-const BOOK_CALL_URL =
-  "https://cal.com/veera-ghyara-z4cnxq/schedule-a-20-minute-call";
+// /services/* and /case-study/* now live in this project, so those links stay
+// on-site (same tab); the CMS may send them as absolute www.webmaffia.com URLs.
+const LOCAL_PATH =
+  /^(?:https?:\/\/(?:www\.)?webmaffia\.com)?(\/(?:services|case-study)(?:[/?#].*)?)$/i;
 
-const CALENDAR_ICON =
-  '<svg viewBox="0 0 24 24" width="1.1em" height="1.1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
-
-// Klaviyo renders the form (and its Submit button) asynchronously, outside
-// React, so the call button is added next to Submit by watching the form box
-// and re-adding it whenever Klaviyo re-renders.
-function BookCallButton({ container: selector = ".banner_media__form" }) {
-  useEffect(() => {
-    const container = document.querySelector(selector);
-    if (!container) return undefined;
-
-    const place = () => {
-      const submit = container.querySelector("button.klaviyo-form-button");
-      if (!submit || submit.parentElement.querySelector(".banner_book_call")) {
-        return;
-      }
-      const link = document.createElement("a");
-      link.className = "banner_book_call";
-      link.href = BOOK_CALL_URL;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.innerHTML = `${CALENDAR_ICON}<span>Book a 20-min call</span>`;
-      submit.insertAdjacentElement("afterend", link);
-    };
-
-    place();
-    const observer = new MutationObserver(place);
-    observer.observe(container, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, [selector]);
-
-  return null;
+function ContentLink({ href, ...props }) {
+  const match = typeof href === "string" ? href.trim().match(LOCAL_PATH) : null;
+  return match ? (
+    <NextLink href={match[1]} {...props} />
+  ) : (
+    <Link href={href} target="_blank" rel="noopener noreferrer" {...props} />
+  );
 }
 
 // Renders CMS text, turning line breaks into <br />.
@@ -108,10 +86,9 @@ function ServicesSection({ section }) {
             </div>
             <p>{card.description}</p>
             {card.button ? (
-              <Link
+              <ContentLink
                 href={card.button.href}
                 className="link services_item_link"
-                target="_blank" rel="noopener noreferrer"
               >
                 {card.button.title}
                 <svg
@@ -129,7 +106,7 @@ function ServicesSection({ section }) {
                     strokeLinecap="butt"
                   />
                 </svg>
-              </Link>
+              </ContentLink>
             ) : null}
           </article>
         ))}
@@ -183,9 +160,8 @@ function ProjectsSection({ section }) {
 
       <div className="features_grid">
         {section.cards.map((card, index) => (
-          <Link
+          <ContentLink
             href={card.button?.href || "/case-study"}
-            target="_blank" rel="noopener noreferrer"
             className="feature_card"
             key={card.id}
             style={{ "--i": index }}
@@ -216,19 +192,18 @@ function ProjectsSection({ section }) {
                 </span>
               ) : null}
             </div>
-          </Link>
+          </ContentLink>
         ))}
       </div>
 
       {section.button ? (
         <div className="features_more">
-          <Link
+          <ContentLink
             href={section.button.href}
             className="features_all"
-            target="_blank" rel="noopener noreferrer"
           >
             {section.button.title}
-          </Link>
+          </ContentLink>
         </div>
       ) : null}
     </section>

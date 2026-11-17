@@ -907,6 +907,14 @@ html.active .home_contact{
                 background: transparent !important;
                 color: $white !important;
                 -webkit-text-fill-color: $white !important;
+                &::before,
+                &::after{
+                    color: $white !important;
+                    opacity: 1 !important;
+                }
+                &::after{
+                    background-color: $white !important;
+                }
             }
         }
     }
