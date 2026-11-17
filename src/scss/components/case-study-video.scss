@@ -302,6 +302,84 @@
   }
 }
 
+// Phones. The root font size is 4px under 540px wide (1rem = 4px), so the rem
+// sizes above shrink to a quarter of their desktop size; every size here is in
+// px instead. Declared last so it wins over the rules above.
+@media all and (max-width: 540px) {
+  // The chat and call buttons are stacked bottom right (right 32px; call at
+  // 28px, chat at 84px, 44px each), so the card sits clear above them, with
+  // its right edge in line with theirs.
+  .cs_video_widget {
+    right: 32px;
+    bottom: 148px;
+    width: 128px;
+  }
+
+  .cs_video_card {
+    max-height: 200px;
+    border-radius: 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  }
+
+  .cs_video_card_play {
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    svg {
+      width: 18px;
+      height: 18px;
+      margin-left: 2px;
+    }
+    &::before {
+      border-width: 1px;
+    }
+  }
+
+  .cs_video_card_text {
+    gap: 2px;
+    padding: 22px 8px 8px;
+  }
+
+  .cs_video_card_label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  // No hover on touch screens, so the hide button stays visible.
+  .cs_video_close_mini {
+    top: -10px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    padding: 0 0 2px;
+    font-size: 18px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .cs_video_modal {
+    padding: 16px;
+  }
+
+  .cs_video_modal_inner {
+    width: min(100%, calc(72vh * var(--cs-video-ratio, 1.7778)));
+    max-height: 72vh;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  // Inside the video's top-right corner (not hanging outside it), so it can
+  // never be cut off by the screen edge.
+  .cs_video_modal_close {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    padding: 0 0 2px;
+    font-size: 26px;
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cs_video_widget,
   .cs_video_modal,

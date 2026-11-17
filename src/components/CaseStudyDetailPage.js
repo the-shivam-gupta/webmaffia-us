@@ -137,8 +137,11 @@ export default function CaseStudyDetailPage({ caseStudy }) {
   return (
     <main className="wrapper">
       <div className="ml-setter case_study_detail">
-        {CASE_STUDY_VIDEOS[slug] ? <CaseStudyVideo {...CASE_STUDY_VIDEOS[slug]} /> : null}
         {banner ? <Banner data={banner} /> : null}
+        {/* After the banner on purpose: `.case_study_detail > .hero_section:first-child`
+            pulls the hero up under the header, so nothing may come before it.
+            The widget is position: fixed, so its place in the DOM doesn't matter. */}
+        {CASE_STUDY_VIDEOS[slug] ? <CaseStudyVideo {...CASE_STUDY_VIDEOS[slug]} /> : null}
 
         {contentBlocks.length > 0 || showcase ? (
           <div className="case_study_container">
