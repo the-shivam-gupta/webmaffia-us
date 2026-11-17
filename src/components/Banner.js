@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import Link from "@/components/SiteLink";
+import NextLink from "next/link";
 
 function renderMultilineText(text) {
   const lines = String(text ?? "")
@@ -142,9 +143,14 @@ export default function Banner({
         <div className="sub_title">
           {subheading.link ? (
             <>
-              <Link href={subheading.link} {...linkTarget}>
-                {subheading.text}
-              </Link>
+              {/^\/(services|case-study)(\/|$|\?|#)/.test(subheading.link) ? (
+                // Pages that live in this project stay on-site.
+                <NextLink href={subheading.link}>{subheading.text}</NextLink>
+              ) : (
+                <Link href={subheading.link} {...linkTarget}>
+                  {subheading.text}
+                </Link>
+              )}
               {subheading.current ? (
                 <>
                   <span className="sub_title_sep" aria-hidden="true">
