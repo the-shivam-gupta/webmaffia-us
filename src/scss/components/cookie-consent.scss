@@ -1,0 +1,168 @@
+// Cookie consent: full-width bar pinned to the bottom edge.
+// Light theme: black bar; dark theme (html.active): white bar.
+.cookie-consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  width: 100%;
+  padding: 28px 5vw;
+  background: #000000;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.35);
+  animation: cookie-consent-in 0.4s ease both;
+  max-height: 100vh;
+  overflow-y: auto;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: inherit;
+  }
+
+  &__actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 12px;
+  }
+
+  &__btn {
+    cursor: pointer;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 50px;
+    border: 1px solid #ffffff;
+    transition: background 0.25s ease, color 0.25s ease;
+
+    &--solid {
+      background: #ffffff;
+      color: #000000;
+
+      &:hover {
+        background: transparent;
+        color: #ffffff;
+      }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: #ffffff;
+
+      &:hover {
+        background: #ffffff;
+        color: #000000;
+      }
+    }
+  }
+}
+
+html.active .cookie-consent {
+  background: #ffffff;
+  color: #000000;
+  border-top-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+
+  .cookie-consent__text,
+  .cookie-consent__title {
+    color: #000000;
+  }
+
+  .cookie-consent__btn {
+    border-color: #000000;
+  }
+
+  .cookie-consent__btn--solid {
+    background: #000000;
+    color: #ffffff;
+
+    &:hover {
+      background: transparent;
+      color: #000000;
+    }
+  }
+
+  .cookie-consent__btn--ghost {
+    color: #000000;
+
+    &:hover {
+      background: #000000;
+      color: #ffffff;
+    }
+  }
+}
+
+@keyframes cookie-consent-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .cookie-consent {
+    padding: 18px 16px;
+
+    &__inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__text {
+      font-size: 13px;
+    }
+
+    &__actions {
+      justify-content: flex-end;
+    }
+
+    &__btn {
+      flex: 1;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+}
+
+// Hide floating buttons while the consent bar is showing.
+html[data-cookie-banner] {
+  body .chat-cta.chat-cta,
+  body .call-cta,
+  body .ai-cta {
+    display: none !important;
+  }
+}

@@ -12,6 +12,8 @@ import KlaviyoScript from "@/components/KlaviyoScript";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import ChatCTA from "@/components/ChatCTA";
 import CallCTA from "@/components/CallCTA";
+import CookieConsent from "@/components/CookieConsent";
+import AccessibilityTools from "@/components/AccessibilityTools";
 import AISummaryCTA from "@/components/AISummaryCTA";
 import { getCampaigns, getFooter } from "@/lib/strapiPage";
 
@@ -45,6 +47,9 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
     console.error("Failed to fetch campaigns for footer:", error);
   }
 
+  const mainDomain = (process.env.MAIN_DOMAIN ?? "").trim().replace(/[/]+$/, "");
+  const privacyUrl = `${mainDomain}/privacy-policy`;
+
   return (
     <html lang={lang} dir={dir} className={albertSans.variable} suppressHydrationWarning>
       <head>
@@ -77,30 +82,10 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
         <ScrollToTop />
         <Header />
         {children}
-        <Footer footerData={footerData} campaignSlugs={campaignSlugs} />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-T2G85GJLPP"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-T2G85GJLPP');
-            gtag('config', 'G-NNEH16QDF3');
-          `}
-        </Script>
-        {/* Microsoft Clarity */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "z8b845gqq1");
-          `}
-        </Script>
+        <Footer footerData={footerData} campaignSlugs={campaignSlugs} privacyUrl={privacyUrl} />
+        {/* Google Analytics + Microsoft Clarity load only after cookie consent */}
+        <CookieConsent privacyUrl={privacyUrl} />
+        <AccessibilityTools />
         <KlaviyoScript />
         {/* <WhatsAppCTA /> */}
         <ChatCTA />

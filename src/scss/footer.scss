@@ -1053,10 +1053,67 @@ footer {
     }
   }
 
+  // Copyright stays centered (as before); Privacy Policy sits on the right.
+  .footer_bottom {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-top: vw(60);
+
+    .footer_copyright {
+      grid-column: 2;
+    }
+
+    .footer_legal {
+      grid-column: 3;
+      justify-self: end;
+    }
+
+    // Phones: no room for both on one line, so copyright on top, link right below.
+    @include mobile() {
+      margin-top: vw-mobile(24);
+      grid-template-columns: 1fr;
+      row-gap: vw-mobile(10);
+
+      .footer_copyright,
+      .footer_legal {
+        grid-column: 1;
+      }
+    }
+  }
+
+  .footer_legal {
+    text-align: right;
+    font-family: "Albert Sans", sans-serif;
+    font-size: vw(19);
+    line-height: 1.2;
+    white-space: nowrap;
+
+    a {
+      color: #717171;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    @include tablet() {
+      font-size: vw(30);
+    }
+
+    @include mobile() {
+      font-size: vw-mobile(8.8);
+    }
+  }
+
   .footer_copyright {
     position: relative;
     z-index: 2;
-    margin-top: vw(60);
+    margin-top: 0;
     text-align: center;
     color: #717171;
     font-family: "Albert Sans", sans-serif;
@@ -1070,7 +1127,7 @@ footer {
 
     @include mobile() {
       font-size: vw-mobile(8.8);
-      margin-top: vw-mobile(24);
+      margin-top: 0;
     }
   }
 }
