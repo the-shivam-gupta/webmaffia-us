@@ -5,6 +5,8 @@ import Banner from "@/components/Banner";
 import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactFormSection from "@/components/ContactFormSection";
+import CaseStudyVideo from "@/components/CaseStudyVideo";
+import { CASE_STUDY_VIDEOS } from "@/lib/caseStudyVideos";
 import {
   isRichTextDescription,
   isSolutionBlock,
@@ -135,6 +137,7 @@ export default function CaseStudyDetailPage({ caseStudy }) {
   return (
     <main className="wrapper">
       <div className="ml-setter case_study_detail">
+        {CASE_STUDY_VIDEOS[slug] ? <CaseStudyVideo {...CASE_STUDY_VIDEOS[slug]} /> : null}
         {banner ? <Banner data={banner} /> : null}
 
         {contentBlocks.length > 0 || showcase ? (
