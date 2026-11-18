@@ -6,7 +6,6 @@ import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactFormSection from "@/components/ContactFormSection";
 import CaseStudyVideo from "@/components/CaseStudyVideo";
-import { CASE_STUDY_VIDEOS } from "@/lib/caseStudyVideos";
 import {
   isRichTextDescription,
   isSolutionBlock,
@@ -124,7 +123,9 @@ function ContentBlockSection({
   );
 }
 
-export default function CaseStudyDetailPage({ caseStudy }) {
+// `video` ({ src, title, label }) is resolved on the server from the Strapi
+// media ID (see `getCaseStudyVideo`); null for case studies without one.
+export default function CaseStudyDetailPage({ caseStudy, video = null }) {
   const {
     slug,
     banner,
@@ -141,7 +142,7 @@ export default function CaseStudyDetailPage({ caseStudy }) {
         {/* After the banner on purpose: `.case_study_detail > .hero_section:first-child`
             pulls the hero up under the header, so nothing may come before it.
             The widget is position: fixed, so its place in the DOM doesn't matter. */}
-        {CASE_STUDY_VIDEOS[slug] ? <CaseStudyVideo {...CASE_STUDY_VIDEOS[slug]} /> : null}
+        {video ? <CaseStudyVideo {...video} /> : null}
 
         {contentBlocks.length > 0 || showcase ? (
           <div className="case_study_container">

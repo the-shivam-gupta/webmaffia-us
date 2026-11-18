@@ -4,6 +4,7 @@ import CaseStudyDetailPage from "@/components/CaseStudyDetailPage";
 import JsonLd from "@/components/JsonLd";
 import { normalizeCaseStudy } from "@/lib/case-study-helpers";
 import { buildBreadcrumbSchema } from "@/lib/schema";
+import { getCaseStudyVideo } from "@/lib/caseStudyVideos";
 import {
   getCampaignBySlug,
   getCampaigns,
@@ -103,10 +104,12 @@ export default async function CaseStudySlugPage({ params }) {
       { name: breadcrumbTitle, path: `/case-study/${entry.slug}` },
     ]);
 
+    const video = await getCaseStudyVideo(entry.slug);
+
     return (
       <>
         <JsonLd data={breadcrumbSchema} />
-        <CaseStudyDetailPage caseStudy={caseStudy} />
+        <CaseStudyDetailPage caseStudy={caseStudy} video={video} />
       </>
     );
   }

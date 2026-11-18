@@ -1,48 +1,178 @@
-// Case-study summary video (CaseStudyVideo): a small card pinned to the right
-// edge of the page; clicking it opens the video centred in a lightbox, with
-// sound.
+// Case-study summary video (CaseStudyVideo): a compact card pinned to the
+// right edge of the page. The card is a video frame over a solid caption bar;
+// clicking it opens the video centred in a lightbox, with sound.
+//
+// Sizes are in rem for desktop; the phone block at the bottom uses px because
+// the root font size is 4px under 540px wide.
 .cs_video_widget {
   position: fixed;
-  right: 2.4rem;
-  bottom: 12rem;
-  z-index: 40;
-  width: 24rem;
+  // px, not rem: the chat button below is placed in px (right 40px, bottom
+  // 40px, 56px round), so this must share its column exactly. 112px = 40px +
+  // 56px chat button + 16px gap.
+  right: 40px;
+  bottom: 112px;
+  // Portalled to <body> (see CaseStudyVideo), so this sits above every page
+  // section, banner included, but below the site header (99999).
+  z-index: 90000;
+  // The card (stage) and the compact launcher (pill) share one corner and
+  // swap places when the card is minimized.
+  display: grid;
+  justify-items: end;
+  align-items: end;
   animation: cs_video_in 0.7s 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
-  @include mobile() {
-    right: 1.6rem;
-    bottom: 11rem;
-    width: 15rem;
+.cs_video_stage {
+  position: relative;
+  grid-area: 1 / 1;
+  width: 26rem;
+  transform-origin: bottom right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease,
+    width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+// At the top of the page the card is larger; scrolling eases it back to its
+// normal width (and it stays normal-sized for the rest of the page).
+.cs_video_widget.is_big .cs_video_stage {
+  width: 40rem;
+}
+
+.cs_video_widget.is_big .cs_video_card_frame {
+  max-height: 46rem;
+}
+
+// Minimized: the card shrinks into the corner and the round launcher takes over.
+.cs_video_widget.is_min .cs_video_stage {
+  opacity: 0;
+  transform: scale(0.2);
+  pointer-events: none;
+}
+
+// Compact launcher, in the style of a chat bubble: a black disc with a play
+// icon; on hover it grows a label to its left.
+.cs_video_pill {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 56px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 1rem 2.8rem rgba(0, 0, 0, 0.3), 0 0.2rem 0.6rem rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: bottom right;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: 0 1.4rem 3.4rem rgba(0, 0, 0, 0.36), 0 0.2rem 0.8rem rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus-visible {
+    outline: 0.2rem solid #000;
+    outline-offset: 0.3rem;
+  }
+}
+
+.cs_video_widget.is_min .cs_video_pill {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0.1s;
+}
+
+.cs_video_pill_text {
+  max-width: 0;
+  overflow: hidden;
+  font-size: 1.2rem;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease,
+    padding 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs_video_pill:hover .cs_video_pill_text,
+.cs_video_pill:focus-visible .cs_video_pill_text {
+  max-width: 24rem;
+  padding-left: 2.2rem;
+  opacity: 1;
+}
+
+.cs_video_pill_icon {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 3px;
+  }
+
+  // Soft pulse ring, like the card's play button.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 0.1rem solid rgba(0, 0, 0, 0.5);
+    animation: cs_video_pulse 2.2s ease-out infinite;
   }
 }
 
 .cs_video_card {
-  position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: var(--cs-video-ratio, 16 / 9);
-  max-height: 34rem;
   padding: 0;
   overflow: hidden;
   border: 0;
   border-radius: 0;
-  background: #111;
+  background: #0c0c0e;
   color: #fff;
   text-align: left;
   cursor: pointer;
-  box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, 0.28), 0 0 0 0.1rem rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 0 0 0.1rem rgba(0, 0, 0, 0.12),
+    0 1rem 3rem rgba(0, 0, 0, 0.22),
+    0 0.2rem 0.6rem rgba(0, 0, 0, 0.12);
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 
   &:hover,
   &:focus-visible {
-    transform: translateY(-0.4rem) scale(1.03);
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.36), 0 0 0 0.1rem rgba(255, 255, 255, 0.28);
+    transform: translateY(-0.4rem);
+    box-shadow:
+      0 0 0 0.1rem rgba(0, 0, 0, 0.16),
+      0 1.8rem 4.4rem rgba(0, 0, 0, 0.3),
+      0 0.4rem 1rem rgba(0, 0, 0, 0.16);
   }
 
   &:focus-visible {
-    outline: 0.2rem solid #fff;
+    outline: 0.2rem solid #000;
     outline-offset: 0.3rem;
   }
+}
+
+// The video itself: no overlay, no tint.
+.cs_video_card_frame {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--cs-video-ratio, 16 / 9);
+  max-height: 30rem;
+  overflow: hidden;
+  background: #1a1a1d;
 }
 
 .cs_video_card_media {
@@ -54,33 +184,25 @@
   pointer-events: none;
 }
 
-.cs_video_card_shade {
-  position: absolute;
-  inset: 0;
-  // Light tint for the play button, deepening at the bottom so the caption
-  // ("Watch the summary") stays readable over any frame.
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 45%, rgba(0, 0, 0, 0.6) 100%);
-  pointer-events: none;
-}
-
+// Black disc with a white ring: reads on white, light and dark frames alike.
 .cs_video_card_play {
   position: absolute;
   top: 50%;
   left: 50%;
   display: grid;
   place-items: center;
-  width: 5.4rem;
-  height: 5.4rem;
-  margin: -2.7rem 0 0 -2.7rem;
+  width: 5.2rem;
+  height: 5.2rem;
+  margin: -2.6rem 0 0 -2.6rem;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  color: #000;
-  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  background: #000;
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem #fff, 0 0.8rem 2.2rem rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 
   svg {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.2rem;
+    height: 2.2rem;
     margin-left: 0.3rem;
   }
 
@@ -88,20 +210,11 @@
   &::before {
     content: "";
     position: absolute;
-    inset: 0;
+    inset: -0.2rem;
     border-radius: 50%;
-    border: 0.1rem solid rgba(255, 255, 255, 0.85);
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.25);
     animation: cs_video_pulse 2.2s ease-out infinite;
-  }
-
-  @include mobile() {
-    width: 4.2rem;
-    height: 4.2rem;
-    margin: -2.1rem 0 0 -2.1rem;
-    svg {
-      width: 1.8rem;
-      height: 1.8rem;
-    }
   }
 }
 
@@ -109,76 +222,62 @@
   transform: scale(1.1);
 }
 
-// Caption strip along the bottom edge. The shadow fades in only behind the
-// text (from the bottom up to just above it); the rest of the video stays
-// unshaded.
-.cs_video_card_text {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+// Solid caption bar under the video.
+.cs_video_card_bar {
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding: 3.6rem 1.4rem 1.2rem;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
-  pointer-events: none;
-
-  @include mobile() {
-    padding: 2.8rem 1rem 0.9rem;
-  }
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  background: #0c0c0e;
 }
 
 .cs_video_card_label {
-  color: #fff;
   font-size: 1.2rem;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
-
-  @include mobile() {
-    font-size: 1rem;
-  }
 }
 
-.cs_video_card_title {
-  font-size: 1.7rem;
-  line-height: 1.15;
-
-  @include mobile() {
-    font-size: 1.3rem;
-  }
+.cs_video_card_time {
+  flex: none;
+  padding: 0.4rem 0.7rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.28);
+  font-size: 1.1rem;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.8);
+  font-variant-numeric: tabular-nums;
 }
 
+// Minimize button: always visible, inside the video's top-right corner.
 .cs_video_close_mini {
   position: absolute;
-  top: -1rem;
-  right: -0.8rem;
+  top: 8px;
+  right: 8px;
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  padding: 0 0 0.2rem;
+  width: 30px;
+  height: 30px;
+  padding: 0 0 2px;
   border: 0;
   border-radius: 50%;
   background: #fff;
   color: #000;
-  font-size: 2rem;
+  font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-.cs_video_widget:hover .cs_video_close_mini,
-.cs_video_close_mini:focus-visible {
-  opacity: 1;
-  transform: scale(1);
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.36);
+  }
 }
 
 // Lightbox
@@ -195,21 +294,13 @@
   -webkit-backdrop-filter: blur(1.2rem);
   backdrop-filter: blur(1.2rem);
   animation: cs_video_fade 0.3s ease both;
-
-  @include mobile() {
-    padding: 1.6rem;
-  }
 }
 
 .cs_video_modal_inner {
   position: relative;
   // A compact player: at most ~60% of the viewport width / 62% of its height,
-  // whatever the video's shape (a bit larger on phones).
+  // whatever the video's shape.
   width: min(60vw, calc(62vh * var(--cs-video-ratio, 1.7778)), 90rem);
-
-  @include mobile() {
-    width: min(92vw, calc(70vh * var(--cs-video-ratio, 1.7778)));
-  }
   aspect-ratio: var(--cs-video-ratio, 16 / 9);
   border-radius: 0;
   background: #000;
@@ -250,14 +341,6 @@
   &:focus-visible {
     transform: scale(1.08);
   }
-
-  @include mobile() {
-    top: -1.2rem;
-    right: -0.4rem;
-    width: 3.6rem;
-    height: 3.6rem;
-    font-size: 2.4rem;
-  }
 }
 
 @keyframes cs_video_in {
@@ -297,64 +380,115 @@
     opacity: 0.9;
   }
   100% {
-    transform: scale(1.7);
+    transform: scale(1.6);
     opacity: 0;
   }
 }
 
-// Phones. The root font size is 4px under 540px wide (1rem = 4px), so the rem
-// sizes above shrink to a quarter of their desktop size; every size here is in
-// px instead. Declared last so it wins over the rules above.
-@media all and (max-width: 540px) {
-  // The chat and call buttons are stacked bottom right (right 32px; call at
-  // 28px, chat at 84px, 44px each), so the card sits clear above them, with
-  // its right edge in line with theirs.
+// Phones and small tablets (<= 767px): the chat and call buttons shrink to 44px
+// and stack at right 32px (call at 28px, chat at 84px), so the card and the
+// launcher sit in that same column, 12px above the chat button (84 + 44 + 12).
+@media all and (max-width: 767px) {
   .cs_video_widget {
     right: 32px;
-    bottom: 148px;
-    width: 128px;
+    bottom: 140px;
   }
 
-  .cs_video_card {
-    max-height: 200px;
-    border-radius: 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  // Same size as the chat / call buttons; no hover on touch, so no label.
+  .cs_video_pill {
+    height: 44px;
+    border-radius: 44px;
   }
 
-  .cs_video_card_play {
-    width: 40px;
-    height: 40px;
-    margin: -20px 0 0 -20px;
+  .cs_video_pill_text {
+    display: none;
+  }
+
+  .cs_video_pill_icon {
+    width: 44px;
+    height: 44px;
     svg {
       width: 18px;
       height: 18px;
       margin-left: 2px;
     }
+  }
+}
+
+// Phones and small tablets. The root font size is 4px under 540px wide, so
+// the rem sizes above don't work there: every size here is in px instead.
+// Declared last so it wins over the rules above.
+@media all and (max-width: 767px) {
+  // The chat and call buttons are stacked bottom right (right 32px; call at
+  // 28px, chat at 84px, 44px each), so the card sits clear above them, with
+  // its right edge in line with theirs.
+  .cs_video_stage {
+    width: 152px;
+  }
+
+  .cs_video_widget.is_big .cs_video_stage {
+    width: min(200px, 56vw);
+  }
+
+  .cs_video_widget.is_big .cs_video_card_frame {
+    max-height: 260px;
+  }
+
+  .cs_video_card {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.12),
+      0 8px 22px rgba(0, 0, 0, 0.24);
+  }
+
+  .cs_video_card_frame {
+    max-height: 180px;
+  }
+
+  .cs_video_card_play {
+    width: 38px;
+    height: 38px;
+    margin: -19px 0 0 -19px;
+    box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(0, 0, 0, 0.35);
+    svg {
+      width: 16px;
+      height: 16px;
+      margin-left: 2px;
+    }
     &::before {
+      inset: -2px;
       border-width: 1px;
     }
   }
 
-  .cs_video_card_text {
-    gap: 2px;
-    padding: 22px 8px 8px;
+  .cs_video_card_bar {
+    gap: 5px;
+    padding: 9px 8px;
   }
 
+  // The bar is narrow on a phone: the label and the duration tag both shrink
+  // so they fit side by side (the label gets an ellipsis as a last resort).
   .cs_video_card_label {
-    font-size: 9px;
-    letter-spacing: 0.1em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 8px;
+    letter-spacing: 0.05em;
   }
 
-  // No hover on touch screens, so the hide button stays visible.
+  .cs_video_card_time {
+    padding: 2px 4px;
+    border-width: 1px;
+    font-size: 8px;
+    letter-spacing: 0.02em;
+  }
+
   .cs_video_close_mini {
-    top: -10px;
-    right: -8px;
-    width: 24px;
-    height: 24px;
-    padding: 0 0 2px;
-    font-size: 18px;
-    opacity: 1;
-    transform: none;
+    top: 5px;
+    right: 5px;
+    width: 22px;
+    height: 22px;
+    padding: 0 0 1px;
+    font-size: 16px;
   }
 
   .cs_video_modal {
@@ -376,7 +510,6 @@
     height: 36px;
     padding: 0 0 2px;
     font-size: 26px;
-    background: rgba(255, 255, 255, 0.92);
   }
 }
 
