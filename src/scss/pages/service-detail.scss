@@ -1105,6 +1105,43 @@ html.active .service_blogs .other_blogs .blog_item{
     }
 }
 
+// Case-study last fold: the same "Let's talk" block as a service page, with
+// the same heading size and room before the footer.
+.case_study_contact{
+    margin-top: vw(120);
+    @include mobile(){
+        margin-top: vw-mobile(56);
+    }
+    .home_contact{
+        margin-bottom: vw(140);
+        @include mobile(){
+            margin-bottom: vw-mobile(60);
+        }
+        .sub_heading{
+            font-size: vw(84);
+            @include mobile(){
+                font-size: vw-mobile(34);
+            }
+        }
+        // Eyebrow ("LET'S TALK"): the same tight tracking and spacing the
+        // service pages give it (see `.service_detail .sub_title`).
+        .sub_title{
+            font-size: vw(17);
+            letter-spacing: 0.2em;
+            line-height: 1.6;
+            text-transform: uppercase;
+            margin-left: 0;
+            margin-bottom: vw(26);
+            @include mobile(){
+                font-size: vw-mobile(11);
+                letter-spacing: 0.14em;
+                line-height: 1.7;
+                margin-bottom: vw-mobile(16);
+            }
+        }
+    }
+}
+
 // Service banner CTAs: both the primary and secondary button are plain text
 // with a strike-through line (same treatment as the homepage ".cta_text"),
 // instead of a filled pill + underline. The line pulls away on hover.

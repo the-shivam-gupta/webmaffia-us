@@ -4,7 +4,7 @@ import Image from "next/image";
 import Banner from "@/components/Banner";
 import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
-import ContactFormSection from "@/components/ContactFormSection";
+import ContactSection from "@/components/ContactSection";
 import CaseStudyVideo from "@/components/CaseStudyVideo";
 import {
   isRichTextDescription,
@@ -260,9 +260,21 @@ export default function CaseStudyDetailPage({ caseStudy, video = null }) {
           </section>
         ) : null}
 
-        <section data-section="contact_section" className="case_study_contact_section">
-          <ContactFormSection variant="light" />
-        </section>
+        {/* Same "Let's talk" block (and Klaviyo form) as the last fold of the
+            service pages. */}
+        <div className="case_study_contact">
+          <ContactSection
+            heading={
+              <>
+                Your brand deserves <br/> a
+                website as exceptional
+                as you are.
+              </>
+            }
+            description="Let’s build it together!"
+            showDetails={false}
+          />
+        </div>
       </div>
     </main>
   );

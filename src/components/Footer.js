@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "@/components/SiteLink";
 import Script from "next/script";
-import { usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
@@ -43,12 +42,6 @@ const OfficeContact = ({ email, phone }) =>
   ) : null;
 
 const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy" }) => {
-  const pathname = usePathname();
-  const slugMatch = pathname?.match(/^\/case-study\/([^/]+)$/);
-  const isCampaignPage =
-    slugMatch?.[1] != null && campaignSlugs.includes(slugMatch[1]);
-  const showContactIllustration = Boolean(slugMatch) && !isCampaignPage;
-
   const socialLinks = (footerData?.socialLinks ?? []).filter(
     ({ platform }) => platform !== "X"
   );
@@ -73,18 +66,6 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
 
   return (
     <footer>
-      {showContactIllustration ? (
-        <div className="footer_contact_illustration_layer" aria-hidden="true">
-          <Image
-            src="/assets/images/hands.svg"
-            alt=""
-            width={871}
-            height={767}
-            className="footer_contact_illustration"
-          />
-        </div>
-      ) : null}
-
       <div className="footer_nav">
         <div className="footer_col footer_col--connect">
           <div className="footer_col_content">
