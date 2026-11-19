@@ -216,6 +216,15 @@ body .chat-cta.chat-cta {
   bottom: 112px; /* 40px + 56px chat button + 16px gap */
 }
 
+/* desktop: the chat and AI buttons share the header's right edge (the header's
+   side padding is 65 / 1920 of the viewport width), in line with "Let's Connect" */
+@media (min-width: 768px) {
+  body .chat-cta.chat-cta,
+  .ai-cta {
+    right: calc(65 / 1920 * 100vw);
+  }
+}
+
 html.active .call-cta {
   background-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);

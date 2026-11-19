@@ -36,10 +36,22 @@ const OfficeContact = ({ email, phone }) =>
   email || phone ? (
     <div className="footer_connect_office_contact">
       {email && <a href={`mailto:${email}`}>{email}</a>}
-      {email && phone ? <span aria-hidden="true"> | </span> : null}
       {phone && <a href={`tel:${phone.replace(/[^\d+]/g, "")}`}>{phone}</a>}
     </div>
   ) : null;
+
+// "India - Mumbai": the country is bright, the city dimmer; "USA"/"Dubai" fully bright.
+const RegionHead = ({ label }) => {
+  const m = String(label).match(/^(.+?)(\s+-\s+.+)$/);
+  return (
+    <div className="footer_connect_region_head">
+      <span className="footer_connect_usa_label">
+        <span className="footer_connect_label_strong">{m ? m[1] : label}</span>
+        {m ? m[2] : null}
+      </span>
+    </div>
+  );
+};
 
 const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy" }) => {
   const socialLinks = (footerData?.socialLinks ?? []).filter(
@@ -58,7 +70,30 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
   const mumbaiOffice = offices.find((o) => /mumbai/i.test(officeText(o)));
   const bengaluruOffice = offices.find((o) => /bangaluru|bengaluru/i.test(officeText(o)));
   const dubaiOffice = offices.find((o) => /dubai/i.test(officeText(o)));
-  const indiaOffices = [mumbaiOffice, bengaluruOffice].filter(Boolean);
+
+  // USA first, then India (Mumbai, Bengaluru), then Dubai. Each is its own block.
+  const officeBlock = (office, label, address) => ({
+    key: office.id || office.city,
+    label,
+    address,
+    href: office.addressLink || mapsSearchUrl(officeText(office)),
+    email: contactFor(office)?.email || CONTACT_EMAIL,
+    phone: contactFor(office)?.phone || office.phone,
+  });
+  const blocks = [
+    {
+      key: "usa",
+      label: "USA",
+      address: USA_OFFICE_ADDRESS,
+      href: mapsSearchUrl(USA_OFFICE_ADDRESS),
+      ...USA_OFFICE_CONTACT,
+    },
+    mumbaiOffice &&
+      officeBlock(mumbaiOffice, "India - Mumbai", officeLabel(mumbaiOffice).replace(/^mumbai\s*/i, "")),
+    bengaluruOffice &&
+      officeBlock(bengaluruOffice, "India - Bengaluru", officeLabel(bengaluruOffice).replace(/^(bangaluru|bengaluru)\s*/i, "")),
+    dubaiOffice && officeBlock(dubaiOffice, "Dubai", dubaiOffice.address),
+  ].filter(Boolean);
 
   // The CMS copyright line still names Pixtop; show Webmaffia LLC instead.
   const copyrightText = (copyright?.description || copyright?.brand || "")
@@ -117,86 +152,6 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
               </a>
             </div>
 
-            <div className="footer_connect_details">
-              <div className="footer_connect_office footer_connect_usa">
-                <address>
-                  <div className="footer_connect_region_head">
-                    <span className="footer_connect_usa_label">USA</span>
-                    <span className="footer_connect_usa_colon" aria-hidden="true">
-                      :
-                    </span>
-                  </div>
-                  <a
-                    href={mapsSearchUrl(USA_OFFICE_ADDRESS)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {USA_OFFICE_ADDRESS}
-                  </a>
-                </address>
-                <OfficeContact {...USA_OFFICE_CONTACT} />
-              </div>
-
-              {/* India: Mumbai and Bengaluru under one heading. */}
-              {indiaOffices.length > 0 && (
-                <div className="footer_connect_office footer_connect_region">
-                  <div className="footer_connect_region_head">
-                    <span className="footer_connect_usa_label">India</span>
-                    <span className="footer_connect_usa_colon" aria-hidden="true">
-                      :
-                    </span>
-                  </div>
-                  <div className="footer_connect_region_items">
-                    {indiaOffices.map((office) => (
-                      <div
-                        className="footer_connect_region_item"
-                        key={office.id || office.city}
-                      >
-                        <address>
-                          <a
-                            href={office.addressLink || mapsSearchUrl(`${office.city} ${office.address}`)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {officeLabel(office)}
-                          </a>
-                        </address>
-                        <OfficeContact
-                          email={contactFor(office)?.email || CONTACT_EMAIL}
-                          phone={contactFor(office)?.phone || office.phone}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* UAE: "Dubai :" before the address, like the USA block. */}
-              {dubaiOffice && (
-                <div className="footer_connect_office footer_connect_usa footer_connect_dubai">
-                  <address>
-                    <div className="footer_connect_region_head">
-                      <span className="footer_connect_usa_label">Dubai</span>
-                      <span className="footer_connect_usa_colon" aria-hidden="true">
-                        :
-                      </span>
-                    </div>
-                    <a
-                      href={dubaiOffice.addressLink || mapsSearchUrl(`${dubaiOffice.city} ${dubaiOffice.address}`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {dubaiOffice.address}
-                    </a>
-                  </address>
-                  <OfficeContact
-                    email={contactFor(dubaiOffice)?.email || CONTACT_EMAIL}
-                    phone={contactFor(dubaiOffice)?.phone || dubaiOffice.phone}
-                  />
-                </div>
-              )}
-            </div>
-
             {/* Not shown in the footer any more, but the blog article page uses
                 the same Google "preferred source" button and needs this script. */}
             <Script
@@ -236,6 +191,20 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
             </ul>
           </div>
         </div>
+      </div>
+
+      <div className="footer_connect_details">
+        {blocks.map(({ key, label, address, href, email, phone }) => (
+          <div className="footer_connect_office footer_connect_usa" key={key}>
+            <address>
+              <RegionHead label={label} />
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                {address}
+              </a>
+            </address>
+            <OfficeContact email={email} phone={phone} />
+          </div>
+        ))}
       </div>
 
       {/* <div className="footer_logo_divider" aria-hidden="true" /> */}

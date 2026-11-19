@@ -32,9 +32,27 @@ export default function Banner({
     : {};
   // Absolute CTA links (e.g. pages on MAIN_DOMAIN) always open in a new tab.
   const ctaTarget = (href) =>
-    /^https?:/i.test(href ?? "")
+    /^https?:/i.test(href ?? "") && !toOnsitePath(href)
       ? { target: "_blank", rel: "noopener noreferrer" }
       : linkTarget;
+  // Pages that live in this project stay on-site; the rest go to the live site.
+  const ONSITE = /^\/(services|case-study)(\/|$|\?|#)/;
+  // Full URLs on the live domain (https://www.webmaffia.com/case-study) count too.
+  const toOnsitePath = (href) => {
+    const path = String(href ?? "").replace(
+      /^https?:\/\/(www\.)?webmaffia\.com(?=\/)/i,
+      ""
+    );
+    return ONSITE.test(path) ? path : null;
+  };
+  const CtaLink = ({ href, ...props }) => {
+    const path = toOnsitePath(href);
+    return path ? (
+      <NextLink href={path} {...props} />
+    ) : (
+      <Link href={href} {...props} />
+    );
+  };
   const {
     imagePosition = "right",
     overlay = false,
@@ -184,18 +202,18 @@ export default function Banner({
       {hasCta || hasSecondaryCta ? (
         <div className="banner_cta_group">
           {hasCta ? (
-            <Link href={cta.href} className="banner_cta" {...ctaTarget(cta.href)}>
+            <CtaLink href={cta.href} className="banner_cta" {...ctaTarget(cta.href)}>
               {cta.text}
-            </Link>
+            </CtaLink>
           ) : null}
           {hasSecondaryCta ? (
-            <Link
+            <CtaLink
               href={secondaryCta.href}
               className="banner_cta_secondary"
               {...ctaTarget(secondaryCta.href)}
             >
               {secondaryCta.text}
-            </Link>
+            </CtaLink>
           ) : null}
         </div>
       ) : null}

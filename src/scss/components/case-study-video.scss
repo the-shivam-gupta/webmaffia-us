@@ -9,7 +9,9 @@
   // px, not rem: the chat button below is placed in px (right 40px, bottom
   // 40px, 56px round), so this must share its column exactly. 112px = 40px +
   // 56px chat button + 16px gap.
-  right: 40px;
+  // Right edge lines up with the header's "Let's Connect" button: the header's
+  // side padding is vw(65), i.e. 65 / 1920 of the viewport width.
+  right: calc(65 / 1920 * 100vw);
   bottom: 112px;
   // Portalled to <body> (see CaseStudyVideo), so this sits above every page
   // section, banner included, but below the site header (99999).
@@ -197,24 +199,13 @@
   border-radius: 50%;
   background: #000;
   color: #fff;
-  box-shadow: 0 0 0 0.2rem #fff, 0 0.8rem 2.2rem rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0.8rem 2.2rem rgba(0, 0, 0, 0.35);
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 
   svg {
     width: 2.2rem;
     height: 2.2rem;
     margin-left: 0.3rem;
-  }
-
-  // Soft pulse ring so the card reads as clickable.
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -0.2rem;
-    border-radius: 50%;
-    border: 0.2rem solid #fff;
-    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.25);
-    animation: cs_video_pulse 2.2s ease-out infinite;
   }
 }
 
@@ -448,15 +439,11 @@
     width: 38px;
     height: 38px;
     margin: -19px 0 0 -19px;
-    box-shadow: 0 0 0 2px #fff, 0 4px 12px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     svg {
       width: 16px;
       height: 16px;
       margin-left: 2px;
-    }
-    &::before {
-      inset: -2px;
-      border-width: 1px;
     }
   }
 

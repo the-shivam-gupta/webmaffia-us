@@ -537,6 +537,33 @@
             &:focus-visible {
                 opacity: 0.6;
             }
+
+            // After the form is submitted ("Thank You"): a proper outlined button.
+            &.banner_book_call--standalone {
+                display: flex;
+                justify-content: center;
+                width: fit-content;
+                margin: 6cqw auto 0;
+                padding: 0.85em 1.8em;
+                // Same look as the header's "Let's Connect" button.
+                border: 1px solid #fff;
+                border-radius: 999px;
+                background: #000;
+                color: #fff !important;
+                transition: all 0.3s ease-in;
+
+                svg {
+                    flex-shrink: 0;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    opacity: 1;
+                    border-color: #000;
+                    background: #fff;
+                    color: #000 !important;
+                }
+            }
         }
     }
 
@@ -2411,6 +2438,33 @@ h3, .h2{
             &:hover,
             &:focus-visible {
                 opacity: 0.6;
+            }
+
+            // After the form is submitted ("Thank You"): a proper outlined button.
+            &.banner_book_call--standalone {
+                display: flex;
+                justify-content: center;
+                width: fit-content;
+                margin: 6cqw auto 0;
+                padding: 0.85em 1.8em;
+                // Same look as the header's "Let's Connect" button.
+                border: 1px solid #fff;
+                border-radius: 999px;
+                background: #000;
+                color: #fff !important;
+                transition: all 0.3s ease-in;
+
+                svg {
+                    flex-shrink: 0;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    opacity: 1;
+                    border-color: #000;
+                    background: #fff;
+                    color: #000 !important;
+                }
             }
         }
     }

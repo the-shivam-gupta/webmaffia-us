@@ -640,18 +640,41 @@ footer {
     }
   }
 
+  // Full-width row under the footer columns (not inside the connect column).
   .footer_connect_details {
-    margin-top: vw(60);
+    position: relative;
+    z-index: 2;
+    margin-top: vw(70);
     width: 100%;
-    max-width: vw(560);
+    max-width: 100%;
 
     @include tablet() {
       margin-top: vw(35);
-      max-width: 100%;
     }
 
     @include mobile() {
-      margin-top: vw-mobile(44);
+      margin-top: vw-mobile(12);
+    }
+  }
+
+  // Desktop: offices side by side in one row, each with a top rule.
+  @media (min-width: 770px) {
+    .footer_connect_details {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      column-gap: vw(40);
+      align-items: start;
+
+      .footer_connect_region_head {
+        white-space: nowrap;
+      }
+
+      > .footer_connect_office {
+        margin-bottom: 0;
+        padding: vw(24) 0 0;
+        border-bottom: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
     }
   }
 
@@ -686,8 +709,9 @@ footer {
   // Addresses read brighter than the email | phone line under them.
   .footer_connect_primary_address,
   .footer_connect_office address,
-  .footer_connect_office address a {
-    color: rgba(255, 255, 255, 0.7);
+  .footer_connect_office address a,
+  .footer_connect_usa address .footer_connect_region_head {
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .footer_connect_primary_contact,
@@ -731,19 +755,20 @@ footer {
     }
   }
 
+  // Email on one line, phone on the line below (no "|" separator).
   .footer_connect_primary_contact,
   .footer_connect_office_contact {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: vw(4) vw(10);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vw(4);
 
     @include tablet() {
-      gap: vw(8) vw(20);
+      gap: vw(8);
     }
 
     @include mobile() {
-      gap: vw-mobile(6) vw-mobile(12);
+      gap: vw-mobile(4);
     }
   }
 
@@ -773,9 +798,14 @@ footer {
 
   .footer_connect_usa_label {
     color: rgba(255, 255, 255, 0.6);
-    font-size: 1.3em;
+    font-size: 1.4em;
     line-height: 1.2;
     letter-spacing: 0.02em;
+
+    // "USA" / "India" / "Dubai" are brighter than the city part ("- Mumbai").
+    .footer_connect_label_strong {
+      color: rgba(255, 255, 255, 0.95);
+    }
   }
 
   .footer_connect_usa_colon {
