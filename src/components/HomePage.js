@@ -75,6 +75,7 @@ function ServicesSection({ section }) {
                 alt={card.image.alt || card.tagline}
                 width={card.image.width}
                 height={card.image.height}
+                sizes="(max-width: 540px) 90vw, (max-width: 1200px) 45vw, 30vw"
                 className="dark_img services_item_img"
               />
             ) : null}
@@ -271,6 +272,7 @@ export function LogoGridSection({ section }) {
                 alt={card.image.alt}
                 width={127}
                 height={88}
+                sizes="127px"
                 style={card.scale ? { transform: `scale(${card.scale})` } : undefined}
               />
             </Link>
@@ -281,6 +283,7 @@ export function LogoGridSection({ section }) {
                 alt={card.image.alt}
                 width={card.image.width}
                 height={card.image.height}
+                sizes="(max-width: 540px) 90vw, 25vw"
                 style={card.scale ? { transform: `scale(${card.scale})` } : undefined}
               />
               <AwardDetails text={card.details || card.label} />
@@ -416,6 +419,7 @@ export function TestimonialsSection({ section, testimonials }) {
           alt="Testimonials"
           width={678}
           height={877}
+          sizes="(max-width: 540px) 90vw, 35vw"
           className="dark_img"
         />
       </div>
@@ -440,6 +444,7 @@ export function TestimonialsSection({ section, testimonials }) {
                   alt={t.company || t.author}
                   width={t.logo.w}
                   height={t.logo.h}
+                  sizes="200px"
                   className="testimonial_photo"
                 />
               ) : t.company ? (

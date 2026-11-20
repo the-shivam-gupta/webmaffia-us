@@ -36,7 +36,7 @@ window.addEventListener("klaviyoForms", function (event) {
 export default function KlaviyoScript() {
   return (
     <>
-      <Script id="klaviyo-init" strategy="beforeInteractive">
+      <Script id="klaviyo-init" strategy="afterInteractive">
         {KLAVIYO_INIT_SCRIPT}
       </Script>
       <Script

@@ -2084,7 +2084,13 @@ h3, .h2{
             max-width: vw(220);
             @include mobile(){
                 font-size: vw-mobile(12);
+                width: vw-mobile(144);
                 max-width: vw-mobile(144);
+                // Centre the caption under the (left-placed) icon, the way the
+                // other labels sit centred under their numbers. Icon width =
+                // height x its 1181:1087 aspect ratio.
+                text-align: center;
+                margin-left: calc(#{vw-mobile(68)} * 1.0865 / 2 - #{vw-mobile(144)} / 2);
             }
         }
     }

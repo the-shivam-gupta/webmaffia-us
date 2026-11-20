@@ -38,6 +38,9 @@ export default function StatisticsBar({ locations = LOCATIONS, stats = [] }) {
                   width={stat.icon.width}
                   height={stat.icon.height}
                   className="statistics_icon dark_img"
+                  // CSS fixes only the height (width: auto), so reserve the
+                  // box up front or the row shifts when the lazy SVG loads.
+                  style={{ aspectRatio: `${stat.icon.width} / ${stat.icon.height}` }}
                 />
               ) : null}
               {number ? (
