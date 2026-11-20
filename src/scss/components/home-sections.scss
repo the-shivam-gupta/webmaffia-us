@@ -724,17 +724,18 @@ p{
     }
 }
 
-// Homepage "View All ..." buttons: no strike-through on the last words. On
-// hover an underline draws in from the left under the whole label and the
-// arrow (always shown) nudges to the right.
+// Homepage "View All ..." buttons (and the service pages' "View All Work"): no strike-through on the last words and no
+// underline. On hover only the text fades (text-fill-color leaves the
+// currentColor arrow untouched) and the arrow (always shown) nudges right.
 .home_wrapper .cta_text,
-.home_wrapper .features_all{
+.home_wrapper .features_all,
+.cta_work .cta_text,
+.service_why_choose .cta_text{
     display: inline-flex;
     align-items: center;
     gap: vw(12);
     padding-bottom: vw(8);
-    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 vw(1);
-    transition: background-size 0.4s ease;
+    transition: -webkit-text-fill-color 0.3s ease;
     span{
         color: inherit;
         &::before{
@@ -747,7 +748,7 @@ p{
     }
     &:hover,
     &:focus-visible{
-        background-size: 100% vw(1);
+        -webkit-text-fill-color: color-mix(in srgb, currentColor 55%, transparent);
         &::after{
             transform: translateX(vw(8));
         }
@@ -931,14 +932,14 @@ p{
             font-size: vw-mobile(16.8);
             padding-bottom: vw-mobile(4.8);
         }
+        // No underline: the hover cue is the arrow moving right and the text fading.
+        transition: color 0.3s ease;
         &::after{
-            // Underline only the text: stop short of the arrow (its width
-            // plus the margin before it, see .services_item_arrow).
-            width: calc(100% - 1.5em);
-            height: vw(1);
-            @include mobile(){
-                height: vw-mobile(0.8);
-            }
+            display: none;
+        }
+        &:hover,
+        &:focus-visible{
+            color: $black_60;
         }
         // Plain pointed arrow (not the animated ::after arrow of .cta_text).
         .services_item_arrow{
@@ -948,10 +949,13 @@ p{
             height: 0.5em;
             margin-left: 0.5em;
             vertical-align: middle;
+            // Keeps its own colour when the text fades on hover.
+            color: $black;
             transition: transform 0.3s ease;
         }
-        &:hover .services_item_arrow{
-            transform: translateX(vw(4));
+        &:hover .services_item_arrow,
+        &:focus-visible .services_item_arrow{
+            transform: translateX(vw(10));
         }
     }
 }
@@ -1438,31 +1442,28 @@ h2, .sub_heading{
             margin-bottom: vw-mobile(12);
         }
     }
+    // Same treatment as the other links: no underline, a pointed arrow after
+    // the label; on card hover only the text fades and the arrow nudges right.
     .feature_card_link{
-        position: relative;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: vw(10);
         padding-bottom: vw(4);
         font-size: vw(15);
         color: $white;
+        transition: -webkit-text-fill-color 0.3s ease;
         @include mobile(){
+            gap: vw-mobile(8);
             font-size: vw-mobile(12);
             padding-bottom: vw-mobile(3.2);
         }
         &::after{
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: vw(1);
-            background: $white;
-            transform-origin: bottom left;
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            @include pointed_arrow;
+            transition: transform 0.3s ease;
         }
+        // The glyph arrow is replaced by the pointed ::after arrow.
         i{
-            display: inline-block;
-            font-style: normal;
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            display: none;
         }
     }
     .feature_card:hover{
@@ -1482,11 +1483,12 @@ h2, .sub_heading{
         .feature_card_tags li{
             border-color: $white;
         }
-        .feature_card_link i{
-            transform: translateX(vw(8));
-        }
-        .feature_card_link::after{
-            transform: scaleX(0.35);
+        .feature_card_link{
+            // text-fill-color leaves the currentColor arrow at full strength.
+            -webkit-text-fill-color: color-mix(in srgb, currentColor 55%, transparent);
+            &::after{
+                transform: translateX(vw(8));
+            }
         }
     }
     .features_more{
@@ -2546,8 +2548,8 @@ h3, .h2{
             margin-top: 0;
         }
     }
-    // "View Profile" under the name: an underline draws in from the left on
-    // hover while the arrow after the label nudges to the right.
+    // "View Profile" under the name: no underline. On hover only the text fades
+    // while the arrow after the label nudges to the right.
     .team_link{
         display: inline-flex;
         align-items: center;
@@ -2559,15 +2561,15 @@ h3, .h2{
         font-weight: $light;
         letter-spacing: vw(0.5);
         line-height: 1;
-        background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 vw(1);
-        transition: background-size 0.4s ease;
+        transition: -webkit-text-fill-color 0.3s ease;
         &::after{
             @include pointed_arrow;
             transition: transform 0.3s ease;
         }
         &:hover,
         &:focus-visible{
-            background-size: 100% vw(1);
+            // text-fill-color leaves the currentColor arrow at full strength.
+            -webkit-text-fill-color: color-mix(in srgb, currentColor 55%, transparent);
             &::after{
                 transform: translateX(vw(6));
             }
@@ -2633,7 +2635,7 @@ h3, .h2{
         position: relative;
         z-index: 1;
         width: auto;
-        margin-top: vw(60);
+        margin-top: vw(70);
         gap: vw(40);
         // Chevron beside each label (v2 got it from Swiper's Navigation module).
         .slide_cta_icon{
@@ -2650,7 +2652,9 @@ h3, .h2{
         .swiper-button-prev,
         .swiper-button-next{
             color: $black_60;
-            transition: color 0.3s ease, background-size 0.4s ease;
+            // Own colour change only: ignore the shared "View All" text fade.
+            -webkit-text-fill-color: currentColor;
+            transition: color 0.3s ease;
             span{
                 color: inherit;
             }
@@ -2660,6 +2664,7 @@ h3, .h2{
             &:hover,
             &:focus-visible{
                 color: $black;
+                -webkit-text-fill-color: currentColor;
             }
         }
         .swiper-button-prev:hover .slide_cta_icon,
@@ -2950,3 +2955,16 @@ h3, .h2{
     text-transform: inherit !important;
 }
 
+
+// Testimonial Previous / Next on the service pages (outside .home_wrapper):
+// no strike-through and no underline. The swiper chevrons stay.
+.services_parent .testimonial .slide_cta .cta_text{
+    display: inline-flex;
+    align-items: center;
+    span{
+        color: inherit;
+        &::before{
+            display: none;
+        }
+    }
+}

@@ -285,17 +285,6 @@ html{
         .campaign_page .hero_section .campaign_content ul li{
             color: $white;
         }
-        .case_study_detail .case_study_showcase_wrapper .visit_website_button{
-            background: $white;
-
-            &:hover{
-                border-color: $white;
-                background: $black;
-                a{
-                    color: $white;
-                }
-            }
-        }
         .blogs_date{
             color: $gray;
         }
@@ -323,9 +312,6 @@ html{
             &.disabled{
                 color: $white_30;
             }
-        }
-        .case_study_detail .case_study_showcase_wrapper .visit_website_button a{
-            color: $black;
         }
         .client_para, .contact_person{
             color: $white;
@@ -409,8 +395,12 @@ html{
             }
             .services_item_link{
                 color: $white;
-                &::after{
-                    background: rgba($white, 0.6);
+                &:hover,
+                &:focus-visible{
+                    color: rgba($white, 0.6);
+                }
+                .services_item_arrow{
+                    color: $white;
                 }
             }
         }
@@ -791,7 +781,6 @@ html{
         }
         .industries_cell{
             background: $black;
-            box-shadow: inset -1px -1px 0 rgba(255,255,255,0.18);
             // Tiles sit on black here, so logos start inverted (visible as
             // light marks) and flip back to their real colors on the
             // white hover fill.
@@ -1036,3 +1025,36 @@ html.active .team_faq{
 }
 
 // "Our Other Services" (dark theme): white names, dim numbers.
+
+// "Latest work" Previous / Next on service pages (dark theme)
+html.active .work_slider_buttons button{
+    color: rgba($white, 0.55);
+    &:hover:not(:disabled){
+        color: $white;
+    }
+}
+
+// "Our Other Services" pills on service pages (dark theme): light label and
+// border, inverting to a white pill with black text on hover.
+html.active .svc_other{
+    .svc_other_title{
+        color: $white;
+    }
+    .svc_other_item{
+        color: $white;
+        border-color: rgba($white, 0.3);
+        .svc_other_name.h3_plain{
+            color: $white;
+        }
+        @media (hover: hover){
+            &:hover{
+                background: $white;
+                border-color: $white;
+                color: $black;
+                .svc_other_name.h3_plain{
+                    color: $black;
+                }
+            }
+        }
+    }
+}

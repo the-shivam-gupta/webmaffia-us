@@ -376,27 +376,13 @@
       left: 50%;
       transform: translate(-50%, -50%);
       top: 45%;
-      border-radius: 1.075rem;
-      border: 0.056rem solid #000;
-      padding: 1rem 2rem;
-      background-color: black;
-      transition: all 0.3s ease;
+      white-space: nowrap;
 
-      a {
-        font-size: 1.691rem;
-        font-weight: 400;
-        line-height: 1;
-        letter-spacing: 0.05rem;
-        color: #fff;
-        transition: color 0.3s ease;
-      }
-
-      &:hover {
-        background-color: #fff;
-
-        a {
-          color: #000;
-        }
+      // The link uses the shared `.cta` class (same pill as the header
+      // "Contact Us"), so size/hover/mobile stay identical; only drop its
+      // header-specific left margin.
+      a.cta {
+        margin-left: 0;
       }
     }
   }

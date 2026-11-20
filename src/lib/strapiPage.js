@@ -891,6 +891,7 @@ export async function getServicesPage() {
 
 const SERVICES_TECH_POPULATE = [
     "populate[banner][populate]=*",
+    "populate[sections][on][services.statistics-bar][populate][statisticsBar][populate]=*",
     "populate[sections][on][services-tech.features][populate][designFeature][populate]=*",
     "populate[sections][on][services-tech.technology][populate][Items][populate][icon][populate]=*",
     "populate[sections][on][services-tech.introduction][populate]=*",
@@ -898,10 +899,9 @@ const SERVICES_TECH_POPULATE = [
     "populate[sections][on][services-tech.awards][populate][awardsList][populate]=*",
     "populate[sections][on][services-tech.our-process][populate]=*",
     "populate[sections][on][services-tech.industries-we-serve][populate][lists][populate][icons][populate]=*",
-    "populate[sections][on][services-tech.tools-we-use][populate][lists][populate][icons][populate]=*",
+    "populate[sections][on][services-tech.tools-we-use][populate][lists][populate][logo][populate]=*",
     "populate[sections][on][services-tech.blogs][populate][blogTitle][populate]=*",
     "populate[sections][on][services-tech.fa-qs][populate]=*",
-    "populate[otherServices][populate][services][populate]=*",
     "populate[workTitle][populate]=*",
     "populate[seo][populate]=*",
 ].join("&");

@@ -200,10 +200,19 @@ function buildAwardItems(awardsList) {
  * single `logo` is still honoured. Entries with a title but no icon yet are
  * kept as title-only tiles so the section doesn't vanish.
  */
-function buildLogoTitleItems(lists) {
-  return (lists ?? [])
+function buildLogoTitleItems(rawLists) {
+  // `lists` is now a single component holding `icons: [{ url, logo }]` with no
+  // titles; the tile title is then taken from the logo's alt text or file name
+  // (e.g. "Infrastructure_and_EPC_<hash>.svg" -> "Infrastructure and EPC").
+  const lists = Array.isArray(rawLists) ? rawLists : (rawLists?.icons ?? []);
+  return lists
     .map((item) => {
-      const title = item.title?.trim() || "";
+      const fileName = item.logo?.name
+        ?.replace(/.[^.]+$/, "")
+        .replace(/(_[0-9a-f]{8,})+$/i, "")
+        .replace(/_/g, " ");
+      const title =
+        item.title?.trim() || item.logo?.alternativeText?.trim() || fileName?.trim() || "";
       if (!title) return null;
 
       const media = item.logo ?? item.icons?.find((entry) => entry.logo)?.logo;
@@ -243,9 +252,13 @@ function buildToolGroups(lists) {
   return (lists ?? [])
     .map((item) => ({
       title: item.title?.trim() || "",
-      icons: (item.icons ?? [])
-        .map((entry) => entry.logo)
-        .filter(Boolean)
+      // `logo` is a media field (array or single); older entries used an
+      // `icons` repeatable of { logo }.
+      icons: [
+        ...[item.logo ?? []].flat(),
+        ...(item.icons ?? []).map((entry) => entry.logo),
+      ]
+        .filter((media) => media?.url)
         .map((media) => {
           const name =
             media.alternativeText || media.name?.replace(/\.[^.]+$/, "") || "";
@@ -464,7 +477,6 @@ function cleanServiceHeading(banner, pageName) {
  */
 function buildOtherServicesSection(otherServicesRaw, allEntries, currentSlug) {
   const picks = otherServicesRaw?.services ?? [];
-  if (!picks.length) return null;
 
   const candidates = allEntries
     .filter((entry) => entry.slug !== currentSlug)
@@ -473,6 +485,13 @@ function buildOtherServicesSection(otherServicesRaw, allEntries, currentSlug) {
       heading: cleanServiceHeading(entry.banner, entry.pageName),
     }))
     .filter((entry) => entry.heading);
+
+  // The CMS no longer stores an `otherServices` pick list, so fall back to
+  // every other service in the live list.
+  if (!picks.length) {
+    const items = candidates.map((c) => ({ title: c.heading, href: `/services/${c.slug}` }));
+    return items.length ? { heading: "Our Other Services", items } : null;
+  }
 
   const items = picks
     .map((pick) => {

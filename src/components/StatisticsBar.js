@@ -9,16 +9,18 @@ function splitValue(value) {
 
 const LOCATIONS = ["USA", "India", "UAE"];
 
-export default function StatisticsBar({ stats = [] }) {
+export default function StatisticsBar({ locations = LOCATIONS, stats = [] }) {
   if (!stats.length) return null;
 
   return (
     <section data-section="statistics" className="statistics_bar">
-      <div className="statistics_locations">
-        {LOCATIONS.map((location) => (
-          <span key={location}>{location}</span>
-        ))}
-      </div>
+      {locations.length ? (
+        <div className="statistics_locations">
+          {locations.map((location) => (
+            <span key={location}>{location}</span>
+          ))}
+        </div>
+      ) : null}
 
       <div className="statistics_grid">
         {stats.map((stat) => {

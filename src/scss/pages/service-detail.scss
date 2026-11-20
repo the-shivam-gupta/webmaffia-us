@@ -74,6 +74,18 @@
     section{
         margin-bottom: vw(230);
     }
+    // Phones: same 120px (414px-based) gap the homepage uses, applied to every
+    // top-level section so none of them sit tight against the next one.
+    @include mobile(){
+        section,
+        > section{
+            margin-bottom: vw-mobile(120);
+        }
+        // nested sections must not add their own extra gap
+        section section{
+            margin-bottom: 0;
+        }
+    }
 
     .services_work{
         margin-left: 0;
@@ -207,8 +219,9 @@
 }
 
 .service_why_choose{
+    // "About Us": same look as the homepage "View All" links (shared rule in
+    // home-sections.scss): no underline, text fades and the arrow nudges.
     .cta_text{
-        display: inline-block;
         margin-top: 2rem;
     }
 }
@@ -380,9 +393,9 @@
         }
     }
     // Linked tile (industry page). It has to read as clickable without a
-    // hover: an arrow after the label and a faint underline are always shown;
-    // on hover the whole card area lifts slightly, the underline
-    // firms up and the arrow nudges right.
+    // hover: an arrow after the label is always shown. On hover the whole card
+    // area lifts slightly, only the label text fades (no underline, same as
+    // the homepage "View All" links) and the arrow nudges right.
     a.industries_cell{
         // A small card around the icon and label: the whole card (padding
         // included) is the link and the hover area. The negative margin equals
@@ -408,10 +421,8 @@
             align-items: center;
             gap: 1rem;
             width: fit-content;
-            text-decoration: underline;
-            text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
-            text-underline-offset: .6rem;
-            transition: text-decoration-color .3s ease;
+            text-decoration: none;
+            transition: -webkit-text-fill-color .3s ease;
             @include mobile(){
                 gap: 1.4rem;
             }
@@ -426,7 +437,8 @@
         &:focus-visible{
             transform: translateY(-.4rem);
             .industries_name{
-                text-decoration-color: currentColor;
+                // text-fill-color leaves the currentColor arrow at full strength.
+                -webkit-text-fill-color: color-mix(in srgb, currentColor 55%, transparent);
             }
             .industries_arrow{
                 transform: translateX(.6rem);
@@ -597,10 +609,9 @@
 // "Latest work" slider on service pages: image cards with the name over a dark
 // gradient, a progress line and round arrow buttons underneath.
 .work_slider{
-    margin-top: 5rem;
+    margin-top: 0;
     margin-bottom: 8rem;
     @include mobile(){
-        margin-top: 6rem;
         margin-bottom: 10rem;
     }
     .swiper{
@@ -634,13 +645,7 @@
     .work_card_media{
         display: block;
         overflow: hidden;
-        aspect-ratio: 16 / 9;
-        border-radius: 2.4rem;
         background: $black_4;
-        @include mobile(){
-            border-radius: 1.8rem;
-            aspect-ratio: 4 / 3;
-        }
         img{
             display: block;
             width: 100%;
@@ -680,99 +685,80 @@
         }
     }
 }
-.work_slider_controls{
+// Heading on the left, Previous / Next on the right of the same row.
+.work_slider_head{
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 4rem;
-    margin-top: 3rem;
+    margin-bottom: 4rem;
+    .h2{
+        margin: 0;
+    }
     @include mobile(){
-        // counter + progress line on the first row, the two buttons beneath
-        flex-wrap: wrap;
-        gap: 0 3rem;
-        margin-top: 2rem;
-        .work_slider_buttons{
-            width: 100%;
-            justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        // no room for the labels beside the heading: arrows only
+        .work_slider_buttons button span{
+            display: none;
         }
     }
 }
-.work_slider_count{
-    flex: none;
-    font-size: 2.6rem;
-    color: $black_40;
-    strong{
-        font-weight: 500;
-        color: $black;
-    }
-    @include mobile(){
-        font-size: 3.2rem;
-    }
-}
-.work_slider_progress{
-    position: relative;
-    flex: 1;
-    max-width: 45rem;
-    @include mobile(){
-        max-width: none;
-    }
-    height: .2rem;
-    background: $black_4;
-    overflow: hidden;
-    span{
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        background: $black;
-        transition: transform .3s ease, width .3s ease;
-    }
-}
+// Same Previous / Next as the homepage testimonial: muted label with a chevron,
+// full black on hover while the chevron nudges in its direction.
 .work_slider_buttons{
     display: flex;
     margin-left: auto;
     gap: 5rem;
     @include mobile(){
-        gap: 4rem;
+        gap: 2rem;
     }
     button{
         display: inline-flex;
         align-items: center;
-        gap: 1.2rem;
+        gap: 1rem;
         // generous padding = a big tap target, especially on mobile
         padding: 2rem 0;
         border: 0;
         background: transparent;
-        color: $black;
+        color: $black_60;
+        -webkit-text-fill-color: currentColor;
         font: inherit;
         font-size: 2.2rem;
         line-height: 1;
         white-space: nowrap;
         cursor: pointer;
-        transition: opacity .3s ease;
+        transition: color .3s ease, opacity .3s ease;
         @include mobile(){
             gap: 1.6rem;
             padding: 3.2rem 0;
             font-size: 3rem;
         }
+        span{
+            color: inherit;
+        }
         svg{
-            width: 3rem;
-            height: 3rem;
+            flex: none;
+            width: 1.1rem;
+            height: 2rem;
             transition: transform .3s ease;
-            &[data-direction="prev"]{
-                transform: rotate(180deg);
-            }
             @include mobile(){
-                width: 4rem;
-                height: 4rem;
+                width: 1.6rem;
+                height: 3rem;
             }
+        }
+        &:first-child{
+            // Chevron first, then the label
+            flex-direction: row;
         }
         @media (hover: hover){
             &:hover:not(:disabled){
+                color: $black;
                 &:first-child svg{
-                    transform: translateX(-.6rem) rotate(180deg);
+                    transform: translateX(-.7rem);
                 }
                 &:last-child svg{
-                    transform: translateX(.6rem);
+                    transform: translateX(.7rem);
                 }
             }
         }
@@ -783,13 +769,10 @@
     }
 }
 
+// "View All Work": same look as the homepage "View All" links (shared rule in
+// home-sections.scss): no underline, text fades and the arrow nudges on hover.
 .cta_work{
-    text-align: center;
-    .cta_text span::before{
-        @include mobile(){
-            top: 50%;
-        }
-    }
+    text-align: left;
 }
 
 h4{
@@ -990,6 +973,13 @@ h4{
 .other_services_row_name{
     position: relative;
     min-width: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    text-transform: none;
+    &.h3_plain.h3_plain{
+        color: #4e4e4e;
+    }
     font-size: 3.2rem;
     font-weight: 400;
     line-height: 1.25;
@@ -1059,19 +1049,9 @@ html.active .service_blogs .other_blogs .blog_item{
 // margins and section spacing come from .services_parent, and the grid sizes
 // its columns to however many stats the CMS has instead of a fixed five.
 .services_parent .statistics_bar{
-    // Same gap under the banner buttons as the homepage bar.
-    margin-top: vw(50);
+    margin-top: vw(120);
     @include mobile(){
         margin-top: vw-mobile(56);
-    }
-    // .services_parent already insets the page by 80px, so the locations line
-    // takes no side margin of its own (otherwise it sits 80px right of the
-    // banner text instead of lining up with it, as on the homepage).
-    .statistics_locations{
-        @media (min-width: 541px){
-            margin-left: 0;
-            margin-right: 0;
-        }
     }
     .statistics_grid{
         // One row of equal columns, like the homepage bar, whatever the count.
@@ -1141,75 +1121,6 @@ html.active .service_blogs .other_blogs .blog_item{
         }
     }
 }
-
-// Service banner CTAs: both the primary and secondary button are plain text
-// with a strike-through line (same treatment as the homepage ".cta_text"),
-// instead of a filled pill + underline. The line pulls away on hover.
-.service_detail .banner_content{
-    .banner_cta_group{
-        gap: vw(20) vw(50);
-        @include mobile(){
-            gap: vw-mobile(16) vw-mobile(32);
-        }
-    }
-    .banner_cta,
-    .banner_cta_secondary{
-        position: relative;
-        display: inline-block;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        color: $gray_dark;
-        font-size: vw(28);
-        line-height: 1;
-        font-weight: $exlight;
-        &::after{
-            content: '';
-            position: absolute;
-            display: block;
-            left: 50%;
-            top: 55%;
-            bottom: auto;
-            width: 105%;
-            height: vw(2);
-            background: $gray_dark;
-            transform: translateX(-50%) scaleX(1);
-            transform-origin: bottom left;
-            transition: transform 0.3s ease-in;
-        }
-        &:hover{
-            background: transparent;
-            color: $gray_dark;
-            &::after{
-                transform: translateX(-50%) scaleX(0);
-                transform-origin: bottom right;
-            }
-        }
-        @include mobile(){
-            font-size: vw-mobile(24.752);
-            &::after{
-                height: vw-mobile(1);
-            }
-        }
-    }
-}
-html.active .service_detail .banner_content{
-    .banner_cta,
-    .banner_cta_secondary{
-        background: transparent;
-        border-color: transparent;
-        color: rgba($white, 0.7);
-        &::after{
-            background: rgba($white, 0.7);
-        }
-        &:hover{
-            background: transparent;
-            color: rgba($white, 0.7);
-        }
-    }
-}
-
 
 // FAQ: heading on the left, expandable questions on the right. Shared by the
 // /team page and the service detail pages (ServiceTeamFaq).
@@ -1306,4 +1217,69 @@ html.active .service_detail .banner_content{
 }
 .is_open .team_faq_answer_inner{
     opacity: 1;
+}
+
+// ---- Service pages: "Our Other Services" ---------------------------------
+// Simple pill links: service name + small arrow. They wrap to fit any width.
+.svc_other{
+    padding-top: 2rem;
+}
+.svc_other_title{
+    margin: 0 0 5rem;
+    max-width: 12em;
+    font-size: 6.4rem;
+    font-weight: $exlight;
+    line-height: 1.15;
+    letter-spacing: 0;
+    @include mobile(){
+        margin-bottom: 4rem;
+        font-size: 8rem;
+        line-height: 1.1;
+    }
+}
+.svc_other_list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    @include mobile(){
+        gap: 2rem;
+    }
+}
+.svc_other_item{
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 1.8rem 3rem;
+    border: .1rem solid #cfcfcf;
+    border-radius: 10rem;
+    color: $black;
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+    @include mobile(){
+        padding: 2.6rem 4rem;
+    }
+    @media (hover: hover){
+        &:hover{
+            background: $black;
+            border-color: $black;
+            color: #fff;
+            .svc_other_name.h3_plain{
+                color: #fff;
+            }
+        }
+    }
+}
+.svc_other_name{
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: left;
+    text-transform: none;
+    &.h3_plain.h3_plain{
+        color: $black;
+        transition: color .3s ease;
+    }
+    @include mobile(){
+        font-size: 3.6rem;
+    }
 }
