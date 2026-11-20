@@ -435,6 +435,12 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
     .filter((section) => section.type === "faqs")
     .flatMap((section) => section.items ?? []);
 
+  // Service name sent along with the enquiry form (last breadcrumb is the
+  // page's own name, e.g. "Digital Strategy").
+  const serviceName = breadcrumbs?.length
+    ? breadcrumbs[breadcrumbs.length - 1].name
+    : hero.subtitle;
+
   const bannerData = {
     imagePosition: "right",
     priority: true,
@@ -478,7 +484,7 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
           mediaOverlay={
             <>
               <p className="banner_media__form_title">Let&apos;s Connect</p>
-              <KlaviyoFormEmbed formId="Rq3tfh" />
+              <KlaviyoFormEmbed formId="Rq3tfh" service={serviceName} />
               <BookCallButton />
             </>
           }
