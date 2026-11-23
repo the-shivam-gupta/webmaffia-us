@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import BookingModal from "@/components/BookingModal";
 
-// Where the "Book a 20-min call" button goes (Cal.com booking page).
+// Fallback href (middle-click / new tab). A normal click opens the pop-up.
 const BOOK_CALL_URL =
   "https://cal.com/veera-ghyara-z4cnxq/schedule-a-20-minute-call";
 
@@ -13,9 +14,20 @@ const CALENDAR_ICON =
 // React, so the call button is added next to Submit by watching the form box
 // and re-adding it whenever Klaviyo re-renders.
 export default function BookCallButton({ container: selector = ".banner_media__form" }) {
+  const [open, setOpen] = useState(false);
+  const close = useCallback(() => setOpen(false), []);
+
   useEffect(() => {
     const container = document.querySelector(selector);
     if (!container) return undefined;
+
+    const onClick = (e) => {
+      const link = e.target.closest?.(".banner_book_call");
+      if (!link || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      setOpen(true);
+    };
+    container.addEventListener("click", onClick);
 
     const makeLink = (extraClass = "") => {
       const link = document.createElement("a");
@@ -23,6 +35,7 @@ export default function BookCallButton({ container: selector = ".banner_media__f
       link.href = BOOK_CALL_URL;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
+      link.setAttribute("aria-haspopup", "dialog");
       link.innerHTML = `${CALENDAR_ICON}<span>Book a 20-min call</span>`;
       return link;
     };
@@ -34,7 +47,6 @@ export default function BookCallButton({ container: selector = ".banner_media__f
       const formVisible = !!submit && submit.getClientRects().length > 0;
 
       if (formVisible) {
-        // Form is showing: the call link sits beside Submit.
         standalone?.remove();
         if (!submit.parentElement.querySelector(".banner_book_call")) {
           submit.insertAdjacentElement("afterend", makeLink());
@@ -42,8 +54,6 @@ export default function BookCallButton({ container: selector = ".banner_media__f
         return;
       }
 
-      // Klaviyo replaced the form with its "Thank You" message (no Submit
-      // button): keep the call link, outside Klaviyo's tree so it survives.
       const mount = container.querySelector(".formWarpperx");
       const rendered = mount?.querySelector("[class*='klaviyo-form'] > *");
       if (rendered && !standalone) {
@@ -59,8 +69,11 @@ export default function BookCallButton({ container: selector = ".banner_media__f
       attributes: true,
       attributeFilter: ["style", "class", "hidden"],
     });
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      container.removeEventListener("click", onClick);
+    };
   }, [selector]);
 
-  return null;
+  return <BookingModal open={open} onClose={close} />;
 }

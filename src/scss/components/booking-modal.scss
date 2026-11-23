@@ -1,0 +1,778 @@
+// Desktop sizing: scales with the viewport like vw(), but never drops below
+// 80% of the design size so small laptop screens stay readable.
+@function bk($px) {
+  @return max(vw($px), #{$px * 0.8}px);
+}
+
+// "Book a 20-min call" pop-up. Matches the site: Albert Sans, black/white,
+// hairline borders, pill buttons. Light theme by default; html.active = dark.
+.booking_modal {
+  --bk-bg: #fff;
+  --bk-bg-soft: #f5f5f5;
+  --bk-ink: #000;
+  --bk-ink-soft: rgba(0, 0, 0, 0.6);
+  --bk-ink-faint: rgba(0, 0, 0, 0.35);
+  --bk-line: rgba(0, 0, 0, 0.12);
+  --bk-line-strong: rgba(0, 0, 0, 0.3);
+  --bk-inv-bg: #000;
+  --bk-inv-ink: #fff;
+
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: bk(40);
+  visibility: hidden;
+  font-family: "Albert Sans", sans-serif;
+  color: var(--bk-ink);
+  transition: visibility 0s linear 0.4s;
+
+  &.is-open {
+    visibility: visible;
+    transition: visibility 0s;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  &.is-open &__backdrop {
+    opacity: 1;
+  }
+
+  &__dialog {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.6fr);
+    width: min(bk(1120), 100%);
+    height: min(bk(700), 100%);
+    background: var(--bk-bg);
+    border: 1px solid var(--bk-line);
+    border-radius: bk(24);
+    box-shadow: 0 bk(40) bk(90) bk(-40) rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(bk(16)) scale(0.985);
+    transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &.is-open &__dialog {
+    opacity: 1;
+    transform: none;
+  }
+
+  &__close {
+    position: absolute;
+    top: bk(20);
+    right: bk(20);
+    z-index: 3;
+    width: bk(44);
+    height: bk(44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--bk-line-strong) !important;
+    border-radius: 50%;
+    background: var(--bk-bg) !important;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--bk-inv-bg) !important;
+      color: var(--bk-inv-ink);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--bk-ink);
+      outline-offset: bk(3);
+    }
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    padding: bk(52);
+    border-right: 1px solid var(--bk-line);
+    background: var(--bk-bg-soft);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &__booker {
+    position: relative;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: bk(72) bk(44) bk(32);
+  }
+}
+
+// ---- Intro ----
+.bk_label {
+  display: inline-flex;
+  align-items: center;
+  gap: bk(14);
+  font-size: bk(13);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bk-ink-soft);
+
+  &::before {
+    content: "";
+    width: bk(28);
+    height: 1px;
+    background: var(--bk-ink);
+  }
+}
+
+.bk_title {
+  margin: bk(28) 0 0;
+  font-size: bk(46);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--bk-ink);
+}
+
+.bk_desc {
+  margin: bk(20) 0 0;
+  max-width: 30ch;
+  font-size: bk(15.5);
+  line-height: 1.65;
+  color: var(--bk-ink-soft);
+}
+
+.bk_meta {
+  margin: auto 0 0;
+  padding-top: bk(32);
+}
+
+.bk_meta_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: bk(16);
+  padding: bk(15) 0;
+  border-top: 1px solid var(--bk-line);
+
+  &:last-child {
+    border-bottom: 1px solid var(--bk-line);
+  }
+
+  dt {
+    display: inline-flex;
+    align-items: center;
+    gap: bk(10);
+    font-size: bk(11);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bk-ink-soft);
+  }
+  dd {
+    margin: 0;
+    font-size: bk(14.5);
+    text-align: right;
+    color: var(--bk-ink);
+  }
+}
+
+// ---- Calendar ----
+.bk_pick {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(bk(220), bk(270));
+  gap: bk(40);
+  height: 100%;
+}
+
+.bk_calendar {
+  min-width: 0;
+}
+
+.bk_monthbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: bk(16);
+  border-bottom: 1px solid var(--bk-line);
+}
+
+.bk_monthname {
+  font-size: bk(22);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+
+  span {
+    color: var(--bk-ink-faint);
+  }
+}
+
+.bk_monthnav {
+  display: flex;
+  gap: bk(6);
+
+  button {
+    width: bk(36);
+    height: bk(36);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--bk-line-strong);
+    border-radius: 50%;
+    transition: background-color 0.3s ease-in, color 0.3s ease-in;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      background: var(--bk-inv-bg);
+      color: var(--bk-inv-ink);
+    }
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+}
+
+.bk_grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: bk(5);
+  margin-top: bk(16);
+}
+
+.bk_weekday {
+  padding-bottom: bk(8);
+  text-align: center;
+  font-size: bk(11);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bk-ink-faint);
+}
+
+.bk_day {
+  position: relative;
+  aspect-ratio: 1;
+  max-height: bk(52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent !important;
+  border-radius: 50%;
+  font-size: bk(15);
+  font-variant-numeric: tabular-nums;
+  color: var(--bk-ink-faint);
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+
+  &:disabled {
+    cursor: default;
+  }
+  &.is-available {
+    color: var(--bk-ink);
+    font-weight: 500;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 18%;
+      left: 50%;
+      width: bk(4);
+      height: bk(4);
+      margin-left: -2px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    &:hover {
+      border-color: var(--bk-line-strong) !important;
+    }
+  }
+  &.is-today {
+    text-decoration: underline;
+    text-underline-offset: bk(4);
+    text-decoration-color: var(--bk-line-strong);
+  }
+  &.is-selected,
+  &.is-selected:hover {
+    background: var(--bk-inv-bg);
+    border-color: var(--bk-inv-bg) !important;
+    color: var(--bk-inv-ink);
+  }
+}
+
+.bk_day:focus-visible,
+.bk_slot:focus-visible,
+.bk_clock button:focus-visible,
+.bk_confirm:focus-visible,
+.bk_monthnav button:focus-visible {
+  outline: 2px solid var(--bk-ink);
+  outline-offset: 2px;
+}
+
+.bk_tz {
+  margin: bk(20) 0 0;
+  padding-top: bk(14);
+  border-top: 1px solid var(--bk-line);
+  font-size: bk(11);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bk-ink-faint);
+}
+
+// ---- Slots ----
+.bk_slots {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding-left: bk(32);
+  border-left: 1px solid var(--bk-line);
+}
+
+.bk_slots_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: bk(12);
+  padding-bottom: bk(16);
+  border-bottom: 1px solid var(--bk-line);
+  min-height: bk(53);
+}
+
+.bk_slots_day {
+  font-size: bk(12);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.bk_clock {
+  display: flex;
+  border: 1px solid var(--bk-line-strong);
+  border-radius: bk(999);
+  padding: 2px;
+
+  button {
+    padding: bk(5) bk(9);
+    border-radius: bk(999);
+    font-size: bk(11);
+    letter-spacing: 0.06em;
+    color: var(--bk-ink-soft);
+
+    &[aria-pressed="true"] {
+      background: var(--bk-inv-bg);
+      color: var(--bk-inv-ink);
+    }
+  }
+}
+
+.bk_slot_list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: bk(7);
+  margin: bk(16) 0 0;
+  padding: 0 bk(4) 0 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.bk_slot {
+  width: 100%;
+  padding: bk(11) bk(14);
+  border: 1px solid var(--bk-line-strong) !important;
+  border-radius: bk(999);
+  font-size: bk(14);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in, border-color 0.3s ease-in;
+
+  &:hover {
+    background: var(--bk-inv-bg) !important;
+    border-color: var(--bk-inv-bg) !important;
+    color: var(--bk-inv-ink);
+  }
+}
+
+.bk_state {
+  margin: bk(16) 0 0;
+  font-size: bk(14.5);
+  line-height: 1.6;
+  color: var(--bk-ink-soft);
+}
+
+.bk_link {
+  color: var(--bk-ink);
+  text-decoration: underline;
+  text-underline-offset: bk(3);
+}
+
+// ---- Form ----
+.bk_form {
+  display: flex;
+  flex-direction: column;
+  gap: bk(18);
+  max-width: 30rem;
+}
+
+.bk_back {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: bk(8);
+  font-size: bk(12);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--bk-ink-soft);
+
+  &:hover {
+    color: var(--bk-ink);
+  }
+}
+
+.bk_summary {
+  display: flex;
+  flex-direction: column;
+  gap: bk(6);
+  padding: bk(18) 0;
+  border-top: 1px solid var(--bk-line);
+  border-bottom: 1px solid var(--bk-line);
+}
+
+.bk_summary_label {
+  font-size: bk(11);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bk-ink-soft);
+}
+
+.bk_summary_when {
+  font-size: bk(22);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.bk_summary_meta {
+  font-size: bk(14);
+  color: var(--bk-ink-soft);
+}
+
+.bk_field {
+  display: flex;
+  flex-direction: column;
+  gap: bk(7);
+
+  > span {
+    font-size: bk(11);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--bk-ink-soft);
+  }
+  em {
+    font-style: normal;
+    color: var(--bk-ink-faint);
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: bk(10) 0;
+    font: inherit;
+    font-size: bk(16);
+    color: var(--bk-ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--bk-line-strong);
+    border-radius: 0;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: var(--bk-ink);
+    }
+  }
+}
+
+.bk_error {
+  margin: 0;
+  font-size: bk(14);
+  line-height: 1.5;
+  color: #d33;
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: bk(3);
+  }
+}
+
+// Same look as the site's pill buttons.
+.bk_confirm {
+  align-self: flex-start;
+  margin-top: bk(6);
+  padding: bk(14) bk(30);
+  border: 1px solid var(--bk-inv-bg) !important;
+  border-radius: bk(999);
+  background: var(--bk-inv-bg) !important;
+  color: var(--bk-inv-ink);
+  font-size: bk(15);
+  transition: all 0.3s ease-in;
+
+  &:hover:not(:disabled) {
+    background: var(--bk-bg) !important;
+    color: var(--bk-ink);
+  }
+  &:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+}
+
+// ---- Done ----
+.bk_done {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: bk(14);
+  max-width: 28rem;
+}
+
+.bk_done_icon {
+  width: bk(48);
+  height: bk(48);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bk-inv-bg);
+  color: var(--bk-inv-ink);
+}
+
+.bk_done_title {
+  margin: 0;
+  font-size: bk(40);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.bk_done_when {
+  margin: 0;
+  font-size: bk(13);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.bk_done_text {
+  margin: 0;
+  font-size: bk(15);
+  line-height: 1.6;
+  color: var(--bk-ink-soft);
+}
+
+// ---- Dark theme (html.active) ----
+html.active .booking_modal {
+  --bk-bg: #0b0b0b;
+  --bk-bg-soft: #141414;
+  --bk-ink: #fff;
+  --bk-ink-soft: rgba(255, 255, 255, 0.65);
+  --bk-ink-faint: rgba(255, 255, 255, 0.35);
+  --bk-line: rgba(255, 255, 255, 0.14);
+  --bk-line-strong: rgba(255, 255, 255, 0.32);
+  --bk-inv-bg: #fff;
+  --bk-inv-ink: #000;
+}
+
+// ---- Mobile: full-screen sheet ----
+@media (max-width: 767px) {
+  .booking_modal {
+    padding: 0;
+    align-items: stretch;
+
+    &__dialog {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      transform: translateY(vw-mobile(24));
+    }
+
+    &__close {
+      position: fixed;
+      top: max(vw-mobile(14), env(safe-area-inset-top));
+      right: vw-mobile(16);
+    }
+
+    &__intro {
+      padding: vw-mobile(24) 5vw;
+      padding-top: max(vw-mobile(24), env(safe-area-inset-top));
+      border-right: 0;
+      border-bottom: 1px solid var(--bk-line);
+      overflow: visible;
+    }
+
+    &__booker {
+      overflow: visible;
+      padding: vw-mobile(24) 5vw calc(vw-mobile(32) + env(safe-area-inset-bottom));
+    }
+  }
+
+  .booking_modal .bk_title {
+    margin-top: vw-mobile(18);
+    font-size: vw-mobile(34);
+    padding-right: vw-mobile(56);
+
+    br {
+      display: none;
+    }
+  }
+
+  .booking_modal .bk_desc {
+    margin-top: vw-mobile(12);
+    max-width: none;
+    font-size: vw-mobile(14.5);
+  }
+
+  .booking_modal .bk_meta {
+    margin-top: vw-mobile(20);
+    padding-top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--bk-line);
+    border-bottom: 1px solid var(--bk-line);
+  }
+
+  .booking_modal .bk_meta_row,
+  .booking_modal .bk_meta_row:last-child {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: vw-mobile(6);
+    padding: vw-mobile(13) 0;
+    border: 0;
+  }
+
+  .booking_modal .bk_meta_row + .bk_meta_row {
+    padding-left: vw-mobile(16);
+    border-left: 1px solid var(--bk-line);
+  }
+
+  .booking_modal .bk_meta_row dd {
+    text-align: left;
+    font-size: vw-mobile(13.5);
+  }
+
+  .booking_modal .bk_pick {
+    grid-template-columns: 1fr;
+    gap: vw-mobile(28);
+    height: auto;
+  }
+
+  .booking_modal .bk_day {
+    max-height: none;
+  }
+
+  .booking_modal .bk_slots {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .booking_modal .bk_slot_list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .booking_modal .bk_slot {
+    padding: vw-mobile(11) vw-mobile(6);
+    font-size: vw-mobile(13);
+  }
+
+  .booking_modal .bk_form,
+  .booking_modal .bk_done {
+    max-width: none;
+  }
+}
+
+// Mobile type + spacing in vw-mobile() (desktop values above are vw-based and
+// would be microscopic on phones).
+@media (max-width: 767px) {
+  .booking_modal {
+    .bk_label { font-size: vw-mobile(12); gap: vw-mobile(12); &::before { width: vw-mobile(24); } }
+    .bk_meta_row dt { font-size: vw-mobile(11); gap: vw-mobile(8); }
+    .bk_monthbar { padding-bottom: vw-mobile(14); }
+    .bk_monthname { font-size: vw-mobile(22); }
+    .bk_monthnav { gap: vw-mobile(8); button { width: vw-mobile(38); height: vw-mobile(38); } }
+    .bk_grid { gap: vw-mobile(4); margin-top: vw-mobile(14); }
+    .bk_weekday { font-size: vw-mobile(11); padding-bottom: vw-mobile(8); }
+    .bk_day { font-size: vw-mobile(16); }
+    .bk_tz { font-size: vw-mobile(11); margin-top: vw-mobile(18); padding-top: vw-mobile(14); }
+    .bk_slots_head { padding-bottom: vw-mobile(14); min-height: 0; }
+    .bk_slots_day { font-size: vw-mobile(13); }
+    .bk_clock button { font-size: vw-mobile(12); padding: vw-mobile(5) vw-mobile(10); }
+    .bk_slot_list { gap: vw-mobile(8); margin-top: vw-mobile(14); }
+    .bk_state { font-size: vw-mobile(14.5); margin-top: vw-mobile(14); }
+    .bk_form { gap: vw-mobile(18); }
+    .bk_back { font-size: vw-mobile(12); }
+    .bk_summary { padding: vw-mobile(16) 0; gap: vw-mobile(6); }
+    .bk_summary_label { font-size: vw-mobile(11); }
+    .bk_summary_when { font-size: vw-mobile(21); }
+    .bk_summary_meta { font-size: vw-mobile(13.5); }
+    .bk_field { gap: vw-mobile(6); > span { font-size: vw-mobile(11); } input, textarea { font-size: 16px; padding: vw-mobile(10) 0; } }
+    .bk_error { font-size: vw-mobile(14); }
+    .bk_confirm { font-size: vw-mobile(15); padding: vw-mobile(14) vw-mobile(30); }
+    .bk_done { gap: vw-mobile(14); }
+    .bk_done_icon { width: vw-mobile(48); height: vw-mobile(48); }
+    .bk_done_title { font-size: vw-mobile(32); }
+    .bk_done_when { font-size: vw-mobile(13); }
+    .bk_done_text { font-size: vw-mobile(15); }
+  }
+  .booking_modal__close { width: vw-mobile(44); height: vw-mobile(44); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking_modal__backdrop,
+  .booking_modal__dialog,
+  .booking_modal .bk_day,
+  .booking_modal .bk_slot,
+  .booking_modal .bk_confirm {
+    transition: none;
+  }
+}
+
+// Mobile only: hide the floating widgets (accessibility, chat, call, AI,
+// WhatsApp) while the booking pop-up is open. Desktop keeps them.
+@media (max-width: 767px) {
+  html.booking-open {
+    .a11y,
+    .chat-cta,
+    .call-cta,
+    .ai-cta,
+    .whatsapp-cta {
+      display: none !important;
+    }
+  }
+}
