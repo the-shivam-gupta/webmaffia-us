@@ -149,7 +149,7 @@ function ProjectsSection({ section }) {
   if (!section.cards.length) return null;
 
   return (
-    <section data-section="features" className="features" ref={featuresRef}>
+    <section id="case_studies" data-section="features" className="features" ref={featuresRef}>
       <div className="features_head">
         <div className="features_title">
           <SectionHead tagline={section.tagline} title={section.title} />
@@ -333,6 +333,26 @@ function TeamSection() {
   );
 }
 
+// Static for now: the hero buttons scroll to sections on this page instead of
+// using the CMS links. "See the work" -> case studies, "More about us" -> FAQ.
+const STATIC_BANNER_LINKS = [
+  { match: /see\s+the\s+work/i, href: "#case_studies" },
+  { match: /more\s+about\s+us/i, href: "#faqs" },
+];
+
+function staticBannerData(data) {
+  if (!data) return data;
+  const override = (cta) => {
+    const hit = cta && STATIC_BANNER_LINKS.find((l) => l.match.test(cta.text ?? ""));
+    return hit ? { ...cta, href: hit.href } : cta;
+  };
+  return {
+    ...data,
+    cta: override(data.cta),
+    secondaryCta: override(data.secondaryCta),
+  };
+}
+
 function IndustriesSection({ section }) {
   if (!section.cards.length) return null;
 
@@ -345,10 +365,15 @@ function IndustriesSection({ section }) {
         ) : null}
       </div>
       <div className="home_industries_grid">
-        {section.cards.map((card) => {
+        {section.cards.map((card, index) => {
           const content = (
             <>
-              <h3 className="home_industries_name">{card.title}</h3>
+              <h3
+                className="home_industries_name"
+                data-number={`${String(index + 1).padStart(2, "0")}/`}
+              >
+                {card.title}
+              </h3>
               {card.subtitle ? (
                 <p className="home_industries_clients">{card.subtitle}</p>
               ) : null}
@@ -658,7 +683,7 @@ export default function HomePage({
     <main className="wrapper home_wrapper opacity_0">
       <div className="ml-setter">
         {bannerData ? (
-          <Banner newTab data={bannerData} mediaOverlay={
+          <Banner newTab data={staticBannerData(bannerData)} mediaOverlay={
             <>
               <p className="banner_media__form_title">Let&apos;s Connect</p>
               <KlaviyoFormEmbed formId="Rq3tfh" />

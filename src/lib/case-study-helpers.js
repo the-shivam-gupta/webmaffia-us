@@ -27,6 +27,59 @@ function byInternalFirst(a, b) {
   return Number(!!a.thumbnail?.externalLink) - Number(!!b.thumbnail?.externalLink);
 }
 
+// Lowest CMS rank wins; a missing / non-numeric rank goes last.
+function toRank(value) {
+  const n = Number(value);
+  return value !== null && value !== "" && Number.isFinite(n) ? n : Number.POSITIVE_INFINITY;
+}
+
+// Rank of a case study for the given tag(s): the lowest `thumbnail.latestWork`
+// number whose service (serviceOrder.title) is one of them.
+function serviceRank(entry, wantedTags) {
+  let best = Number.POSITIVE_INFINITY;
+  for (const row of entry.thumbnail?.latestWork ?? []) {
+    const title = row?.serviceOrder?.title?.toLowerCase();
+    if (title && wantedTags.includes(title)) best = Math.min(best, toRank(row.order));
+  }
+  return best;
+}
+
+// Position (in the service's CMS tag order) of the first tag this case study
+// carries; the earlier the tag, the higher the priority. No match -> last.
+function tagPriority(entry, wantedTags) {
+  const entryTags = (entry.thumbnail?.workTitle ?? [])
+    .map((t) => t.title?.toLowerCase())
+    .filter(Boolean);
+  const index = wantedTags.findIndex((tag) => entryTags.includes(tag));
+  return index === -1 ? Number.POSITIVE_INFINITY : index;
+}
+
+// Order for a service's slider. `wantedTags` is in the service's CMS tag order:
+//   1. the tag it matches first (tag placement = priority),
+//   2. its `latestWork` number for that tag,
+//   3. the global `thumbnail.order`,
+//   4. internal case studies before external ones.
+function byServiceOrder(wantedTags) {
+  const keyOf = (entry) => {
+    const priority = tagPriority(entry, wantedTags);
+    const rank =
+      priority === Number.POSITIVE_INFINITY
+        ? Number.POSITIVE_INFINITY
+        : serviceRank(entry, [wantedTags[priority]]);
+    return { priority, rank };
+  };
+  return (a, b) => {
+    const keyA = keyOf(a);
+    const keyB = keyOf(b);
+    if (keyA.priority !== keyB.priority) return keyA.priority < keyB.priority ? -1 : 1;
+    if (keyA.rank !== keyB.rank) return keyA.rank < keyB.rank ? -1 : 1;
+    const orderA = toRank(a.thumbnail?.order);
+    const orderB = toRank(b.thumbnail?.order);
+    if (orderA !== orderB) return orderA < orderB ? -1 : 1;
+    return byInternalFirst(a, b);
+  };
+}
+
 function matchesCategory(entry, wantedTags) {
   const entryTags = (entry.thumbnail?.workTitle ?? [])
     .map((t) => t.title?.toLowerCase())
@@ -57,23 +110,27 @@ export async function getLatestWorkItems(
     const eligible = caseStudies.filter((entry) => entry?.thumbnail?.image);
 
     let matched = [];
+    let sortTags = [];
     if (categories.length) {
       const wantedTags = categories.map((tag) => tag.toLowerCase());
       matched = eligible.filter((entry) => matchesCategory(entry, wantedTags));
+      sortTags = wantedTags;
     }
 
     if (!matched.length && fallbackCategories.length) {
       const fallbackTags = fallbackCategories.map((tag) => tag.toLowerCase());
       matched = eligible.filter((entry) => matchesCategory(entry, fallbackTags));
+      sortTags = fallbackTags;
     }
 
-    matched.sort(byInternalFirst);
+    const compare = byServiceOrder(sortTags);
+    matched.sort(compare);
     // `matchedOnly`: just the relevant projects, no generic filler after them
     // (unless nothing matched at all, so the section never renders empty).
     const rest =
       matchedOnly && matched.length
         ? []
-        : eligible.filter((entry) => !matched.includes(entry)).sort(byInternalFirst);
+        : eligible.filter((entry) => !matched.includes(entry)).sort(compare);
 
     return [...matched, ...rest].slice(0, limit).map(toCaseStudyItem);
   } catch (e) {

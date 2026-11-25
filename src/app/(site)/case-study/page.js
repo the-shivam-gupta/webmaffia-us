@@ -50,11 +50,13 @@ export default async function CaseStudyPage() {
       .map((entry) => ({
         item: toCaseStudyItem(entry),
         external: !!entry.thumbnail?.externalLink,
-        name: (entry.thumbnail?.heading ?? entry.pageName).toLowerCase(),
+        // CMS `order` (thumbnail.order): lowest first; entries without one go last.
+        order: Number.isFinite(entry.thumbnail?.order)
+          ? entry.thumbnail.order
+          : Number.POSITIVE_INFINITY,
       }))
       .sort((a, b) => {
-        if (a.name === "lupin") return -1;
-        if (b.name === "lupin") return 1;
+        if (a.order !== b.order) return a.order < b.order ? -1 : 1;
         return Number(a.external) - Number(b.external);
       })
       .map(({ item }) => item);

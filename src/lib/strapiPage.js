@@ -620,7 +620,12 @@ export async function getCaseStudies() {
     }
 }
 
-const CASE_STUDY_THUMBNAIL_POPULATE = "populate[thumbnail][populate]=*";
+// `latestWork` (per-service rank) holds a nested `serviceOrder` component, so it needs its own deeper populate.
+const CASE_STUDY_THUMBNAIL_POPULATE = [
+    "populate[thumbnail][populate][image]=true",
+    "populate[thumbnail][populate][workTitle]=true",
+    "populate[thumbnail][populate][latestWork][populate]=*",
+].join("&");
 
 async function fetchCaseStudyThumbnailsPage(page) {
     const strapiBaseUrl = getStrapiApiBaseUrl();

@@ -918,7 +918,7 @@ p{
         justify-content: flex-start;
         margin-top: vw(100);
         @include mobile(){
-            margin-top: vw-mobile(48);
+            margin-top: vw-mobile(56);
         }
     }
     .services_item_link{
@@ -1283,6 +1283,9 @@ h2, .sub_heading{
 .cta_box{
     width: auto;
     margin-top: vw(95);
+    @include mobile(){
+        margin-top: vw-mobile(56);
+    }
 }
 
 
@@ -1494,7 +1497,7 @@ h2, .sub_heading{
     .features_more{
         margin-top: vw(95);
         @include mobile(){
-            margin-top: vw-mobile(40);
+            margin-top: vw-mobile(56);
         }
     }
     // "See all Projects": same underline + arrow hover as `.home_wrapper
@@ -2117,6 +2120,9 @@ h3, .h2{
         border-right: 1px solid rgba($black, .15);
         @include mobile(){
             grid-template-columns: 1fr;
+            gap: 0;
+            border: 0;
+            border-top: 1px solid rgba($black, .15);
             margin-top: vw-mobile(24);
         }
     }
@@ -2151,7 +2157,10 @@ h3, .h2{
         }
         @include mobile(){
             min-height: 0;
-            padding: vw-mobile(20) vw-mobile(16) vw-mobile(16);
+            padding: vw-mobile(26) 0 vw-mobile(22);
+            border: 0;
+            border-bottom: 1px solid rgba($black, .15);
+            background: none;
             &:not(:nth-child(3n)){
                 border-right: 0;
             }
@@ -2184,9 +2193,34 @@ h3, .h2{
         letter-spacing: 0;
         line-height: 1.15;
         color: $black;
+        position: relative;
+        padding-left: vw(34);
         transition: color .4s ease, transform .5s cubic-bezier(.65, 0, .35, 1);
         @include mobile(){
-            font-size: vw-mobile(20);
+            // Mobile: index sits as a small label above a larger title.
+            padding-left: 0;
+            margin-bottom: vw-mobile(8);
+            font-size: vw-mobile(24);
+            line-height: 1.15;
+        }
+        // "01/" index, same treatment as `.feature_title::before`.
+        &::before{
+            content: attr(data-number);
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: vw(17);
+            line-height: 1.15;
+            color: inherit;
+            @include mobile(){
+                // Plain small index above the title.
+                position: static;
+                display: block;
+                margin-bottom: vw-mobile(10);
+                font-size: vw-mobile(12);
+                line-height: 1;
+                opacity: .5;
+            }
         }
     }
     .home_industries_clients{
@@ -2196,7 +2230,8 @@ h3, .h2{
         color: $black_60;
         transition: color .4s ease;
         @include mobile(){
-            font-size: vw-mobile(12);
+            font-size: vw-mobile(14);
+            line-height: 1.6;
         }
     }
     .home_industries_cta{
@@ -2212,7 +2247,9 @@ h3, .h2{
         color: $black;
         transition: color .4s ease;
         @include mobile(){
-            font-size: vw-mobile(10.4);
+            // Footer row: hairline rule, label left, arrow right.
+            padding-top: vw-mobile(22);
+            font-size: vw-mobile(11);
         }
     }
     .home_industries_arrow{
@@ -2222,7 +2259,7 @@ h3, .h2{
         line-height: 1;
         transition: transform .4s cubic-bezier(.65, 0, .35, 1);
         @include mobile(){
-            font-size: vw-mobile(16);
+            font-size: vw-mobile(22);
         }
     }
 }
@@ -2270,6 +2307,11 @@ h3, .h2{
             -webkit-box-orient: vertical;
             overflow: hidden;
             width: 100%;
+            margin-top: vw(10);
+
+            @include mobile(){
+                margin-top: vw-mobile(16);
+            }
         }
     }
 }
@@ -2972,5 +3014,14 @@ h3, .h2{
         &::before{
             display: none;
         }
+    }
+}
+
+// Hero button anchor targets: stop the fixed header covering the heading.
+#case_studies,
+#faqs{
+    scroll-margin-top: vw(100);
+    @include mobile(){
+        scroll-margin-top: vw-mobile(70);
     }
 }

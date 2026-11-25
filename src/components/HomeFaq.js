@@ -10,7 +10,7 @@ export default function HomeFaq({ tagline, title, items }) {
   if (!items?.length) return null;
 
   return (
-    <section data-section="faqs" className="home_faqs">
+    <section id="faqs" data-section="faqs" className="home_faqs">
       <div className="home_faqs_head">
         {tagline ? <h2 className="sub_title">{tagline}</h2> : null}
         {title ? <div className="sub_heading">{title}</div> : null}

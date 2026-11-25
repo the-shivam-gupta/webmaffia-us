@@ -644,6 +644,11 @@ html{
                 color: $black_60;
             }
 
+            // Country ("USA" / "India" / "Dubai") stays darker than the city part.
+            .footer_connect_usa_label .footer_connect_label_strong {
+                color: $black;
+            }
+
             .footer_connect_usa,
             .footer_connect_primary,
             .footer_connect_office {
@@ -830,6 +835,20 @@ html.active .home_industries{
     }
     .home_industries_clients{
         color: rgba(255,255,255,0.6);
+    }
+    // Mobile: plain list, hairlines only.
+    .home_industries_grid{
+        @include mobile(){
+            border-top: 1px solid rgba(255,255,255,0.18);
+        }
+    }
+    // "01/" index follows the title colour (white; black on the white hover fill).
+    .home_industries_name::before{
+        color: $white;
+    }
+    a.home_industries_cell:hover .home_industries_name::before,
+    a.home_industries_cell:focus-visible .home_industries_name::before{
+        color: $black;
     }
     a.home_industries_cell:hover,
     a.home_industries_cell:focus-visible{

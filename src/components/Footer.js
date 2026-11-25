@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "@/components/SiteLink";
+import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -54,6 +56,15 @@ const RegionHead = ({ label }) => {
 };
 
 const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy" }) => {
+  const pathname = usePathname();
+  // Already on the home page: linking to "/" does not move the page, so scroll
+  // to the top ourselves. From other pages the normal navigation handles it.
+  const handleLogoClick = (event) => {
+    if (pathname === "/") {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
   const socialLinks = (footerData?.socialLinks ?? []).filter(
     ({ platform }) => platform !== "X"
   );
@@ -209,19 +220,15 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
 
       {/* <div className="footer_logo_divider" aria-hidden="true" /> */}
 
-      <Link
-        href="https://www.webmaffia.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="footer_logo"
-      >
+      {/* Stays on this site (SiteLink would send "/" to the live domain). */}
+      <NextLink href="/" className="footer_logo" onClick={handleLogoClick}>
         <Image
           src="/assets/images/maffia-logo.webp"
           alt="Webmaffia"
           width={1318}
           height={210}
         />
-      </Link>
+      </NextLink>
 
       <div className="footer_bottom">
         {copyrightText && (

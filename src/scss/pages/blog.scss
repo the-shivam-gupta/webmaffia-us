@@ -180,9 +180,10 @@
     gap: vw(55);
     font-size: vw(16);
     color: $black_60;
-    margin-bottom: vw(20);
+    margin: vw(20) 0;
     @include mobile(){
         font-size: vw-mobile(14.73);
+        margin: vw-mobile(12) 0;
     }
     span{
         position: relative;
@@ -283,6 +284,9 @@
             align-items: flex-start;
             gap: vw(20);
             margin-top: vw(33);
+            @include mobile(){
+                margin-top: vw-mobile(22);
+            }
             h2,
             .h5,
             .blog_item_title{

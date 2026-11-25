@@ -32,7 +32,9 @@ export default function Banner({
     : {};
   // Absolute CTA links (e.g. pages on MAIN_DOMAIN) always open in a new tab.
   const ctaTarget = (href) =>
-    /^https?:/i.test(href ?? "") && !toOnsitePath(href)
+    String(href ?? "").startsWith("#")
+      ? {}
+      : /^https?:/i.test(href ?? "") && !toOnsitePath(href)
       ? { target: "_blank", rel: "noopener noreferrer" }
       : linkTarget;
   // Pages that live in this project stay on-site; the rest go to the live site.

@@ -238,6 +238,9 @@ const SERVICE_SECTIONS = [
   },
 ];
 
+// App Store Optimization is not listed on the services page for now.
+const HIDDEN_SERVICE_HREF = "/services/app-store-optimization";
+
 function ServiceSection({ imageFirst, title, img, slides, body, href }) {
   const image = (
     <Image
@@ -288,7 +291,9 @@ export default async function ServicesPage() {
         <Banner data={bannerData} />
 
         <div>
-          {SERVICE_SECTIONS.map((service) => (
+          {SERVICE_SECTIONS.filter(
+            (service) => service.href !== HIDDEN_SERVICE_HREF
+          ).map((service) => (
             <ServiceSection key={service.href} {...service} />
           ))}
         </div>
