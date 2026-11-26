@@ -7,6 +7,8 @@
         margin-top: -8rem;
         @include mobile{
             right: -22rem;
+            // The desktop overlap (-8rem) pulls the image up into the text.
+            margin-top: 6rem;
         }
         img{
             width: 80rem;
@@ -38,11 +40,15 @@
     }
     img{
         width: 58.9rem;
+        // Mobile: the illustration is not shown (same in light and dark).
+        @include mobile(){
+            display: none;
+        }
     }
     .about_content{
         margin-top: 23rem;
         @include mobile(){
-            margin-top: 5rem;
+            margin-top: 0;
         }
     }
 }

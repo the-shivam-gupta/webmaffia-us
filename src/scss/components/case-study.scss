@@ -386,6 +386,11 @@
     @include mobile() {
       margin-bottom: 8rem;
       gap: 10rem;
+
+      // Mobile: the solution illustration is not shown (light and dark alike).
+      picture {
+        display: none;
+      }
     }
 
     & > div {
