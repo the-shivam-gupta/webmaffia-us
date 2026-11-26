@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Banner from "@/components/Banner";
+import ContactNowLink from "@/components/ContactNowLink";
 import JsonLd from "@/components/JsonLd";
 import TeamFaq from "@/components/TeamFaq";
 import { LogoGridSection } from "@/components/HomePage";
@@ -200,7 +201,7 @@ export default async function AboutPage() {
             }
           : null,
         cta: raw.whoWeAre.contactUs
-          ? { title: raw.whoWeAre.contactUs.title, href: raw.whoWeAre.contactUs.href }
+          ? { title: raw.whoWeAre.contactUs.title, href: "/#home_contact" }
           : null,
       }
     : null;
@@ -242,9 +243,7 @@ export default async function AboutPage() {
               <p key={i}>{renderMultiline(para)}</p>
             ))}
             {whoWeAre.cta && (
-            <Link href={whoWeAre.cta.href} className="cta_text">
-              {whoWeAre.cta.title} <span>Now</span>
-            </Link>
+            <ContactNowLink title={whoWeAre.cta.title} />
             )}
           </div>
         </section>

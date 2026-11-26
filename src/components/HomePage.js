@@ -685,14 +685,24 @@ export default function HomePage({
     };
     // An instant jump: a smooth scroll over this much page raced with late
     // layout and overshot to the footer.
-    const first = setTimeout(() => go("auto"), 900);
+    // The page is hidden (html.to-contact, set in RootShell) meanwhile, so
+    // the top of the page never flashes; reveal once positioned.
+    const reveal = () => document.documentElement.classList.remove("to-contact");
+    go("auto");
+    const second = setTimeout(() => go("auto"), 400);
+    const first = setTimeout(() => {
+      go("auto");
+      reveal();
+    }, 900);
     const fix = setTimeout(() => {
       const top = document.getElementById("home_contact")?.getBoundingClientRect().top;
       if (top !== undefined && Math.abs(top) > 40) go("auto");
     }, 2200);
     return () => {
+      clearTimeout(second);
       clearTimeout(first);
       clearTimeout(fix);
+      reveal();
     };
   }, []);
 

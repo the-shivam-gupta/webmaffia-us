@@ -5,7 +5,7 @@ import Link from "next/link";
 import { toggleTheme } from "@/lib/theme";
 
 // Animate down to the contact section instead of jumping straight to it.
-const scrollToContact = (e) => {
+export const scrollToContact = (e) => {
   const section = document.getElementById("home_contact");
   e.preventDefault();
   // Not on the homepage (e.g. a service page): go there, to the contact section.

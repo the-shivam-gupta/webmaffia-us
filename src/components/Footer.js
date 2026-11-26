@@ -187,7 +187,7 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
             <ul className="footer_links footer_links--nav">
               {navLinks.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="link" target="_blank" rel="noopener noreferrer">
+                  <Link href={href} className="link">
                     {label}
                   </Link>
                 </li>

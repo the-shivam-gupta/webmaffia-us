@@ -57,6 +57,13 @@ export default async function RootShell({ lang = "en", dir = "ltr", children }) 
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
+        {/* Arriving at /#home_contact: keep the page hidden until HomePage has
+            scrolled to the section, so the top of the page never flashes. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(location.hash==="#home_contact"){var h=document.documentElement;h.classList.add("to-contact");setTimeout(function(){h.classList.remove("to-contact")},3000)}}catch(e){}})();`,
+          }}
+        />
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

@@ -135,6 +135,14 @@ button{
 //   opacity: 0;
 // }
 
+// Arriving at /#home_contact: hide the page until it has scrolled to the
+// contact section (class set in RootShell, removed in HomePage). Same in
+// light, dark (html.active) and mobile — only visibility, no colours/sizes.
+html.to-contact body,
+html.active.to-contact body{
+  visibility: hidden;
+}
+
 .abcd{
   color: white;
 }
