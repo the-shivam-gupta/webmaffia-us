@@ -2,10 +2,17 @@ import Link from "next/link";
 
 export const SITE_URL = "https://www.webmaffia.com";
 
-// Only the home page lives in this project, so every internal path
-// (/about, /services/..., /) points at the live site instead.
+// Pages that live in this project stay on-site; every other internal path
+// (/contact, /blog, ...) points at the live site instead.
+const ONSITE = /^\/(services|case-study|about|clients)(\/|$|\?|#)/;
+
 export function siteHref(href) {
-  if (typeof href === "string" && href.startsWith("/") && !href.startsWith("//")) {
+  if (
+    typeof href === "string" &&
+    href.startsWith("/") &&
+    !href.startsWith("//") &&
+    !ONSITE.test(href)
+  ) {
     return `${SITE_URL}${href}`;
   }
   return href;

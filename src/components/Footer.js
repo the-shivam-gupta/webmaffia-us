@@ -71,9 +71,19 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
   const navLinks = footerData?.navLinks ?? [];
   // App Store Optimization and Influencer Marketing are not listed in the footer.
   const HIDDEN_SERVICES = /app[\s-]*store|influencer/i;
-  const services = (footerData?.services ?? []).filter(
-    ({ href, label }) => !HIDDEN_SERVICES.test(`${label} ${href}`)
-  );
+  // The CMS links services as /<slug> on the live site; they live here under
+  // /services/<slug>.
+  const serviceHref = (href) => {
+    const path = String(href ?? "").replace(
+      /^https?:\/\/(www\.)?webmaffia\.com(?=\/)/i,
+      ""
+    );
+    if (path.startsWith("/services/")) return path;
+    return `/services${path.startsWith("/") ? "" : "/"}${path}`;
+  };
+  const services = (footerData?.services ?? [])
+    .filter(({ href, label }) => !HIDDEN_SERVICES.test(`${label} ${href}`))
+    .map((service) => ({ ...service, href: serviceHref(service.href) }));
   const offices = footerData?.offices ?? [];
   const copyright = footerData?.copyright;
 
@@ -188,15 +198,15 @@ const Footer = ({ footerData, campaignSlugs = [], privacyUrl = "/privacy-policy"
 
         <div className="footer_col footer_col--services">
           <div className="footer_col_content">
-            <Link href="/services" className="footer_col_title" target="_blank" rel="noopener noreferrer">
+            <NextLink href="/services" className="footer_col_title">
               Our Services
-            </Link>
+            </NextLink>
             <ul className="footer_links footer_links--services">
               {services.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="link" target="_blank" rel="noopener noreferrer">
+                  <NextLink href={href} className="link">
                     {label}
-                  </Link>
+                  </NextLink>
                 </li>
               ))}
             </ul>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { KLAVIYO_EMBEDDED_FORM_ID } from "@/lib/klaviyo";
 
 export default function KlaviyoFormEmbed({
@@ -9,6 +9,33 @@ export default function KlaviyoFormEmbed({
   // profile (picked up when they submit) and added to the dataLayer event.
   service,
 }) {
+  const mountRef = useRef(null);
+  const [failed, setFailed] = useState(false);
+
+  // Klaviyo only scans the page for embed mount points when its script loads,
+  // so after a client-side navigation (or a slow load) the form can stay
+  // empty. Ask it to render the form again, and if it still has not shown up
+  // after a few seconds, give up on the skeleton and show a fallback instead
+  // of loading forever.
+  useEffect(() => {
+    const isEmpty = () => !mountRef.current?.hasChildNodes();
+    const retry = () => {
+      if (!isEmpty()) return;
+      window._klOnsite = window._klOnsite || [];
+      window._klOnsite.push(["openForm", formId]);
+    };
+    const t1 = setTimeout(retry, 1500);
+    const t2 = setTimeout(retry, 4000);
+    const t3 = setTimeout(() => {
+      if (isEmpty()) setFailed(true);
+    }, 9000);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [formId]);
+
   useEffect(() => {
     if (!service) return;
     // The init stub in KlaviyoScript queues this until klaviyo.js loads.
@@ -50,8 +77,15 @@ export default function KlaviyoFormEmbed({
   }, [formId, service]);
 
   return (
-    <div className="formWarpperx">
-      <div className={`klaviyo-form-${formId}`} />
+    <div className="formWarpperx" data-failed={failed ? "" : undefined}>
+      <div ref={mountRef} className={`klaviyo-form-${formId}`} />
+      {failed ? (
+        <p className="klaviyo_fallback">
+          The form could not be loaded. Please email{" "}
+          <a href="mailto:hello@webmaffia.com">hello@webmaffia.com</a> or call{" "}
+          <a href="tel:+18669849786">+1 (866) 984-9786</a>.
+        </p>
+      ) : null}
     </div>
   );
 }

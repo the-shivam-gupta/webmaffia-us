@@ -36,14 +36,25 @@
       z-index: 99;
       top: 30rem;
 
+      // Phones: the text still sits over the bottom of the hero image, but is
+      // anchored to the image's bottom edge (a zero-height box that grows
+      // upward) instead of the section's bottom, because the enquiry card now
+      // follows the image in the same section and would push it down.
       @include mobile() {
-        position: absolute;
-        top: auto;
-        bottom: 5rem;
-        left: 0;
-        right: 0;
+        position: relative;
+        // Lifts the text/video clear of the image's bottom edge (the box is
+        // zero-height, so padding can't do this; its content ends at the edge).
+        top: -8rem;
+        bottom: auto;
+        left: auto;
+        right: auto;
         transform: none;
         margin: 0 4rem;
+        height: 0;
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
       }
 
       h1,
@@ -74,6 +85,22 @@
       }
     }
 
+    // Solution sub heading: a <p>, styled exactly like the <h4> it replaced so
+    // the look does not change. Its bottom margin is set under
+    // `.detail_solution > div` (that p rule is more specific). Colour already
+    // follows dark mode through the `p` rule in dark.scss.
+    &__subheading {
+      font-size: 3.8rem;
+      line-height: 1.5;
+      letter-spacing: 0.8rem;
+      font-weight: 300;
+
+      @include mobile() {
+        font-size: vw-mobile(28);
+        line-height: 1.5;
+      }
+    }
+
     &__title_2 {
       font-size: 6.4rem;
       margin-bottom: 4rem;
@@ -85,6 +112,22 @@
 
       p {
         margin: 0 0 2rem;
+      }
+
+      // Only a paragraph that introduces a bullet list ("The challenge was
+      // to:") gets the .sub_title font styling (size, tracking, line-height,
+      // weight); body paragraphs keep the normal text style.
+      p:has(+ ul) {
+        margin: 0 0 4rem;
+        font-size: vw(18);
+        letter-spacing: vw(10);
+        line-height: 1;
+        font-weight: $light;
+
+        @include mobile() {
+          font-size: vw-mobile(12);
+          margin-bottom: 3rem;
+        }
       }
 
       h3,
@@ -104,7 +147,7 @@
           padding-left: 4rem;
           margin-bottom: 5rem;
           font-size: 2.2rem;
-          font-weight: 500;
+          font-weight: 300;
           line-height: 1.3;
 
           @include mobile() {
@@ -123,8 +166,14 @@
             background-color: currentColor;
           }
 
+          // Paragraphs wrapped inside a bullet keep the bullet's own text
+          // styling, not the tracked sub_title look of the plain paragraphs.
           p {
             margin: 0;
+            font-size: inherit;
+            letter-spacing: inherit;
+            line-height: inherit;
+            font-weight: inherit;
           }
         }
       }
@@ -342,6 +391,30 @@
     & > div {
       p {
         margin-bottom: 2rem;
+      }
+
+      // The solution's paragraph before a bullet list is a full body paragraph
+      // (not a short "The challenge was to:" lead-in), so it keeps the normal
+      // text style instead of the tracked sub_title look.
+      .challenge_content__rich_text p:has(+ ul) {
+        margin: 0 0 2rem;
+        font-size: vw(20);
+        letter-spacing: inherit;
+        line-height: inherit;
+        font-weight: inherit;
+
+        @include mobile() {
+          font-size: inherit;
+          margin-bottom: 2rem;
+        }
+      }
+
+      p.challenge_content__subheading {
+        margin-bottom: 2.8rem;
+
+        @include mobile() {
+          margin-bottom: 2rem;
+        }
       }
     }
 

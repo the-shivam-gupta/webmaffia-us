@@ -18,8 +18,11 @@
             align-items: flex-end;
             margin-bottom: 17.5rem;
             
+            // Same look as the homepage "View all" links (no strike-through,
+            // arrow nudges right on hover): see the shared .cta_text rule in
+            // home-sections.scss. Only the spacing is set here.
             .cta_text{
-                display: inline-block;
+                display: inline-flex;
                 margin-bottom: 4rem;
             }
             &>img{

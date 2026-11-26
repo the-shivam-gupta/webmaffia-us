@@ -24,6 +24,9 @@ export default function Banner({
   dataSection = "hero_section",
   children,
   mediaOverlay = null,
+  // Extra block rendered as its own child of the hero <section> (e.g. the
+  // case-study enquiry card on the right).
+  aside = null,
   newTab = false,
 }) {
   // Open the banner links in a new tab (used on the home page).
@@ -32,13 +35,13 @@ export default function Banner({
     : {};
   // Absolute CTA links (e.g. pages on MAIN_DOMAIN) always open in a new tab.
   const ctaTarget = (href) =>
-    String(href ?? "").startsWith("#")
+    String(href ?? "").startsWith("#") || toOnsitePath(href) === "/about"
       ? {}
       : /^https?:/i.test(href ?? "") && !toOnsitePath(href)
       ? { target: "_blank", rel: "noopener noreferrer" }
       : linkTarget;
   // Pages that live in this project stay on-site; the rest go to the live site.
-  const ONSITE = /^\/(services|case-study)(\/|$|\?|#)/;
+  const ONSITE = /^\/(services|case-study|about|clients)(\/|$|\?|#)/;
   // Full URLs on the live domain (https://www.webmaffia.com/case-study) count too.
   const toOnsitePath = (href) => {
     const path = String(href ?? "").replace(
@@ -235,6 +238,7 @@ export default function Banner({
           {image}
         </>
       )}
+      {aside}
     </section>
   );
 }

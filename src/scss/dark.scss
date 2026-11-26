@@ -1077,3 +1077,25 @@ html.active .svc_other{
         }
     }
 }
+
+
+// About page fact table, dark theme.
+html.active .about_facts_table{
+    th,
+    td{
+        color: $white;
+    }
+    tr{
+        border-color: rgba($white, 0.18);
+    }
+}
+
+
+// Case-study hero enquiry card: a frosted-glass light card in both themes (the
+// tint comes from .hero_form_card itself), so its title, fields and Submit keep
+// their dark-on-light look; only the generic dark text colour is overridden.
+html.active .hero_form_card{
+    .banner_media__form_title{
+        color: $black !important;
+    }
+}

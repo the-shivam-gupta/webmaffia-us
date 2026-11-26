@@ -1,5 +1,5 @@
 import { notFound, redirect, permanentRedirect } from "next/navigation";
-import CampaignDetail from "@/app/(site)/case-study/campaigns/CampaignDetail";
+import CampaignDetail from "@/app/case-study/campaigns/CampaignDetail";
 import CaseStudyDetailPage from "@/components/CaseStudyDetailPage";
 import JsonLd from "@/components/JsonLd";
 import { normalizeCaseStudy } from "@/lib/case-study-helpers";

@@ -508,3 +508,26 @@
     animation: none;
   }
 }
+
+// Inline mode (case-study hero): the card sits in the page flow, where the
+// description used to be, instead of floating bottom right. No minimize /
+// scroll-resize behaviour here, so the widget rules above don't apply.
+.cs_video_inline {
+  position: relative;
+  width: vw(420);
+  max-width: 100%;
+  margin-top: vw(40);
+
+  .cs_video_card_frame {
+    max-height: vw(300);
+  }
+
+  @media all and (max-width: 767px) {
+    width: min(260px, 70vw);
+    margin-top: 20px;
+
+    .cs_video_card_frame {
+      max-height: 200px;
+    }
+  }
+}

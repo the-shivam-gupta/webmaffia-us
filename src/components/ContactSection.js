@@ -19,9 +19,10 @@ export default function ContactSection({
     </>
   ),
   showDetails = true,
+  id,
 }) {
   return (
-    <section data-section="contact" className="home_contact">
+    <section id={id} data-section="contact" className="home_contact">
       <div className="home_contact_info">
         <h2 className="sub_title">{tagline}</h2>
         <div className="sub_heading">{heading}</div>

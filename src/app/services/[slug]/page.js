@@ -14,7 +14,6 @@ import { getServiceRenderConfig } from "@/lib/serviceContent";
 import {
   getStaticService,
   getStaticServiceConfig,
-  STATIC_SERVICE_SLUGS,
 } from "@/lib/services";
 
 /**
@@ -31,10 +30,8 @@ export async function generateStaticParams() {
     getAllServiceLocationPaths(),
   ]);
 
-  const slugs = new Set([
-    ...services.map((service) => service.slug),
-    ...STATIC_SERVICE_SLUGS,
-  ]);
+  // Only services published in the CMS get a page (drafts 404).
+  const slugs = new Set(services.map((service) => service.slug));
 
   return [
     ...[...slugs].map((slug) => ({ slug })),
@@ -47,6 +44,9 @@ export async function generateMetadata({ params }) {
 
   const staticService = getStaticService(slug);
   if (staticService) {
+    if (!(await getServiceEntryBySlug(slug))) {
+      return { title: "Page Not Found | Webmaffia" };
+    }
     return {
       title: staticService.metadata.title,
       description: staticService.metadata.description,
@@ -88,6 +88,9 @@ export default async function ServiceSlugPage({ params }) {
     // Content is static; only the work categories (for "Latest work") are
     // still read from the CMS entry.
     const cmsEntry = await getServiceEntryBySlug(slug);
+    // A static service only exists while it is published in the CMS; a draft
+    // (or unpublished) entry is a 404.
+    if (!cmsEntry) notFound();
     const config = {
       ...(await getStaticServiceConfig(staticService)),
       workCategories: cmsEntry?.workCategories,

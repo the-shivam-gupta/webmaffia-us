@@ -41,6 +41,8 @@ export default async function sitemap() {
     entry("/", { priority: 1, changeFrequency: "weekly" }),
     entry("/services", { priority: 0.8, changeFrequency: "weekly" }),
     entry("/case-study", { priority: 0.8, changeFrequency: "weekly" }),
+    entry("/about", { priority: 0.7, changeFrequency: "monthly" }),
+    entry("/clients", { priority: 0.6, changeFrequency: "monthly" }),
     ...services.map((s) =>
       entry(`/services/${s.slug}`, { priority: 0.8, changeFrequency: "monthly" })
     ),

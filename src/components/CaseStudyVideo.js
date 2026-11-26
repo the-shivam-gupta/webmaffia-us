@@ -13,7 +13,9 @@ const formatDuration = (seconds) => {
 // The card is a video frame (still image, muted preview on hover) over a solid
 // caption bar, so the label is readable whatever the video looks like.
 // Clicking it opens the video centred in a lightbox and plays it with sound.
-export default function CaseStudyVideo({ src, title, label = "Watch the summary" }) {
+// `inline` renders the card in place (in the page flow, e.g. inside the hero)
+// instead of the floating, minimizable widget; it still opens the lightbox.
+export default function CaseStudyVideo({ src, title, label = "Watch the summary", inline = false }) {
   const [open, setOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const [ratio, setRatio] = useState(16 / 9);
@@ -80,9 +82,46 @@ export default function CaseStudyVideo({ src, title, label = "Watch the summary"
     video.currentTime = 0.5;
   };
 
+  const cardEl = (
+    <button
+      type="button"
+      className="cs_video_card"
+      aria-label={`${label}: ${title}`}
+      onClick={() => setOpen(true)}
+      onMouseEnter={playPreview}
+      onMouseLeave={stopPreview}
+      onFocus={playPreview}
+      onBlur={stopPreview}
+    >
+      <span className="cs_video_card_frame" style={{ "--cs-video-ratio": ratio }}>
+        <video
+          ref={previewRef}
+          className="cs_video_card_media"
+          src={`${src}#t=0.5`}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedMetadata={onMeta}
+          tabIndex={-1}
+        />
+        <span className="cs_video_card_play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M8 5.5v13l11-6.5z" fill="currentColor" />
+          </svg>
+        </span>
+      </span>
+      <span className="cs_video_card_bar">
+        <span className="cs_video_card_label">{label}</span>
+        {duration ? <span className="cs_video_card_time">{duration}</span> : null}
+      </span>
+    </button>
+  );
+
   return (
     <>
-      {inBrowser
+      {inline ? <div className="cs_video_inline">{cardEl}</div> : null}
+      {inBrowser && !inline
         ? createPortal(
       <div
         className={`cs_video_widget${minimized ? " is_min" : ""}${big ? " is_big" : ""}`}
@@ -114,39 +153,7 @@ export default function CaseStudyVideo({ src, title, label = "Watch the summary"
         >
           &times;
         </button>
-        <button
-          type="button"
-          className="cs_video_card"
-          aria-label={`${label}: ${title}`}
-          onClick={() => setOpen(true)}
-          onMouseEnter={playPreview}
-          onMouseLeave={stopPreview}
-          onFocus={playPreview}
-          onBlur={stopPreview}
-        >
-          <span className="cs_video_card_frame" style={{ "--cs-video-ratio": ratio }}>
-            <video
-              ref={previewRef}
-              className="cs_video_card_media"
-              src={`${src}#t=0.5`}
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              onLoadedMetadata={onMeta}
-              tabIndex={-1}
-            />
-            <span className="cs_video_card_play" aria-hidden="true">
-              <svg viewBox="0 0 24 24" focusable="false">
-                <path d="M8 5.5v13l11-6.5z" fill="currentColor" />
-              </svg>
-            </span>
-          </span>
-          <span className="cs_video_card_bar">
-            <span className="cs_video_card_label">{label}</span>
-            {duration ? <span className="cs_video_card_time">{duration}</span> : null}
-          </span>
-        </button>
+        {cardEl}
         </div>
       </div>,
         document.body

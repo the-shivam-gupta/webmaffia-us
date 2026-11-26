@@ -829,7 +829,7 @@ async function fetchAboutUsRaw() {
         throw new Error("STRAPI_API_URL is not configured");
     }
 
-    const response = await fetch(`${strapiBaseUrl}/api/about-us?populate[banner][populate]=*&populate[whoWeAre][populate]=*`, {
+    const response = await fetch(`${strapiBaseUrl}/api/about-us?populate[banner][populate]=*&populate[whoWeAre][populate]=*&populate[faqs][populate]=*&populate[seo][populate]=*&populate[facts][populate]=*`, {
         headers: {
             Authorization: `Bearer ${STRAPI_TOKEN}`,
             "Content-Type": "application/json",

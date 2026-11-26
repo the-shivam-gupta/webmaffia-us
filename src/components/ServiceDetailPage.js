@@ -327,21 +327,32 @@ function LatestWorkSection({ latestWork }) {
 function ServiceContact() {
   return (
     <ContactSection
+      id="contact"
       heading={
         <>
-          Your brand deserves <br/> a 
-          website as exceptional 
-          as you are.
+          Your brand deserves <br />
+          solutions as <br />
+          exceptional as you are.
         </>
       }
-      description="Let’s build it together!"
+      description="Tell us about your goals and we’ll show you how Webmaffia can help you reach them."
       showDetails={false}
     />
   );
 }
 
+// Services Webmaffia no longer offers: never listed as an "other service".
+const DISCONTINUED_SERVICE_HREFS = [
+  "/services/app-store-optimization",
+  "/services/influencer-marketing",
+];
+
 function OtherServicesSection({ otherServices }) {
-  if (!otherServices?.items?.length) return null;
+  const items = (otherServices?.items ?? []).filter(
+    (item) => !DISCONTINUED_SERVICE_HREFS.includes(item.href)
+  );
+  if (!items.length) return null;
+  otherServices = { ...otherServices, items };
 
   // Full-width list below the FAQ: service name and an arrow per pill.
   return (
@@ -444,8 +455,14 @@ export default async function ServiceDetailPage({ config, breadcrumbs }) {
   const bannerData = {
     imagePosition: "right",
     priority: true,
-    cta: mainDomainCta(hero.cta),
-    secondaryCta: mainDomainCta(hero.secondaryCta),
+    // "Contact Us" jumps to the contact form in the last fold of this page;
+    // "Call Us" dials the US number.
+    cta: /contact/i.test(hero.cta?.text ?? "")
+      ? { ...hero.cta, href: "#contact" }
+      : mainDomainCta(hero.cta),
+    secondaryCta: /call/i.test(hero.secondaryCta?.text ?? "")
+      ? { ...hero.secondaryCta, href: "tel:+18669849786" }
+      : mainDomainCta(hero.secondaryCta),
     subheading: {
       enabled: true,
       text: hero.subtitle,

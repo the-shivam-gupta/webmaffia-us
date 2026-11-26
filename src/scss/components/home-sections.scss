@@ -448,7 +448,7 @@
         // Keyed on Klaviyo's mount point still being empty (not on the Submit
         // button), so the "Thank You" state, which has no button, doesn't
         // bring the skeleton back.
-        &:has(.formWarpperx > div:empty)::after {
+        &:has(.formWarpperx > div:empty):not(:has(.formWarpperx[data-failed]))::after {
             content: "";
             display: block;
             flex: none;
@@ -511,7 +511,7 @@
             display: flex !important;
             flex-wrap: wrap;
             align-items: center;
-            gap: 0 3cqw;
+            gap: 4cqw 3cqw;
             width: 100% !important;
             min-width: 0 !important;
             // Phones: the link wraps under Submit, so give it more room.
@@ -524,7 +524,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.6em;
-            margin: 5cqw 0 0;
+            margin: 6cqw 0 0;
             color: #000 !important;
             font-size: max(4.1cqw, 14px);
             font-weight: 400;
@@ -600,6 +600,208 @@
         width: vw(868);
         @include mobile() {
             width: 100%;
+        }
+    }
+}
+
+// Case-study hero: "Let's Connect" enquiry card on the right of the hero (the
+// same Klaviyo form + "Book a call" link as the banner form, on its own grey
+// card since the hero artwork has no card to sit on).
+.hero_form_card{
+    position: absolute;
+    top: vw(300);
+    right: vw(80);
+    z-index: 99;
+    width: vw(520);
+    padding: vw(48) vw(52);
+    // Same height whether the form is loaded or still the skeleton (the card
+    // used to shrink while loading). Content starts under the title either way.
+    min-height: vw(572);
+    border-radius: vw(24);
+    // Frosted glass: a translucent white tint + blur, so the card blends into
+    // whatever banner image is behind it (light or dark) while the black text
+    // stays readable on both.
+    background: rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(vw(24)) saturate(1.2);
+    backdrop-filter: blur(vw(24)) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 vw(20) vw(60) rgba(0, 0, 0, 0.18);
+    line-height: normal;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    --form-title-size: max(9cqw, 15px);
+    --form-input-size: max(4.4cqw, 9px);
+    --form-btn-size: max(5.2cqw, 9px);
+    --form-row-gap: 7cqw;
+    --form-title-gap: 8cqw;
+    --form-btn-pad-y: 4.6cqw;
+    --form-btn-pad-x: 11cqw;
+
+    @include klaviyo_underline_form;
+
+    // The shared form uses a light grey placeholder (#8a8a8a, weight 300) made
+    // for a solid grey card; on the frosted glass over a photo it washes out.
+    // Darker, slightly heavier placeholders (and phone picker) keep it legible
+    // on both light and dark banners. (:not(#x) lifts specificity above the
+    // shared rules.)
+    input:not(#x)::placeholder{
+        color: rgba(0, 0, 0, 0.68) !important;
+        font-weight: 400 !important;
+    }
+    [role="combobox"]:not(#x),
+    [role="combobox"]:not(#x) *{
+        color: rgba(0, 0, 0, 0.68) !important;
+    }
+    [role="combobox"]:not(#x) svg{
+        filter: brightness(0.25);
+    }
+
+    // Country dropdown (opens inside the card): a solid white list with dark,
+    // readable names, a proper search box, and room above the Submit button so
+    // it doesn't butt up against it.
+    [role="listbox"]:not(#x){
+        background: #fff !important;
+        border-radius: 1.6cqw;
+        box-shadow: 0 2cqw 6cqw rgba(0, 0, 0, 0.18);
+        margin: 1cqw 0 5cqw !important;
+        padding: 1cqw 0 !important;
+        overflow-y: auto;
+    }
+    [role="listbox"]:not(#x),
+    [role="listbox"]:not(#x) *,
+    [role="option"]:not(#x),
+    [role="option"]:not(#x) *{
+        color: #000 !important;
+        font-size: max(4cqw, 14px) !important;
+        line-height: 1.4 !important;
+    }
+    [role="option"]:not(#x){
+        padding: 1.6cqw 3cqw !important;
+        &:hover,
+        &[aria-selected="true"],
+        &[data-focus="true"]{
+            background: rgba(0, 0, 0, 0.06) !important;
+        }
+    }
+    // Search box at the top of the dropdown. Klaviyo already draws the box (a
+    // white border around the field), so the input itself stays flat (no second
+    // box inside it) and only the existing border / icon colours are darkened
+    // so they read on the frosted glass. Colour-only on the wrappers: no
+    // layout properties, so nothing can collapse.
+    input:not(#x)[type="search"],
+    input:not(#x)[placeholder*="earch" i]{
+        background: transparent !important;
+        color: #000 !important;
+        border: 0 !important;
+        box-shadow: none !important;
+        outline: 0 !important;
+        &::placeholder{
+            color: rgba(0, 0, 0, 0.6) !important;
+        }
+    }
+    div:not(#x):has(> input[type="search"]),
+    div:not(#x):has(> input[placeholder*="earch" i]),
+    div:not(#x):has(> div > input[type="search"]),
+    div:not(#x):has(> div > input[placeholder*="earch" i]){
+        border-color: rgba(0, 0, 0, 0.35) !important;
+        outline-color: rgba(0, 0, 0, 0.35) !important;
+        box-shadow: none !important;
+        svg{
+            filter: brightness(0.25);
+        }
+    }
+
+    // Loading skeleton, same as the homepage banner form: Klaviyo injects the
+    // form late, so until it renders the card shows pulsing placeholder fields
+    // (3 fields + the Submit pill) instead of sitting empty. It disappears by
+    // itself once the form is mounted (keyed on Klaviyo's mount point being
+    // empty, so the "Thank You" state doesn't bring it back).
+    &:has(.formWarpperx > div:empty):not(:has(.formWarpperx[data-failed]))::after{
+        content: "";
+        display: block;
+        flex: none;
+        width: 100%;
+        // 4 fields (name, phone, email, company) + the Submit pill.
+        height: calc(4 * (5cqw + var(--form-row-gap)) + 13cqw);
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)) 0 0 / 100% 5cqw no-repeat,
+            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)) 0 calc(5cqw + var(--form-row-gap)) / 100% 5cqw no-repeat,
+            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)) 0 calc(2 * (5cqw + var(--form-row-gap))) / 100% 5cqw no-repeat,
+            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)) 0 calc(3 * (5cqw + var(--form-row-gap))) / 100% 5cqw no-repeat,
+            linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)) 0 100% / 36cqw 13cqw no-repeat;
+        border-radius: 2cqw;
+        animation: banner_form_skeleton 1.4s ease-in-out infinite;
+        @media (prefers-reduced-motion: reduce){
+            animation: none;
+        }
+    }
+
+    // Shown if Klaviyo never renders the form (see KlaviyoFormEmbed).
+    .klaviyo_fallback{
+        margin: 0;
+        font-size: max(4.2cqw, 14px);
+        line-height: 1.5;
+        color: #000;
+        a{
+            text-decoration: underline;
+        }
+    }
+
+    form div:has(> button.klaviyo-form-button){
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4cqw 3cqw;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .banner_book_call{
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        margin: 5cqw 0 0;
+        color: #000 !important;
+        font-size: max(4.1cqw, 14px);
+        font-weight: 400;
+        line-height: 1.2;
+        white-space: nowrap;
+        transition: opacity 0.3s ease;
+        &:hover,
+        &:focus-visible{
+            opacity: 0.6;
+        }
+    }
+
+    // Phones: the card drops below the hero image, full width of the page.
+    @include mobile(){
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 90%;
+        min-height: 0;
+        align-self: center;
+        margin: vw-mobile(24) auto vw-mobile(32);
+        padding: vw-mobile(28) vw-mobile(24);
+        border-radius: vw-mobile(8);
+        // Below the image on a plain page: solid grey, no blur.
+        background: #e8e8e8;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        border: 0;
+        box-shadow: none;
+        --form-title-size: max(7cqw, 20px);
+        --form-input-size: max(4.2cqw, 14px);
+        --form-btn-size: max(4.2cqw, 14px);
+        --form-row-gap: 6cqw;
+        --form-title-gap: 7cqw;
+        --form-btn-pad-y: 3.4cqw;
+        --form-btn-pad-x: 9cqw;
+        form div:has(> button.klaviyo-form-button){
+            gap: vw-mobile(30);
         }
     }
 }
@@ -728,6 +930,8 @@ p{
 // underline. On hover only the text fades (text-fill-color leaves the
 // currentColor arrow untouched) and the arrow (always shown) nudges right.
 .home_wrapper .cta_text,
+.about_wrapper .cta_text,
+.services > div section .cta_text,
 .home_wrapper .features_all,
 .cta_work .cta_text,
 .service_why_choose .cta_text{
@@ -2189,7 +2393,7 @@ h3, .h2{
     .home_industries_name{
         margin: 0 0 vw(16);
         font-size: vw(42);
-        font-weight: 400;
+        font-weight: 300;
         letter-spacing: 0;
         line-height: 1.15;
         color: $black;
@@ -2320,6 +2524,11 @@ h3, .h2{
 // `.contact_us` (also on the section) supplies the form's field styling; the
 // overrides below only fix its page-level layout for this two-column spot.
 .home_contact{
+    // Clears the fixed header when a "#contact" link scrolls here.
+    scroll-margin-top: vw(140);
+    @include mobile(){
+        scroll-margin-top: vw-mobile(90);
+    }
     margin-left: vw(80);
     margin-right: vw(80);
     display: grid;
@@ -2467,7 +2676,7 @@ h3, .h2{
             display: flex !important;
             flex-wrap: wrap;
             align-items: center;
-            gap: 0 3cqw;
+            gap: 4cqw 3cqw;
             width: 100% !important;
             min-width: 0 !important;
         }
@@ -2683,7 +2892,7 @@ h3, .h2{
         position: relative;
         z-index: 1;
         width: auto;
-        margin-top: vw(70);
+        margin-top: vw(80);
         gap: vw(40);
         // Chevron beside each label (v2 got it from Swiper's Navigation module).
         .slide_cta_icon{
@@ -2895,7 +3104,7 @@ h3, .h2{
     color: inherit;
     font: inherit;
     font-size: vw(30);
-    font-weight: 400;
+    font-weight: 300;
     line-height: 1.3;
     text-align: left;
     cursor: pointer;

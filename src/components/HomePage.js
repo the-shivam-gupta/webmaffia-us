@@ -217,11 +217,25 @@ function CtaText({ button, struckWords = 1 }) {
   const words = button.title.split(" ");
   const split = Math.max(words.length - struckWords, 0);
 
+  // Pages that live in this project (CMS sends full webmaffia.com URLs) stay
+  // on-site and open in the same tab; everything else opens in a new tab.
+  const path = String(button.href ?? "").replace(
+    /^https?:\/\/(www\.)?webmaffia\.com(?=\/)/i,
+    ""
+  );
+  const onSite = /^\/(services|case-study|about|clients)(\/|$|\?|#)/.test(path);
+
+  const LinkTag = onSite ? NextLink : Link;
+
   return (
-    <Link href={button.href} className="cta_text" target="_blank" rel="noopener noreferrer">
+    <LinkTag
+      href={onSite ? path : button.href}
+      className="cta_text"
+      {...(onSite ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+    >
       {split > 0 ? `${words.slice(0, split).join(" ")} ` : null}
       <span>{words.slice(split).join(" ")}</span>
-    </Link>
+    </LinkTag>
   );
 }
 
@@ -249,7 +263,8 @@ function AwardDetails({ text }) {
 }
 
 // Logo grid shared by the "clients" and "trophies" sections.
-export function LogoGridSection({ section }) {
+// `children` replaces the section's CMS button (e.g. a page-specific link).
+export function LogoGridSection({ section, children }) {
   if (!section.cards.length) return null;
 
   const isClients = section.type === "clients";
@@ -291,7 +306,9 @@ export function LogoGridSection({ section }) {
           )
         )}
       </div>
-      {section.button ? (
+      {children ? (
+        children
+      ) : section.button ? (
         <div className="cta_box">
           <CtaText button={section.button} struckWords={isClients ? 1 : 2} />
         </div>
@@ -337,7 +354,7 @@ function TeamSection() {
 // using the CMS links. "See the work" -> case studies, "More about us" -> FAQ.
 const STATIC_BANNER_LINKS = [
   { match: /see\s+the\s+work/i, href: "#case_studies" },
-  { match: /more\s+about\s+us/i, href: "#faqs" },
+  { match: /more\s+about\s+us/i, href: "/about" },
 ];
 
 function staticBannerData(data) {

@@ -6,6 +6,8 @@ import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactSection from "@/components/ContactSection";
 import CaseStudyVideo from "@/components/CaseStudyVideo";
+import KlaviyoFormEmbed from "@/components/KlaviyoFormEmbed";
+import BookCallButton from "@/components/BookCallButton";
 import {
   isRichTextDescription,
   isSolutionBlock,
@@ -79,7 +81,7 @@ function ContentBlockSection({
         <SectionTitle heading={block.heading} className="challenge_content__title" />
         {block.subHeading ? (
           isSolution ? (
-            <h4>{block.subHeading}</h4>
+            <p className="challenge_content__subheading">{block.subHeading}</p>
           ) : (
             <p className="challenge_content__para">{block.subHeading}</p>
           )
@@ -138,11 +140,22 @@ export default function CaseStudyDetailPage({ caseStudy, video = null }) {
   return (
     <main className="wrapper">
       <div className="ml-setter case_study_detail">
-        {banner ? <Banner data={banner} /> : null}
-        {/* After the banner on purpose: `.case_study_detail > .hero_section:first-child`
-            pulls the hero up under the header, so nothing may come before it.
-            The widget is position: fixed, so its place in the DOM doesn't matter. */}
-        {video ? <CaseStudyVideo {...video} /> : null}
+        {banner ? (
+          <Banner
+            // The description is hidden for now; the enquiry form takes its place.
+            data={{ ...banner, description: undefined, descriptions: undefined }}
+            aside={
+              <div className="hero_form_card">
+                <p className="banner_media__form_title">Let&apos;s Connect</p>
+                <KlaviyoFormEmbed formId="Rq3tfh" service={caseStudy.pageName} />
+                <BookCallButton container=".hero_form_card" />
+              </div>
+            }
+          >
+            {/* The summary video sits where the description was. */}
+            {video ? <CaseStudyVideo {...video} inline /> : null}
+          </Banner>
+        ) : null}
 
         {contentBlocks.length > 0 || showcase ? (
           <div className="case_study_container">
@@ -267,12 +280,12 @@ export default function CaseStudyDetailPage({ caseStudy, video = null }) {
           <ContactSection
             heading={
               <>
-                Your brand deserves <br/> a
-                website as exceptional
-                as you are.
+                Your brand deserves <br />
+                solutions as <br />
+                exceptional as you are.
               </>
             }
-            description="Let’s build it together!"
+            description="Tell us about your goals and we’ll show you how Webmaffia can help you reach them."
             showDetails={false}
           />
         </div>

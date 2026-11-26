@@ -1,0 +1,178 @@
+.about_wrapper{
+    padding-top: 18.5rem;
+}
+.about_us{
+    .hero_section picture{
+        right: 1.8rem;
+        margin-top: -8rem;
+        @include mobile{
+            right: -22rem;
+        }
+        img{
+            width: 80rem;
+        }
+    }
+    [data-section="about_us"]{
+        @include mobile(){
+
+        }
+        p{
+            margin-bottom: 4rem;
+        }
+    }
+}
+
+.about_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 2.5rem;
+    margin: 0 6.5rem;
+    margin-bottom: 25rem;
+    @include mobile(){
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 20rem;
+        margin-bottom: 15rem;
+    }
+    img{
+        width: 58.9rem;
+    }
+    .about_content{
+        margin-top: 23rem;
+        @include mobile(){
+            margin-top: 5rem;
+        }
+    }
+}
+
+.banner_para{
+    p{
+        margin-bottom: 4rem;
+    }
+}
+
+.about_award{
+    margin-bottom: 8.5rem;
+    @include mobile(){
+        margin-bottom: 8rem;
+    }
+}
+
+// "Next up Services": sits right under the awards grid, left-aligned with it
+// (same placement as the homepage's .services_more).
+.about_cta{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: vw(100);
+    @include mobile(){
+        margin-top: vw-mobile(56);
+    }
+}
+
+// "Webmaffia at a glance": heading on the left, fact table on the right (same
+// split as the FAQ below).
+.about_facts{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 8rem;
+    margin: 0 8rem 12rem;
+    @include mobile(){
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        margin-bottom: 8rem;
+    }
+    .sub_heading{
+        width: 100%;
+    }
+}
+.about_facts_caption{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.about_facts_table{
+    width: 100%;
+    border-collapse: collapse;
+    // One divider per row (on the <tr>), so on phones, where the label sits
+    // above its value, the line never cuts between the two.
+    tr{
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.15);
+        @include mobile(){
+            display: block;
+            padding: 3rem 0;
+        }
+        &:last-child{
+            border-bottom: 0.1rem solid rgba(0, 0, 0, 0.15);
+        }
+    }
+    th,
+    td{
+        padding: 2.2rem 0;
+        text-align: left;
+        vertical-align: top;
+        font-size: 2.1rem;
+        line-height: 1.5;
+        @include mobile(){
+            display: block;
+            padding: 0;
+            font-size: 3rem;
+        }
+    }
+    th{
+        width: 32%;
+        padding-right: 3rem;
+        font-weight: 400;
+        opacity: 0.6;
+        @include mobile(){
+            width: auto;
+            margin-bottom: 1rem;
+            padding-right: 0;
+            font-size: 2.6rem;
+        }
+    }
+    td{
+        font-weight: 300;
+    }
+}
+
+// Space between the awards block and the FAQ fold that follows it (/about
+// only; the /awards page reuses the .about_award class for other content).
+.about_wrapper .about_award{
+    margin-bottom: 18rem;
+    @include mobile(){
+        margin-bottom: 12rem;
+    }
+}
+
+// Optional one-sentence lead-in under the FAQ heading (Strapi faqs.description).
+.about_wrapper .team_faq_intro{
+    margin: 2.4rem 0 0;
+    font-size: 2.1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.8;
+    @include mobile(){
+        font-size: 3rem;
+    }
+}
+
+// FAQ is followed by the "Last updated" line, which carries the room before
+// the footer.
+.about_wrapper .team_faq{
+    margin-bottom: 4rem;
+}
+.about_wrapper .about_last_updated{
+    margin: 0 8rem 12rem;
+    font-size: 1.4rem;
+    opacity: 0.6;
+    // rem is only 4px on phones, so 1.4rem would be ~5.6px there.
+    @include mobile(){
+        margin-bottom: 8rem;
+        font-size: 3rem;
+    }
+}
