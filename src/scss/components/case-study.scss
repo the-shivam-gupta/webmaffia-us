@@ -118,12 +118,11 @@
         right: auto;
         flex: none;
         margin: 0 vw(80) 0 vw(40);
-        // 25% smaller than the original (520 / 48 / 52 / 572 / 24 -> x0.75); the
-        // form text is sized in cqw of the card, so every font shrinks with it.
-        width: vw(390);
-        padding: vw(36) vw(39);
-        min-height: vw(429);
-        border-radius: vw(18);
+        // Original card size (the form text is sized in cqw of the card).
+        width: vw(520);
+        padding: vw(48) vw(52);
+        min-height: vw(572);
+        border-radius: vw(24);
       }
 
       // Summary video card: same 25% reduction (420 -> 315 wide).
