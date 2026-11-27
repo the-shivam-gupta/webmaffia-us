@@ -19,6 +19,7 @@ export function toCaseStudyItem(entry) {
     title: workTitle,
     type: workTitle,
     url,
+    external: !!thumb?.externalLink,
     image: imageUrl || FALLBACK_WORK_IMAGE,
   };
 }

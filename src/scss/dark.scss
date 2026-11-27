@@ -655,6 +655,11 @@ html{
                 border-bottom-color: rgba(0, 0, 0, 0.15);
             }
 
+            // Desktop row layout uses a top rule on each office.
+            .footer_connect_details > .footer_connect_office {
+                border-top-color: rgba(0, 0, 0, 0.15);
+            }
+
             .footer_links .link {
                 &::after {
                     background: $black_60;
@@ -770,6 +775,11 @@ html{
             color: $white;
             &::after{
                 background: rgba($white, 0.6);
+            }
+        }
+        .banner_content .banner_cta_secondary--arrow{
+            .banner_cta_arrow{
+                color: $white;
             }
         }
         .other_services{

@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+// Client sites (external links) open in a new tab; internal case studies stay in the same tab.
+const EXTERNAL_PROPS = { target: "_blank", rel: "noopener noreferrer" };
+
 export default function WorkListSection({ items }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -20,6 +23,7 @@ export default function WorkListSection({ items }) {
             <Link
               href={item.url || "#"}
               className="work_img"
+              {...(item.external ? EXTERNAL_PROPS : {})}
             >
               <Image
                 src={item.image}
@@ -30,6 +34,7 @@ export default function WorkListSection({ items }) {
             </Link>
             <Link
               href={item.url || "#"}
+              {...(item.external ? EXTERNAL_PROPS : {})}
             >
               <h2 className="work_name">{item.name}</h2>
               <div className="work_title">{item.title}</div>

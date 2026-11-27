@@ -82,7 +82,11 @@ export default function ServiceWorkSlider({ items, title }) {
       >
         {items.map((item) => (
           <SwiperSlide key={item.url + item.name}>
-            <Link href={item.url || "#"} className="work_card">
+            <Link
+              href={item.url || "#"}
+              className="work_card"
+              {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
               <span className="work_card_media">
                 <Image
                   src={item.image}

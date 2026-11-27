@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Banner from "@/components/Banner";
+import DomainLinkText from "@/components/DomainLinkText";
 import CaseStudyCreativeSection from "@/components/CaseStudyCreativeSection";
 import CaseStudySeoSection from "@/components/CaseStudySeoSection";
 import ContactSection from "@/components/ContactSection";
@@ -77,7 +78,11 @@ function ContentBlockSection({
       className={sectionClass}
     >
       <div>
-        {block.tagLine ? <div className="sub_title">{block.tagLine}</div> : null}
+        {block.tagLine ? (
+          <div className="sub_title">
+            <DomainLinkText text={block.tagLine} />
+          </div>
+        ) : null}
         <SectionTitle heading={block.heading} className="challenge_content__title" />
         {block.subHeading ? (
           isSolution ? (

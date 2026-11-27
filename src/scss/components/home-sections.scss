@@ -820,6 +820,33 @@
     }
 }
 
+// Clickable domain inside a tagline: looks identical to the text, no hover effect.
+.sub_title a.domain_link,
+.sub_title a.domain_link:hover,
+.sub_title a.domain_link:focus-visible{
+    color: inherit;
+    text-decoration: none;
+    letter-spacing: inherit;
+    font: inherit;
+    opacity: 1;
+    transition: none;
+    animation: none;
+    background: none;
+    cursor: pointer;
+    &::before,
+    &::after{
+        content: none;
+        display: none;
+    }
+}
+
+// Dark theme: the global `html.active a` rule turns links white; keep the
+// tagline colour so the domain matches the rest of the text.
+html.active .sub_title a.domain_link,
+html.active .sub_title a.domain_link:hover{
+    color: inherit;
+}
+
 h1, .h1{
     width: 100%;
     line-height: 0.95;
@@ -1031,6 +1058,26 @@ p{
             &::after{
                 height: vw-mobile(0.8);
             }
+        }
+    }
+    // Text keeps the normal secondary-link look (size, underline); only the
+    // pointed arrow from `.services_item_link` is added, nudging right on hover.
+    .banner_cta_secondary--arrow{
+        &::after{
+            display: none;
+        }
+        .banner_cta_arrow{
+            display: inline-block;
+            width: 1em;
+            height: 0.5em;
+            margin-left: 0.5em;
+            vertical-align: middle;
+            color: $black;
+            transition: transform 0.3s ease;
+        }
+        &:hover .banner_cta_arrow,
+        &:focus-visible .banner_cta_arrow{
+            transform: translateX(vw(10));
         }
     }
 }

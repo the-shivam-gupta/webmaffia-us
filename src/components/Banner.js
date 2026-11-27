@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "@/components/SiteLink";
 import NextLink from "next/link";
+import DomainLinkText from "@/components/DomainLinkText";
 
 function renderMultilineText(text) {
   const lines = String(text ?? "")
@@ -35,7 +36,9 @@ export default function Banner({
     : {};
   // Absolute CTA links (e.g. pages on MAIN_DOMAIN) always open in a new tab.
   const ctaTarget = (href) =>
-    String(href ?? "").startsWith("#") || toOnsitePath(href) === "/about"
+    String(href ?? "").startsWith("#") ||
+    toOnsitePath(href) === "/about" ||
+    toOnsitePath(href) === "/case-study"
       ? {}
       : /^https?:/i.test(href ?? "") && !toOnsitePath(href)
       ? { target: "_blank", rel: "noopener noreferrer" }
@@ -184,7 +187,7 @@ export default function Banner({
               ) : null}
             </>
           ) : (
-            subheading.text
+            <DomainLinkText text={subheading.text} />
           )}
         </div>
       ) : null}
@@ -214,10 +217,25 @@ export default function Banner({
           {hasSecondaryCta ? (
             <CtaLink
               href={secondaryCta.href}
-              className="banner_cta_secondary"
+              className={`banner_cta_secondary${secondaryCta.arrow ? " banner_cta_secondary--arrow" : ""}`}
               {...ctaTarget(secondaryCta.href)}
             >
               {secondaryCta.text}
+              {secondaryCta.arrow ? (
+                <svg
+                  className="banner_cta_arrow"
+                  viewBox="0 0 24 12"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M0 6H22.5M17 0.8L22.7 6L17 11.2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                  />
+                </svg>
+              ) : null}
             </CtaLink>
           ) : null}
         </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CampaignHeroVideo from "@/components/CampaignHeroVideo";
+import DomainLinkText from "@/components/DomainLinkText";
 import { getStrapiAssetUrl } from "@/lib/strapiPage";
 
 export default function CampaignDetail({ campaign }) {
@@ -12,7 +13,9 @@ export default function CampaignDetail({ campaign }) {
             <div className="ml-setter campaign_page">
                 <section data-section="hero_section" className="hero_section campaign_hero flex">
                     <div className="campaign_content">
-                        <div className="sub_title">{campaign.tagLine}</div>
+                        <div className="sub_title">
+                            <DomainLinkText text={campaign.tagLine} />
+                        </div>
                         <h1>{campaign.heading}</h1>
                         <div dangerouslySetInnerHTML={{ __html: campaign.description }} />
                         {recognition.length > 0 && (

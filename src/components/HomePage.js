@@ -353,7 +353,7 @@ function TeamSection() {
 // Static for now: the hero buttons scroll to sections on this page instead of
 // using the CMS links. "See the work" -> case studies, "More about us" -> FAQ.
 const STATIC_BANNER_LINKS = [
-  { match: /see\s+the\s+work/i, href: "#case_studies" },
+  { match: /see\s+the\s+work/i, href: "/case-study", arrow: true },
   { match: /more\s+about\s+us/i, href: "/about" },
 ];
 
@@ -361,7 +361,7 @@ function staticBannerData(data) {
   if (!data) return data;
   const override = (cta) => {
     const hit = cta && STATIC_BANNER_LINKS.find((l) => l.match.test(cta.text ?? ""));
-    return hit ? { ...cta, href: hit.href } : cta;
+    return hit ? { ...cta, href: hit.href, arrow: Boolean(hit.arrow) } : cta;
   };
   return {
     ...data,

@@ -63,6 +63,85 @@
       p {
         color: $white;
       }
+
+      // Banner title and sub title are 25% smaller than the global sizes
+      // (h1 vw(140) -> vw(105), h4 3.8rem -> 2.85rem).
+      h1 {
+        font-size: vw(105);
+
+        @include mobile() {
+          font-size: vw-mobile(30);
+        }
+      }
+
+      h4 {
+        font-size: 2.85rem;
+        letter-spacing: 0.6rem;
+
+        // Above phone width the sub title scales with the viewport like the
+        // title (28.5px / 6px at 1920px wide); phones keep the rem sizes.
+        @media (min-width: 541px) {
+          font-size: vw(28.5);
+          letter-spacing: vw(6);
+        }
+      }
+
+      // Domain line above the title: 25% smaller too (desktop only; the phone
+      // size is already small enough to read).
+      .sub_title {
+        @media (min-width: 768px) {
+          font-size: vw(13.5);
+          letter-spacing: vw(7.5);
+        }
+      }
+    }
+
+    // Desktop: text + video on the left and the enquiry form on the right sit
+    // in one row, centred vertically against each other. Phones keep their own
+    // stacked layout (rules above / in home-sections.scss).
+    @media (min-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      // No top padding: the centre line is the centre of the full banner image.
+      box-sizing: border-box;
+
+      & > .banner_content {
+        top: 0;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+
+      & > .hero_form_card {
+        position: relative;
+        top: auto;
+        right: auto;
+        flex: none;
+        margin: 0 vw(80) 0 vw(40);
+        // 25% smaller than the original (520 / 48 / 52 / 572 / 24 -> x0.75); the
+        // form text is sized in cqw of the card, so every font shrinks with it.
+        width: vw(390);
+        padding: vw(36) vw(39);
+        min-height: vw(429);
+        border-radius: vw(18);
+      }
+
+      // Summary video card: same 25% reduction (420 -> 315 wide).
+      .cs_video_inline {
+        width: vw(315);
+
+        .cs_video_card_frame {
+          max-height: vw(225);
+        }
+
+        .cs_video_card_label {
+          font-size: 0.9rem;
+        }
+
+        .cs_video_card_time {
+          font-size: 0.825rem;
+        }
+      }
     }
   }
 
